@@ -6,7 +6,8 @@
 
 class Node {
 private:
-	std::string data;
+	std::string tagName;
+	std::string tagValue;
 	std::vector<Node*> branches;
 public:
 	Node(std::string data);
