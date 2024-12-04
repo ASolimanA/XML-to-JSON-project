@@ -3,49 +3,92 @@
 #include <stack>
 using namespace std;
 
-bool valid (const string& filePath){ //filePath="I:\\#term\\Data Structure\\project\\sample.xml"
+/*
+   We need to check for the following:
+    * Does the XML have 1 root (under a single tag).
+    * Does every opening tag has its corresponding closing tag.
+    * Does every closing tag has its corresponding opening tag.
+    * Is leaves closed properly (when there is text after an opening tag).
+*/
+
+bool valid (const string& filePath){ //filePath="sample.xml"
     ifstream file;
+    stack<string> tagStack; // Stack to store the opened tags
+    string tag;
+    bool insideTag = false;
     string line;
-    stack<string> st ; // to check from the content of the tags
-    stack<int> st_pos ; // to save the position of the wrong tages
+    bool validation = true;
+    bool leaf= false;
+    bool opening = false;
     file.open(filePath);
     if(!file){
-        cerr << "Couldn't open the file";
+        cerr << "Couldn't open the file";   // File not valid Error
         return false;
     }
-
+    int line_no = 1;
     while(getline(file,line)){
-        //int pos=0;
-        int open_posopen = 0 , open_posclose = 0 ; //for opening
-        //int close_posopen , close_posclose ; //for closing
-        for(int pos=0;pos<line.length();pos++){
-            if(line[pos]=='<'&& line[pos+1]!='/'){
-                open_posopen = 0;
-                open_posopen = pos;
+        for (size_t i = 0; i < line.length(); ++i) {
+            if (line[i] == '<') {
+                opening = false;   // declare a new tag
+                if (insideTag) {
+                    cout << "Error: No closing bracket" << endl;
+                    validation = false;
+                    tag.clear();
+                    continue;
+                }
+                insideTag = true;
+                tag.clear(); // Clear the tag variable before storing a new tag
+            } else if (line[i] == '>') {
+                insideTag = false;
+                if (!tag.empty()) {
+                    if (tag[0] == '/') { // If it's a closing tag
+                        tag = tag.substr(1); // Remove the "/" at the beginning of the tag
+                        if (tagStack.empty() || tagStack.top() != tag) {
+                            cout << "Error: Closing tag </" << tag << "> doesn't match opening tag!" << endl;
+                            validation = false;
+                            continue;
+                        }
+                        tagStack.pop(); // Remove the matching opening tag from the stack
+                        leaf = false;
+                    } else { // If it's an opening tag
+                        if (leaf) {
+                            cout << "Error: No Closing tag for <" << tagStack.top() << ">" << endl;
+                            validation = false;
+                            tagStack.pop();
+                            leaf = false;
+                        }
+                        tagStack.push(tag); // Add the opening tag to the stack
+                        opening = true;
+                    }
+                }
             }
-            else if(line[pos]=='>'){
-                open_posclose = 0 ;
-                open_posclose = pos;
+            else if (insideTag) {
+                tag += line[i]; // Append characters to the tag while inside the tag
             }
-            if(line[open_posopen] == '<' && line[open_posclose] == '>' && line[open_posopen+1] != '/')
-                st.push(line.substr(open_posopen+1, open_posclose - open_posopen -1 ));
-
-
-            if(line[pos]=='<' && line[pos+1]=='/'){ //closing
-                if(st.top() == line.substr(pos+1,st.top().size()-1)) st.pop();
+            else if (opening && line[i] != '<' && line[i] != ' ') {
+                leaf = true;
             }
-            
         }
-
-        // return st.empty() ;   
+        if (insideTag) {
+            cout << "Reached the end of the line without a closing bracket" << endl;
+            validation = false;
+            insideTag = false;
+        }
+        line_no++;
     }
+
+    while (!tagStack.empty()) {
+        cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
+        validation = false;
+        tagStack.pop();
+    }
+
     file.close();
-    return st.empty();
+    return validation;
 }
 
 
 int main(){
-    if (valid("I:\\#term\\Data Structure\\project\\sample.xml") == true ) cout << " valid ";
+    if (valid("sample.xml") == true ) cout << " valid ";
     else cout << "notvalid" ;
 }
-
