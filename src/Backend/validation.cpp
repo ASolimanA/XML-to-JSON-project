@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <stack>
+#include <vector>
 using namespace std;
 
 /*
@@ -14,6 +15,7 @@ using namespace std;
 bool valid (const string& filePath){ //filePath="sample.xml"
     ifstream file;
     stack<string> tagStack; // Stack to store the opened tags
+    vector<int[2]> vec;     // For storing error positions
     string tag;
     bool insideTag = false;
     string line;
@@ -39,17 +41,41 @@ bool valid (const string& filePath){ //filePath="sample.xml"
                 insideTag = true;
                 tag.clear(); // Clear the tag variable before storing a new tag
             } else if (line[i] == '>') {
+                if(!insideTag) {
+                    validation = false;
+                    cout << "Error: No opening bracket for a closing bracket" << endl;
+                    continue;
+                }
                 insideTag = false;
                 if (!tag.empty()) {
                     if (tag[0] == '/') { // If it's a closing tag
+                        leaf = false;
                         tag = tag.substr(1); // Remove the "/" at the beginning of the tag
                         if (tagStack.empty() || tagStack.top() != tag) {
-                            cout << "Error: Closing tag </" << tag << "> doesn't match opening tag!" << endl;
                             validation = false;
-                            continue;
+                            stack<string> temp;
+                            while(!tagStack.empty() && tag != tagStack.top()) {
+                                temp.push(tagStack.top());
+                                tagStack.pop();
+                            }
+                            if(!tagStack.empty()) {
+                                tagStack.pop();
+                                while(!temp.empty()) {
+                                    cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
+                                    temp.pop();
+                                }
+                            }
+                            else { // If closing not found in the whole stack
+                                cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
+                                while(!temp.empty()) {
+                                    tagStack.push(temp.top());
+                                    temp.pop();
+                                }
+                            }
                         }
-                        tagStack.pop(); // Remove the matching opening tag from the stack
-                        leaf = false;
+                        else{
+                            tagStack.pop(); // Remove the matching opening tag from the stack
+                        }
                     } else { // If it's an opening tag
                         if (leaf) {
                             cout << "Error: No Closing tag for <" << tagStack.top() << ">" << endl;
@@ -89,6 +115,6 @@ bool valid (const string& filePath){ //filePath="sample.xml"
 
 
 int main(){
-    if (valid("sample.xml") == true ) cout << " valid ";
-    else cout << "notvalid" ;
+    if (valid("sample.xml") == true ) cout << " Valid ";
+    else cout << " Not Valid " ;
 }
