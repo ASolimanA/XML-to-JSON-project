@@ -142,6 +142,15 @@ class Validator
 };
 
 
+void fix (const string& filePath){
+    if(!valid(filePath)){ //if the file is not valid fix it
+        
+    }
+    else{ // if the file is valid don't do anything
+    cout << "the file has nothing wrong" ;
+    }
+}
+
 
 int main(){
     Validator v("sample.xml");
