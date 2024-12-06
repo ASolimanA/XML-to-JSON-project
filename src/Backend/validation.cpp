@@ -12,7 +12,7 @@ using namespace std;
     * Does every closing tag has its corresponding opening tag.
     * Is leaves closed properly (when there is text after an opening tag).
 */
-typedef enum {beginning, leaf, nleaf} Phase; 
+typedef enum {beginning ,leaf, aotag, actag} Phase; 
 
 class Validator
 {
@@ -39,38 +39,27 @@ class Validator
 
     bool validate (){
         stack<string> tagStack; // Stack to store the opened tags
-        fstream file;
+        fstream file(filePath);
         string tag;
-        char phase = 'b';
+        Phase phase = beginning;
+        array<int,2> last_tag_pos;
         string line;
         bool validation = true;
+        bool insideTag = false;
 
         if (!filePath_vaild()) return false;
 
-        int line_no = 1;
+        int line_no = 0;
 
         while(getline(file,line)){
-            for (size_t i = 0; i < line.length(); ++i) {
+            for (int i = 0; i < line.length(); ++i) {
                 if (line[i] == '<') {
-                    opening = false;   // declare a new tag
-                    if (insideTag) {
-                        cout << "Error: No closing bracket" << endl;
-                        validation = false;
-                        tag.clear();
-                        continue;
-                    }
                     insideTag = true;
                     tag.clear(); // Clear the tag variable before storing a new tag
                 } else if (line[i] == '>') {
-                    if(!insideTag) {
-                        validation = false;
-                        cout << "Error: No opening bracket for a closing bracket" << endl;
-                        continue;
-                    }
-                    insideTag = false;
                     if (!tag.empty()) {
                         if (tag[0] == '/') { // If it's a closing tag
-                            leaf = false;
+                            insideTag = false;
                             tag = tag.substr(1); // Remove the "/" at the beginning of the tag
                             if (tagStack.empty() || tagStack.top() != tag) {
                                 validation = false;
@@ -82,12 +71,17 @@ class Validator
                                 if(!tagStack.empty()) {
                                     tagStack.pop();
                                     while(!temp.empty()) {
-
+                                        validation = false;
+                                        vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
+                                        error_type.push_back('o');
                                         cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
                                         temp.pop();
                                     }
                                 }
                                 else { // If closing not found in the whole stack
+                                    validation = false;
+                                    vec.push_back(last_tag_pos);
+                                    error_type.push_back('o');
                                     cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
                                     while(!temp.empty()) {
                                         tagStack.push(temp.top());
@@ -98,39 +92,42 @@ class Validator
                             else{
                                 tagStack.pop(); // Remove the matching opening tag from the stack
                             }
+                            phase = actag;
+                            last_tag_pos = {line_no, i};
                         } else { // If it's an opening tag
-                            if (leaf) {
-                                cout << "Error: No Closing tag for <" << tagStack.top() << ">" << endl;
+                            if (phase == leaf) {
+                                vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
+                                error_type.push_back('c');
+                                cout << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
                                 validation = false;
                                 tagStack.pop();
-                                leaf = false;
                             }
-                            if (!beginning && tagStack.empty()) {
+                            if (phase != beginning && tagStack.empty()) {
+                                vec.insert(vec.begin(), {0,0});
+                                error_type.insert(error_type.begin(),'r');
                                 cout << "There is more than 1 root for this file" << endl;
                                 validation = false;
                             }
                             tagStack.push(tag); // Add the opening tag to the stack
-                            opening = true;
-                            beginning = false;
+                            insideTag = false;
+                            phase = aotag;
+                            last_tag_pos = {line_no, i};
                         }
                     }
                 }
                 else if (insideTag) {
                     tag += line[i]; // Append characters to the tag while inside the tag
                 }
-                else if (opening && line[i] != '<' && line[i] != ' ') {
-                    leaf = true;
+                else if (phase == aotag && line[i] != ' ') {
+                    phase = leaf;
                 }
-            }
-            if (insideTag) {
-                cout << "Reached the end of the line without a closing bracket" << endl;
-                validation = false;
-                insideTag = false;
             }
             line_no++;
         }
 
         while (!tagStack.empty()) {
+            vec.push_back({line_no, static_cast<int>(line.length() -1)});
+            error_type.push_back('c');
             cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
             validation = false;
             tagStack.pop();
@@ -140,16 +137,6 @@ class Validator
         return validation;
     }
 };
-
-
-void fix (const string& filePath){
-    if(!valid(filePath)){ //if the file is not valid fix it
-        
-    }
-    else{ // if the file is valid don't do anything
-    cout << "the file has nothing wrong" ;
-    }
-}
 
 
 int main(){
