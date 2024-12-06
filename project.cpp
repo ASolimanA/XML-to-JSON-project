@@ -3,6 +3,11 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+
+
+
 using namespace std;
 
 bool replaced=true;
@@ -29,10 +34,10 @@ public:
 
 class Sequitur {
 private:
-     unordered_map< string, Rule*> rules;          // Map of rules
+              // Map of rules
      unordered_map< string, Symbol*> digrams;//sequence (pair)      // Map for digram uniqueness
     int ruleCounter;                                       // Rule naming counter
-    Symbol* head;                                          // Head of the sequence
+    // Head of the sequence
 
     // Create a new rule
     Rule* createRule(const  string& expansion) {
@@ -80,6 +85,9 @@ void processDigram(Symbol* s) {
                 rules[rule->name] = rule;
             } else {
                 rule = rules[rule_name];
+                existing->value=rule->name;
+                existing->next=existing->next->next;
+                
             }
 
             // Replace digram with non-terminal
@@ -103,7 +111,10 @@ void processDigram(Symbol* s) {
 
 
 public:
+    Symbol* head;
+    unordered_map< string, Rule*> rules; 
     Sequitur() : ruleCounter(1), head(nullptr) {}
+    
 
     void compress(const  string& input) {
         // Initialize sequence from input string
@@ -118,16 +129,42 @@ public:
             prev = sym;
         }
         Symbol *temp=head;
-            while(replaced){
-            replaced=false;
+            //while(replaced){
+            
             while (temp)
             {
+                replaced=false;
                 processDigram(temp);
-                if (replaced)break;
+                /* if (replaced){
+                    temp=head;
+                    continue;
+                } */
                 temp=temp->next;
             }
             temp=head;
+            while (temp)
+            {
+                replaced=false;
+                processDigram(temp);
+                /* if (replaced){
+                    temp=head;
+                    continue;
+                } */
+                temp=temp->next;
             }
+            temp=head;
+            while (temp)
+            {
+                replaced=false;
+                processDigram(temp);
+                /* if (replaced){
+                    temp=head;
+                    continue;
+                } */
+                temp=temp->next;
+            }
+            
+            //}
             
             
                 
@@ -148,23 +185,61 @@ public:
     }
 
     void printSequence() {
+        
         cout << "Compressed Sequence: ";
         Symbol* s = head;
         while (s) {
              cout << s->value;
             s = s->next;
+            
         }
-         cout << "\n";
+         
     }
+    
 };
 
 int main() {
-    string input = "abcabcabc";
+    string input="abcababcabcabcabc";
+    string filePath = "C:\\Users\\kareem\\Desktop\\NIEM5.1_DNA_MP_Relatives_Case.xml";
+    ostringstream fileStream;
+    ifstream file(filePath);
+    fileStream << file.rdbuf();
+    string xmlContent = fileStream.str();
+    std::ofstream outputFile("output.txt");
+    std::ofstream outputFile2("output2.txt");
+    
+
+    // Write the XML content to the output file
+    
+
+    cout<<"uncompressed: "<<xmlContent.size()<<"\n";
     Sequitur sequitur;
-    sequitur.compress(input);
-
-    sequitur.printSequence();
-    sequitur.printRules();
-
+    sequitur.compress(xmlContent);
+    
+    //sequitur.printSequence();
+    //sequitur.printRules();
+    outputFile << "XML Content:" << std::endl;
+    Symbol *t=sequitur.head;
+    while(t){
+    outputFile << t->value << std::endl;
+    t=t->next;
+    }   
+    while(t){
+    outputFile << t->value << std::endl;
+    t=t->next;
+    } 
+    
+    
+    for(int j=1;j<sequitur.rules.size();j++){
+        string name= "R"+to_string(j);
+        outputFile2<< sequitur.rules[name]->name;
+        outputFile2<< "-->";
+        outputFile2<< sequitur.rules[name]->first->value;
+        outputFile<<"\n";
+        
+    }
+    file.close();
+    outputFile.close();
+    cout<<"\n"<<sequitur.rules.size();
     return 0;
 }
