@@ -20,7 +20,7 @@ class Validator
     string filePath;
     vector<array<int,2>> vec;     // For storing error positions (line, char position)
     vector<char> error_type; // For storing corresponding error types
-
+    //vector<string> lines ; // For storing the file contents and modify it
     public:
     Validator(const string& filePath) {
         this->filePath = filePath;
@@ -136,14 +136,60 @@ class Validator
         file.close();
         return validation;
     }
+
+    void write_at_line(const string& newText, int lineNumber) {
+        filePath_vaild();
+        ifstream file(filePath);
+        vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
+        
+        string line;
+        while (getline(file, line)) {
+            lines_f.push_back(line);
+        }
+        file.close(); // Close the input file
+
+        if (lineNumber <= lines_f.size()) {
+            lines_f.insert(lines_f.begin() + lineNumber  , newText);//insert new line
+        } else if (lineNumber == lines_f.size() ) {
+            lines_f.push_back(newText);// If the line number is beyond the end, add it as a new line
+        } else {
+            std::cerr << "Error: Line number out of range.\n";
+            return;
+        }
+
+        ofstream outputFile(filePath); // Open the file for writing
+        if (!outputFile.is_open()) {
+            std::cerr << "Error: Unable to open file for writing.\n";
+            return;
+        }
+
+        for (int i = 0 ; i<lines_f.size();i++) {
+            cout << "in printing the data" << endl;
+            outputFile << lines_f[i] << "\n"; // Write each line back to the file
+        }
+        outputFile.close(); // Close the output file
+    }
+    void fix (){
+        filePath_vaild();
+        fstream file(filePath);
+        file.open(filePath);
+        string line;
+        
+
+        file.close();
+    }
 };
+
+
+
 
 
 int main(){
     Validator v("sample.xml");
     // Test filePath="sample.xml"
-    if (v.validate() == true ) cout << " Valid "; 
-    else cout << " Not Valid " ;
+    // if (v.validate() == true ) cout << " Valid "; 
+    // else cout << " Not Valid " ;
+    v.write_at_line("hi hisham hatem", 10);
 }
 
 
