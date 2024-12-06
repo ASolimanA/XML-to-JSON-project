@@ -113,6 +113,15 @@ bool valid (const string& filePath){ //filePath="sample.xml"
     return validation;
 }
 
+void fix (const string& filePath){
+    if(!valid(filePath)){ //if the file is not valid fix it
+        
+    }
+    else{ // if the file is valid don't do anything
+    cout << "the file has nothing wrong" ;
+    }
+}
+
 
 int main(){
     if (valid("sample.xml") == true ) cout << " Valid ";
