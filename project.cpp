@@ -5,11 +5,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-
-
-
 using namespace std;
-
 bool replaced=true;
 bool ruled=true;
 string rule_name;
@@ -89,7 +85,6 @@ void processDigram(Symbol* s) {
                 existing->next=existing->next->next;
                 
             }
-
             // Replace digram with non-terminal
             Symbol* temp=head;
             while(temp && temp->next){
@@ -108,13 +103,10 @@ void processDigram(Symbol* s) {
         }
     }
 
-
-
 public:
     Symbol* head;
     unordered_map< string, Rule*> rules; 
     Sequitur() : ruleCounter(1), head(nullptr) {}
-    
 
     void compress(const  string& input) {
         // Initialize sequence from input string
@@ -128,17 +120,11 @@ public:
             }
             prev = sym;
         }
-        Symbol *temp=head;
-            //while(replaced){
-            
+        Symbol *temp=head; 
             while (temp)
             {
                 replaced=false;
                 processDigram(temp);
-                /* if (replaced){
-                    temp=head;
-                    continue;
-                } */
                 temp=temp->next;
             }
             temp=head;
@@ -146,28 +132,8 @@ public:
             {
                 replaced=false;
                 processDigram(temp);
-                /* if (replaced){
-                    temp=head;
-                    continue;
-                } */
                 temp=temp->next;
-            }
-            temp=head;
-            while (temp)
-            {
-                replaced=false;
-                processDigram(temp);
-                /* if (replaced){
-                    temp=head;
-                    continue;
-                } */
-                temp=temp->next;
-            }
-            
-            //}
-            
-            
-                
+            }                
     }
 
     void printRules() {
@@ -208,10 +174,8 @@ int main() {
     std::ofstream outputFile("output.txt");
     std::ofstream outputFile2("output2.txt");
     
-
     // Write the XML content to the output file
     
-
     cout<<"uncompressed: "<<xmlContent.size()<<"\n";
     Sequitur sequitur;
     sequitur.compress(xmlContent);
@@ -229,12 +193,12 @@ int main() {
     t=t->next;
     } 
     
-    
     for(int j=1;j<sequitur.rules.size();j++){
         string name= "R"+to_string(j);
         outputFile2<< sequitur.rules[name]->name;
         outputFile2<< "-->";
         outputFile2<< sequitur.rules[name]->first->value;
+        outputFile2<< sequitur.rules[name]->last->value;
         outputFile<<"\n";
         
     }
