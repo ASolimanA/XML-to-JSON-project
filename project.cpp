@@ -164,6 +164,24 @@ public:
     }
     
 };
+    template <typename Key, typename Value>
+class HashTable {
+private:
+    // Define the bucket type as a list of key-value pairs
+    typedef std::pair<Key, Value> KeyValuePair;
+    typedef std::list<KeyValuePair> Bucket;
+
+    std::vector<Bucket> table; // Array of buckets
+    size_t numBuckets;         // Number of buckets
+    size_t size;               // Number of elements in the hash table
+
+    // Hash function
+     size_t hashFunction(const Key& key) const {
+        return std::hash<Key>{}(key) % numBuckets;
+    }
+}
+
+
 
 int main() {
     string input="abcababcabcabcabc";
