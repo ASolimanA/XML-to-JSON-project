@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <list>
 using namespace std;
 bool replaced=true;
 bool ruled=true;
