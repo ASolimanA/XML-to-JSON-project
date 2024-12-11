@@ -179,6 +179,23 @@ private:
      size_t hashFunction(const Key& key) const {
         return std::hash<Key>{}(key) % numBuckets;
     }
+    public:
+    // Constructor
+    HashTable(size_t buckets = 10) : numBuckets(buckets), size(0) {
+        table.resize(numBuckets);
+    }
+   // Insert or update a key-value pair
+    void insert(const Key& key, const Value& value) {
+        size_t index = hashFunction(key);
+        for (auto& pair : table[index]) {
+            if (pair.first == key) { // Key already exists, update value
+                pair.second = value;
+                return;
+            }
+        }
+        table[index].emplace_back(key, value); // Insert new key-value pair
+        size++;
+    }
 }
 
 
