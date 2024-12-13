@@ -19,7 +19,7 @@ bool isOpeningTag(const string& tag) {
 }
 
 // دالة لفصل النصوص والتاجات عن بعض
-vector<string> prettierfunction(const string& content) {
+vector<string> splitXMLContent(const string& content) {
     vector<string> result;
     regex tagPattern(R"(<[^>]+>)"); // نمط للتعرف على التاجات (الـ opening و الـ closing)
     auto wordsBegin = sregex_iterator(content.begin(), content.end(), tagPattern);
