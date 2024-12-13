@@ -49,7 +49,7 @@ vector<string> prettierfunction(const string& content) {
 }
 
 // دالة لمعالجة الملف بالكامل وتنسيقه
-void processXMLFile(const string& fileName) {
+void prettierfunction(const string& fileName) {
     ifstream inputFile(fileName);
     if (!inputFile) {
         cerr << "Error opening file for reading: " << fileName << endl;
