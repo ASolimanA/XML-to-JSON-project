@@ -28,15 +28,22 @@ void MainWindow::print_XML() {
                 QTextStream in(&file);
                 QString content = in.readAll();
                 ui->textBrowser->setText(content);
+                ui->Message->setText("");
                 file.close();
-            } else {
+            }
+            else {
                 QMessageBox::warning(this, "Error", "Could not open the file for reading.");
             }
+        }
+        else {
+            ui->Message->setText("No file Path");
+            ui->Message->setStyleSheet("QLabel { color: red; }");
         }
     }
     else if(ui->comboBox->currentText() == "Input text") {
         QString content = ui->input_XML->toPlainText();
         ui->textBrowser->setText(content);
+        ui->Message->setText("");
     }
 }
 
