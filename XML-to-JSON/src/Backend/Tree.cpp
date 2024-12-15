@@ -22,16 +22,16 @@ Tree::Tree() {
     root = NULL;
 }
 
-Node* Tree::get_root() {
-    return root;
-}
-
 void Tree::preorder_traversal(Node* node) {
     if (node == NULL)
         return;
     cout << node->tagName << ' ' << node->tagValue << endl;
     for (int i = 0; i < node->branches.size(); i++)
         preorder_traversal(node->branches[i]);
+}
+
+void Tree::preorder_traversal() {
+    preorder_traversal(root);
 }
 
 void Tree::Read_XML(string path) {
@@ -51,6 +51,7 @@ void Tree::Read_XML(string path) {
             temp1 = trim(matches[0]);
             // temp1 contains founded tag name without brackets
             temp2 = matches[1];
+            // if the string is empty -> skip
             if (temp1.empty())
                 continue;
             // if not a tag(value) => assign that value to the tag in the top of the stack
