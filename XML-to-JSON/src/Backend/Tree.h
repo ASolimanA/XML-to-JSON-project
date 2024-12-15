@@ -17,11 +17,11 @@ public:
 class Tree {
 private:
 	Node* root;
+	void preorder_traversal(Node* node);
 public:
 	Tree();
 	void Read_XML(std::string path);
-	void preorder_traversal(Node* node);
-	Node* get_root();
+	void preorder_traversal();
 	std::string to_json(Node* node);
 };
 
