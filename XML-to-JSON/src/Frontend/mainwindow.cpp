@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::get_file_path() {
-    QString filePath = QFileDialog::getOpenFileName(this, "Open Text File", "", "All Files (*)");
+    QString filePath = QFileDialog::getOpenFileName(this, "Open XML File", "", "XML files (*.xml)");
     ui->textEdit->setText(filePath);
 }
 
