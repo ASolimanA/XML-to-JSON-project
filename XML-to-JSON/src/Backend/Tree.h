@@ -22,6 +22,7 @@ public:
 	void Read_XML(std::string path);
 	void preorder_traversal(Node* node);
 	Node* get_root();
+	std::string to_json(Node* node);
 };
 
 
