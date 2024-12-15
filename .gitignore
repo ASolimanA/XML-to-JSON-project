@@ -45,3 +45,8 @@ Release/
 # Windows specific files
 Thumbs.db
 Desktop.ini
+
+# Visual Studio files
+.vs
+*.sln
+*.vcxproj*
