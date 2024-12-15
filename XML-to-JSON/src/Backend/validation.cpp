@@ -8,171 +8,164 @@
     * Is leaves closed properly (when there is text after an opening tag).
 */
 
+Validator::Validator(const string& filePath) {
+    this->filePath = filePath;
+}
 
-class Validator
-{
-    private:
-    string filePath;
-    vector<array<int,2>> vec;     // For storing error positions (line, char position)
-    vector<char> error_type;     // For storing corresponding error types
-    public:
-    Validator(const string& filePath) {
-        this->filePath = filePath;
-    }
-
-    bool filePath_vaild() {
-        fstream file;
-        file.open(filePath);
-        if(!file) {
-            file.close();
-            return false;
-        }
+bool Validator::filePath_vaild() {
+    fstream file;
+    file.open(filePath);
+    if(!file) {
         file.close();
-        return true;
+        return false;
     }
+    file.close();
+    return true;
+}
 
-    bool validate (){
-        stack<string> tagStack; // Stack to store the opened tags
-        fstream file(filePath);
-        string tag;
-        Phase phase = beginning;
-        array<int,2> last_tag_pos;
-        string line;
-        bool validation = true;
-        bool insideTag = false;
+bool Validator::validate (){
+    stack<string> tagStack; // Stack to store the opened tags
+    fstream file(filePath);
+    string tag;
+    Phase phase = beginning;
+    array<int,2> last_tag_pos;
+    string line;
+    bool validation = true;
+    bool insideTag = false;
 
-        if (!filePath_vaild()) return false;
+    if (!filePath_vaild()) return false;
 
-        int line_no = 0;
+    int line_no = 0;
 
-        while(getline(file,line)){
-            for (int i = 0; i < line.length(); ++i) {
-                if (line[i] == '<') {
-                    insideTag = true;
-                    tag.clear(); // Clear the tag variable before storing a new tag
-                } else if (line[i] == '>') {
-                    if (!tag.empty()) {
-                        if (tag[0] == '/') { // If it's a closing tag
-                            insideTag = false;
-                            tag = tag.substr(1); // Remove the "/" at the beginning of the tag
-                            if (tagStack.empty() || tagStack.top() != tag) {
-                                validation = false;
-                                stack<string> temp;
-                                while(!tagStack.empty() && tag != tagStack.top()) {
-                                    temp.push(tagStack.top());
-                                    tagStack.pop();
-                                }
-                                if(!tagStack.empty()) {
-                                    tagStack.pop();
-                                    while(!temp.empty()) {
-                                        validation = false;
-                                        vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
-                                        error_type.push_back('o');
-                                        cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
-                                        temp.pop();
-                                    }
-                                }
-                                else { // If closing not found in the whole stack
-                                    validation = false;
-                                    vec.push_back(last_tag_pos);
-                                    error_type.push_back('o');
-                                    cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
-                                    while(!temp.empty()) {
-                                        tagStack.push(temp.top());
-                                        temp.pop();
-                                    }
-                                }
-                            }
-                            else{
-                                tagStack.pop(); // Remove the matching opening tag from the stack
-                            }
-                            phase = actag;
-                            last_tag_pos = {line_no, i};
-                        } else { // If it's an opening tag
-                            if (phase == leaf) {
-                                vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
-                                error_type.push_back('c');
-                                cout << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
-                                validation = false;
+    while(getline(file,line)){
+        for (int i = 0; i < line.length(); ++i) {
+            if (line[i] == '<') {
+                insideTag = true;
+                tag.clear(); // Clear the tag variable before storing a new tag
+            } else if (line[i] == '>') {
+                if (!tag.empty()) {
+                    if (tag[0] == '/') { // If it's a closing tag
+                        insideTag = false;
+                        tag = tag.substr(1); // Remove the "/" at the beginning of the tag
+                        if (tagStack.empty() || tagStack.top() != tag) {
+                            validation = false;
+                            stack<string> temp;
+                            while(!tagStack.empty() && tag != tagStack.top()) {
+                                temp.push(tagStack.top());
                                 tagStack.pop();
                             }
-                            if (phase != beginning && tagStack.empty()) {
-                                vec.insert(vec.begin(), {0,0});
-                                error_type.insert(error_type.begin(),'r');
-                                cout << "There is more than 1 root for this file" << endl;
-                                validation = false;
+                            if(!tagStack.empty()) {
+                                tagStack.pop();
+                                while(!temp.empty()) {
+                                    validation = false;
+                                    vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
+                                    error_type.push_back('o');
+                                    cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
+                                    temp.pop();
+                                }
                             }
-                            tagStack.push(tag); // Add the opening tag to the stack
-                            insideTag = false;
-                            phase = aotag;
-                            last_tag_pos = {line_no, i};
+                            else { // If closing not found in the whole stack
+                                validation = false;
+                                vec.push_back(last_tag_pos);
+                                error_type.push_back('o');
+                                cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
+                                while(!temp.empty()) {
+                                    tagStack.push(temp.top());
+                                    temp.pop();
+                                }
+                            }
                         }
+                        else{
+                            tagStack.pop(); // Remove the matching opening tag from the stack
+                        }
+                        phase = actag;
+                        last_tag_pos = {line_no, i};
+                    } else { // If it's an opening tag
+                        if (phase == leaf) {
+                            vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
+                            error_type.push_back('c');
+                            cout << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
+                            validation = false;
+                            tagStack.pop();
+                        }
+                        if (phase != beginning && tagStack.empty()) {
+                            vec.insert(vec.begin(), {0,0});
+                            error_type.insert(error_type.begin(),'r');
+                            cout << "There is more than 1 root for this file" << endl;
+                            validation = false;
+                        }
+                        tagStack.push(tag); // Add the opening tag to the stack
+                        insideTag = false;
+                        phase = aotag;
+                        last_tag_pos = {line_no, i};
                     }
                 }
-                else if (insideTag) {
-                    tag += line[i]; // Append characters to the tag while inside the tag
-                }
-                else if (phase == aotag && line[i] != ' ') {
-                    phase = leaf;
-                }
             }
-            line_no++;
+            else if (insideTag) {
+                tag += line[i]; // Append characters to the tag while inside the tag
+            }
+            else if (phase == aotag && line[i] != ' ') {
+                phase = leaf;
+            }
         }
-
-        while (!tagStack.empty()) {
-            vec.push_back({line_no, static_cast<int>(line.length() -1)});
-            error_type.push_back('c');
-            cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
-            validation = false;
-            tagStack.pop();
-        }
-
-        file.close();
-        return validation;
+        line_no++;
     }
 
-    void write_at_line(const string& newText, int lineNumber) {
-        filePath_vaild();
-        ifstream file(filePath);
-        vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
-        
-        string line;
-        while (getline(file, line)) {
-            lines_f.push_back(line);
-        }
-        file.close(); // Close the input file
-
-        if (lineNumber <= lines_f.size()) {
-            lines_f.insert(lines_f.begin() + lineNumber  , newText);//insert new line
-        } else if (lineNumber == lines_f.size() ) {
-            lines_f.push_back(newText);// If the line number is beyond the end, add it as a new line
-        } else {
-            std::cerr << "Error: Line number out of range.\n";
-            return;
-        }
-
-        ofstream outputFile(filePath); // Open the file for writing
-        if (!outputFile.is_open()) {
-            std::cerr << "Error: Unable to open file for writing.\n";
-            return;
-        }
-
-        for (int i = 0 ; i<lines_f.size();i++) {
-            cout << "in printing the data" << endl;
-            outputFile << lines_f[i] << "\n"; // Write each line back to the file
-        }
-        outputFile.close(); // Close the output file
+    while (!tagStack.empty()) {
+        vec.push_back({line_no, static_cast<int>(line.length() -1)});
+        error_type.push_back('c');
+        cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
+        validation = false;
+        tagStack.pop();
     }
-    void fix (){
-        filePath_vaild();
-        fstream file(filePath);
-        file.open(filePath);
-        string line;
-        
 
-        file.close();
+    file.close();
+    return validation;
+}
+
+void Validator::write_at_line(const string& newText, int lineNumber) {
+    filePath_vaild();
+    ifstream file(filePath);
+    vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
+    
+    string line;
+    while (getline(file, line)) {
+        lines_f.push_back(line);
     }
-};
+    file.close(); // Close the input file
+
+    if (lineNumber <= lines_f.size()) {
+        lines_f.insert(lines_f.begin() + lineNumber  , newText);//insert new line
+    } else if (lineNumber == lines_f.size() ) {
+        lines_f.push_back(newText);// If the line number is beyond the end, add it as a new line
+    } else {
+        std::cerr << "Error: Line number out of range.\n";
+        return;
+    }
+
+    ofstream outputFile(filePath); // Open the file for writing
+    if (!outputFile.is_open()) {
+        std::cerr << "Error: Unable to open file for writing.\n";
+        return;
+    }
+
+    for (int i = 0 ; i<lines_f.size();i++) {
+        cout << "in printing the data" << endl;
+        outputFile << lines_f[i] << "\n"; // Write each line back to the file
+    }
+    outputFile.close(); // Close the output file
+}
+void Validator::fix (){
+    filePath_vaild();
+    fstream file(filePath);
+    file.open(filePath);
+    string line;
+    file.close();
+}
+Validator::~Validator() {
+    
+}
+
 
 
 
