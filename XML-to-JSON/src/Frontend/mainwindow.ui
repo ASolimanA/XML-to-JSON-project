@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
+    <width>1125</width>
     <height>626</height>
    </rect>
   </property>
@@ -27,43 +27,43 @@
      <string>Read File</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="verify">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>160</x>
       <y>440</y>
       <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Verify</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pretty">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>290</x>
       <y>440</y>
       <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Prettify</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="convert">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>420</x>
       <y>440</y>
-      <width>111</width>
+      <width>131</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Convert to JSON</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_5">
@@ -76,7 +76,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Compress</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_6">
@@ -89,7 +89,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Decompress</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_7">
@@ -102,27 +102,33 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Save File</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>10</y>
+      <x>570</x>
+      <y>40</y>
       <width>531</width>
-      <height>351</height>
+      <height>531</height>
      </rect>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>90</x>
       <y>390</y>
-      <width>461</width>
+      <width>401</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>31</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="getPath">
@@ -138,13 +144,110 @@
      <string>...</string>
     </property>
    </widget>
+   <widget class="QLabel" name="output_label">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>0</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Output:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>340</y>
+      <width>131</width>
+      <height>28</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="input_XML">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>40</y>
+      <width>521</width>
+      <height>281</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="input_label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>0</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Input XML:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="path_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>390</y>
+      <width>63</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File Path:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mode_label">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>340</y>
+      <width>63</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mode:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Message">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>339</y>
+      <width>331</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>570</width>
+     <width>1125</width>
      <height>25</height>
     </rect>
    </property>
