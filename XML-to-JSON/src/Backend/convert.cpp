@@ -31,3 +31,7 @@ std::string Tree::to_json(Node* node) {
 
     return json;
 }
+std::string Tree::to_json(std::string filePath) {
+    Read_XML(filePath);
+     return to_json(root);
+}

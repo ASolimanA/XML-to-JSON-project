@@ -18,6 +18,13 @@ class Validator
     public:
     Validator(const string& filePath) {
         this->filePath = filePath;
+        if(!filePath_vaild()){
+            throw invalid_argument("Error: No such file exists!\n");
+        }
+    }
+
+    vector<array<int,2>> getVec() {
+        return vec;
     }
 
     bool filePath_vaild() {
@@ -41,7 +48,7 @@ class Validator
         bool validation = true;
         bool insideTag = false;
 
-        if (!filePath_vaild()) return false;
+//        if (!filePath_vaild()) return false;
 
         int line_no = 0;
 
@@ -132,7 +139,8 @@ class Validator
     }
 
     void write_at_line(const string& newText, int lineNumber) {
-        filePath_vaild();
+//        filePath_vaild();
+
         ifstream file(filePath);
         vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
         
@@ -179,6 +187,15 @@ class Validator
 
 
 //int main(){
-//    Validator v("sample.xml");
-//    v.write_at_line("hi hisham hatem", 10);
+//    try{
+//        Validator v("../sample.xml");
+//        v.validate();
+//        vector<array<int,2>> vec = v.getVec();
+//        for(auto i: vec){
+//            cout<<i[0]+1<<" "<<i[1]<<endl;
+//        }
+//    }
+//    catch(const invalid_argument& e){
+//        cerr << e.what();
+//    }
 //}
