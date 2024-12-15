@@ -125,8 +125,8 @@ void prettierfunction(const string& fileName) {
     outputFile.close();
 }
 
-int main() {
-    string fileName = "Untitled1.txt"; // اسم الملف
-    prettierfunction(fileName); // المعالجة للطباعة بتنسيق XML صحيح
-    return 0;
-}
+//int main() {
+//    string fileName = "Untitled1.txt"; // اسم الملف
+//    prettierfunction(fileName); // المعالجة للطباعة بتنسيق XML صحيح
+//    return 0;
+//}

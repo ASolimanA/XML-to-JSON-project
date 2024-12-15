@@ -11,13 +11,13 @@ using namespace std;
 
 typedef enum {beginning ,leaf, aotag, actag} Phase;
 
-class Validator {
+/*class Validator {
     public:
     Validator(const string& filePath);
     bool filePath_vaild();
     bool validate ();
     void write_at_line(const string& newText, int lineNumber);
     void fix ();
-};
+};*/
 
 #endif

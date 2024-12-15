@@ -1,5 +1,5 @@
 #include "validation.h"
-
+#include <string>
 /*
    We need to check for the following:
     * Does the XML have 1 root (under a single tag).
@@ -178,7 +178,7 @@ class Validator
 
 
 
-int main(){
-    Validator v("sample.xml");
-    v.write_at_line("hi hisham hatem", 10);
-}
+//int main(){
+//    Validator v("sample.xml");
+//    v.write_at_line("hi hisham hatem", 10);
+//}
