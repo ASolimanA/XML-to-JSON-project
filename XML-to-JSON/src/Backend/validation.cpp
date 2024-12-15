@@ -162,8 +162,7 @@ void Validator::fix (){
     string line;
     file.close();
 }
-Validator::~Validator() {
-    
+Validator::~Validator() {    
 }
 
 
@@ -171,7 +170,9 @@ Validator::~Validator() {
 
 
 
-//int main(){
-//    Validator v("sample.xml");
-//    v.write_at_line("hi hisham hatem", 10);
-//}
+int main(){
+   Validator v("D:\\Faculty\\Fall 24\\Data Structure and Algorithms\\Project\\XML-to-JSON-project\\XML-to-JSON\\sample.xml");
+   v.validate();
+   v.write_at_line("hi hisham hatem", 10);
+
+}

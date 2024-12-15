@@ -17,6 +17,8 @@ qt_add_executable(XML-to-JSON
     src/Backend/Tree.h
     src/Backend/validation.cpp
     src/Backend/validation.h
+    src/Backend/adapter.h
+    src/Backend/adapter.cpp
 )
 
 target_link_libraries(XML-to-JSON
