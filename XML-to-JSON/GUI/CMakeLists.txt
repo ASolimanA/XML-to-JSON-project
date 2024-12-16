@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
-project(GUIApp)
+project(GUIApp LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
+# Find the Qt6 package without specifying a version
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 
 qt_standard_project_setup()
 
@@ -12,8 +13,6 @@ qt_add_executable(gui_app
     mainwindow.ui
     ${COMMON_SOURCES}
 )
-
-
 
 target_link_libraries(gui_app
     PRIVATE
