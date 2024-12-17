@@ -36,7 +36,7 @@ bool Validator::validate (){
     bool validation = true;
     bool insideTag = false;
 
-    if (!filePath_valid()) return false;
+    //if (!filePath_valid()) return false;
 
     int line_no = 0;
 
@@ -128,7 +128,7 @@ bool Validator::validate (){
 }
 
 void Validator::write_at_line(const string& newText, int lineNumber) {
-    filePath_valid();
+    //filePath_valid();
     ifstream file(filePath);
     vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
     
@@ -160,13 +160,13 @@ void Validator::write_at_line(const string& newText, int lineNumber) {
     outputFile.close(); // Close the output file
 }
 void Validator::fix (){
-    filePath_valid();
+    //filePath_valid();
     fstream file(filePath);
     file.open(filePath);
     string line;
     file.close();
 }
-Validator::~Validator() {    
+Validator::~Validator() {
 }
 // For debugging purposes
 vector<array<int,2>> Validator::get_error_places() {

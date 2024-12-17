@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.19)
 project(CLIApp)
 
 add_executable(cli_app
-    WIN32 MACOSX_BUNDLE
     main.cpp
     ${COMMON_SOURCES}    
 )
