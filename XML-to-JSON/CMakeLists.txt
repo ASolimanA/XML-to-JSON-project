@@ -8,13 +8,15 @@ set(COMMON_SOURCES
     ${CMAKE_SOURCE_DIR}/common/prettierfunc.cpp
     ${CMAKE_SOURCE_DIR}/common/Tree.cpp
     ${CMAKE_SOURCE_DIR}/common/validation.cpp
-    ${CMAKE_SOURCE_DIR}/common/adapter.cpp
     ${CMAKE_SOURCE_DIR}/common/compress.cpp
 )
 set(COMMON_HEADERS
     ${CMAKE_SOURCE_DIR}/common/Tree.h
     ${CMAKE_SOURCE_DIR}/common/validation.h
+)
+set(ADAPTER_CLASS
     ${CMAKE_SOURCE_DIR}/common/adapter.h
+    ${CMAKE_SOURCE_DIR}/common/adapter.cpp
 )
 
 
@@ -24,5 +26,5 @@ add_subdirectory(GUI)
 
 
 # Enable testing and include tests
-# enable_testing()
-# add_subdirectory(tests)
+enable_testing()
+add_subdirectory(tests)

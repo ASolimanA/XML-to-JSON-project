@@ -12,6 +12,8 @@ qt_add_executable(gui_app
     mainwindow.h
     mainwindow.ui
     ${COMMON_SOURCES}
+    ${COMMON_HEADERS}
+    ${ADAPTER_CLASS}
 )
 
 target_link_libraries(gui_app

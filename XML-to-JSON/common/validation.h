@@ -18,10 +18,12 @@ class Validator {
     vector<char> error_type;     // For storing corresponding error types
     public:
     Validator(const string& filePath);
-    bool filePath_vaild();
+    bool filePath_valid();
     bool validate ();
     void write_at_line(const string& newText, int lineNumber);
     void fix ();
+    vector<array<int,2>> get_error_places();
+    vector<char> get_error_types();
     ~Validator();
 };
 

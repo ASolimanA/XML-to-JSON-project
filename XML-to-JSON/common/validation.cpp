@@ -12,7 +12,7 @@ Validator::Validator(const string& filePath) {
     this->filePath = filePath;
 }
 
-bool Validator::filePath_vaild() {
+bool Validator::filePath_valid() {
     fstream file;
     file.open(filePath);
     if(!file) {
@@ -33,7 +33,7 @@ bool Validator::validate (){
     bool validation = true;
     bool insideTag = false;
 
-    if (!filePath_vaild()) return false;
+    if (!filePath_valid()) return false;
 
     int line_no = 0;
 
@@ -58,9 +58,10 @@ bool Validator::validate (){
                                 tagStack.pop();
                                 while(!temp.empty()) {
                                     validation = false;
-                                    vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
+                                    vec.push_back(last_tag_pos);
                                     error_type.push_back('o');
-                                    cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
+                                    last_tag_pos = {line_no, i};
+                                    //cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
                                     temp.pop();
                                 }
                             }
@@ -68,7 +69,8 @@ bool Validator::validate (){
                                 validation = false;
                                 vec.push_back(last_tag_pos);
                                 error_type.push_back('o');
-                                cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
+                                last_tag_pos = {line_no, i};
+                                //cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
                                 while(!temp.empty()) {
                                     tagStack.push(temp.top());
                                     temp.pop();
@@ -79,19 +81,18 @@ bool Validator::validate (){
                             tagStack.pop(); // Remove the matching opening tag from the stack
                         }
                         phase = actag;
-                        last_tag_pos = {line_no, i};
                     } else { // If it's an opening tag
                         if (phase == leaf) {
-                            vec.push_back({line_no, i-static_cast<int>(tag.length()) -2});
+                            vec.push_back(last_tag_pos);
                             error_type.push_back('c');
-                            cout << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
+                            //cout << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
                             validation = false;
                             tagStack.pop();
                         }
                         if (phase != beginning && tagStack.empty()) {
                             vec.insert(vec.begin(), {0,0});
                             error_type.insert(error_type.begin(),'r');
-                            cout << "There is more than 1 root for this file" << endl;
+                            //cout << "There is more than 1 root for this file" << endl;
                             validation = false;
                         }
                         tagStack.push(tag); // Add the opening tag to the stack
@@ -112,9 +113,9 @@ bool Validator::validate (){
     }
 
     while (!tagStack.empty()) {
-        vec.push_back({line_no, static_cast<int>(line.length() -1)});
+        vec.push_back(last_tag_pos);
         error_type.push_back('c');
-        cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
+        //cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
         validation = false;
         tagStack.pop();
     }
@@ -124,7 +125,7 @@ bool Validator::validate (){
 }
 
 void Validator::write_at_line(const string& newText, int lineNumber) {
-    filePath_vaild();
+    filePath_valid();
     ifstream file(filePath);
     vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
     
@@ -156,7 +157,7 @@ void Validator::write_at_line(const string& newText, int lineNumber) {
     outputFile.close(); // Close the output file
 }
 void Validator::fix (){
-    filePath_vaild();
+    filePath_valid();
     fstream file(filePath);
     file.open(filePath);
     string line;
@@ -164,15 +165,23 @@ void Validator::fix (){
 }
 Validator::~Validator() {    
 }
-
-
-
-
-
-
-int main(){
-   Validator v("D:\\Faculty\\Fall 24\\Data Structure and Algorithms\\Project\\XML-to-JSON-project\\XML-to-JSON\\sample.xml");
-   v.validate();
-   v.write_at_line("hi hisham hatem", 10);
-
+// For debugging purposes
+vector<array<int,2>> Validator::get_error_places() {
+    return vec;
 }
+vector<char> Validator::get_error_types() {
+    return error_type;
+}
+
+
+
+
+
+
+
+// int main(){
+//    Validator v("D:\\Faculty\\Fall 24\\Data Structure and Algorithms\\Project\\XML-to-JSON-project\\XML-to-JSON\\sample.xml");
+//    v.validate();
+//    v.write_at_line("hi hisham hatem", 10);
+
+// }

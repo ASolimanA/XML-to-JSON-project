@@ -5,6 +5,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+string inputFile, outputFile;
 while(char opt = getopt(argc, argv, "i:o:")) {
         switch (opt) {
             case 'i':
@@ -21,7 +22,6 @@ while(char opt = getopt(argc, argv, "i:o:")) {
         }
     }
 
-string inputFile, outputFile;
     if(argv[1] == "format"){
     }
     if(argv[1] == "json"){
