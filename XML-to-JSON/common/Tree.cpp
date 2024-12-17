@@ -22,6 +22,10 @@ Tree::Tree() {
     root = NULL;
 }
 
+Node *Tree::getRoot() {
+    return root;
+}
+
 void Tree::preorder_traversal(Node* node) {
     if (node == NULL)
         return;

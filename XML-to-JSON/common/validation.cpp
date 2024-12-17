@@ -9,7 +9,10 @@
 */
 
 Validator::Validator(const string& filePath) {
-    this->filePath = filePath;
+        this->filePath = filePath;
+        if(!filePath_valid()){
+            throw invalid_argument("Error: No such file exists!\n");
+        }
 }
 
 bool Validator::filePath_valid() {
