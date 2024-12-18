@@ -18,8 +18,15 @@ bool filePath_vaild(string filePath) {
 
 int main(int argc, char *argv[])
 {
+    if(argc<3) {
+        cout << "Invalid command\ncommand should be in the form cli_app.exe <process> -options" << endl;
+        return 0;
+    }
     string inputFile, outputFile;
-    while(char opt = getopt(argc, argv, "i:o:")) {
+    int opt;
+    while((opt = getopt(argc, argv, "i:o:")) != -1) {
+        cout << char(opt) << endl;
+        cout << optarg << endl;
         switch (opt) {
             case 'i':
                 inputFile = optarg;
@@ -36,23 +43,26 @@ int main(int argc, char *argv[])
     }
 
     if(!filePath_vaild(inputFile)) {
-        cerr << "Invalid file path" << endl;
+        cerr << "Invalid input file path" << endl;
         return 0;
     }
-    if(!filePath_vaild(outputFile)) {
-        cerr << "Invalid file path" << endl;
+
+    if( !outputFile.empty() && !filePath_vaild(outputFile)) {
+        cerr << "Invalid output file path" << endl;
         return 0;
     }
 
     if(strcmp(argv[1], "verify")==0){
-
         Validator v(inputFile);
+
         if(!v.validate()) {
             vector<array<int, 2>> vec = v.get_error_places();
-            for (auto i: vec) {
+            cout<<"I am here"<<endl;
+
+            for (auto i: vec)
                 cout << i[0] + 1 << " " << i[1] << endl;
-            }
         }
+
         else cout<<"Valid XML"<<endl;
     }
     if(strcmp(argv[1], "format")==0){
@@ -66,6 +76,7 @@ int main(int argc, char *argv[])
             cerr << "Invalid XML file" << endl;
             return 0;
         }
+        else cout << "Valid XML file" << endl;
         fstream file(outputFile, ios::out);
         Tree t;
         file << t.to_json(inputFile);
