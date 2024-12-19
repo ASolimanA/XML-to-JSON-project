@@ -22,8 +22,10 @@ int main(int argc, char *argv[])
         cout << "Invalid command\ncommand should be in the form cli_app.exe <process> -options" << endl;
         return 0;
     }
+    //  -i inputFile or --version verify
     string inputFile, outputFile;
     int opt;
+    optind = 2;
     while((opt = getopt(argc, argv, "i:o:")) != -1) {
         cout << char(opt) << endl;
         cout << optarg << endl;
@@ -79,7 +81,7 @@ int main(int argc, char *argv[])
         else cout << "Valid XML file" << endl;
         fstream file(outputFile, ios::out);
         Tree t;
-        file << t.to_json(inputFile);
+        file <<  t.to_json(inputFile);
     }
 
 //    if(strcmp(argv[1], "mini")==0){

@@ -260,6 +260,15 @@ Project_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI
 
+//Value Computed by CMake
+xml_editor_BINARY_DIR:STATIC=E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI/cmake-build-debug
+
+//Value Computed by CMake
+xml_editor_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+xml_editor_SOURCE_DIR:STATIC=E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI
+
 
 ########################
 # INTERNAL cache entries

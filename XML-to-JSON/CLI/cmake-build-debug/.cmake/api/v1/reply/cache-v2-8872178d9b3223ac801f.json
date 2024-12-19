@@ -1352,6 +1352,42 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "TRUE"
+		},
+		{
+			"name" : "xml_editor_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI/cmake-build-debug"
+		},
+		{
+			"name" : "xml_editor_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "xml_editor_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI"
 		}
 	],
 	"kind" : "cache",
