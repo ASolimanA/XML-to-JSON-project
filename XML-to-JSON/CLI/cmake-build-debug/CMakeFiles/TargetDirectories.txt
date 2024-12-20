@@ -1,3 +1,0 @@
-E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI/cmake-build-debug/CMakeFiles/cli_app.dir
-E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/CLI/cmake-build-debug/CMakeFiles/rebuild_cache.dir

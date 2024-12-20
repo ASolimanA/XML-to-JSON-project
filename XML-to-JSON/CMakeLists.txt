@@ -7,4 +7,5 @@ add_subdirectory(GUI)
 
 
 # Enable testing and include tests
+enable_testing()
 add_subdirectory(tests)

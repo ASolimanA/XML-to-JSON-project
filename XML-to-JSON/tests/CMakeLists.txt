@@ -39,7 +39,7 @@ target_link_libraries(UnitTests
 # Add tests to CTest
 add_test(NAME UnitTests COMMAND UnitTests)
 
-set_target_properties(gui_app PROPERTIES
+set_target_properties(UnitTests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/tests"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/tests"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/tests"

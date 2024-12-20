@@ -11,12 +11,10 @@
 using namespace std;
 
 typedef enum {beginning ,leaf, aotag, actag} Phase;
-typedef enum {opening, closing} TagType;
 
 class Validator {
     private:
     string filePath;
-    vector<array<int,2>> vec;     // For storing error positions (line, char position)
     vector<char> error_type;     // For storing corresponding error types
     vector<pair<string, array<int,2>>> error_list; // For storing Missing tag and its predicted correct position
 
@@ -29,17 +27,18 @@ class Validator {
     bool filePath_valid();
     bool validate ();
     void fix ();
+    vector<pair<string, array<int,2>>> get_error_list();
     vector<array<int,2>> get_error_places();
     vector<char> get_error_types();
     void print_errors();
     ~Validator();
     //new
-    void Validator::checkFile(const string& filePath);
-    string Validator::extractTagName(const string& tag);
-    bool Validator::isOpeningTag(const string& tag);
-    void Validator::readFile(const string& filePath);
-    void Validator::printFileContent() const;
-    void Validator::writeFile(const string& outputFilePath);
+    void checkFile();
+    string extractTagName(const string& tag);
+    bool isOpeningTag(const string& tag);
+    void readFile();
+    void printFileContent() const;
+    void writeFile(const string& outputFilePath);
 };
 
 #endif
