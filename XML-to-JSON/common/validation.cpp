@@ -127,43 +127,14 @@ bool Validator::validate (){
     return validation;
 }
 
-void Validator::write_at_line(const string& newText, int lineNumber) {
-    //filePath_valid();
-    ifstream file(filePath);
-    vector<string> lines_f;   // Store all lines of the file lines_f ==> lines for function
-    
-    string line;
-    while (getline(file, line)) {
-        lines_f.push_back(line);
-    }
-    file.close(); // Close the input file
-
-    if (lineNumber <= lines_f.size()) {
-        lines_f.insert(lines_f.begin() + lineNumber  , newText);//insert new line
-    } else if (lineNumber == lines_f.size() ) {
-        lines_f.push_back(newText);// If the line number is beyond the end, add it as a new line
-    } else {
-        std::cerr << "Error: Line number out of range.\n";
-        return;
-    }
-
-    ofstream outputFile(filePath); // Open the file for writing
-    if (!outputFile.is_open()) {
-        std::cerr << "Error: Unable to open file for writing.\n";
-        return;
-    }
-
-    for (int i = 0 ; i<lines_f.size();i++) {
-        cout << "in printing the data" << endl;
-        outputFile << lines_f[i] << "\n"; // Write each line back to the file
-    }
-    outputFile.close(); // Close the output file
-}
 void Validator::fix (){
     //filePath_valid();
     fstream file(filePath);
     file.open(filePath);
     string line;
+
+
+
     file.close();
 }
 Validator::~Validator() {
@@ -176,8 +147,89 @@ vector<char> Validator::get_error_types() {
     return error_type;
 }
 
+void Validator::print_errors() {
+    vector<array<int, 2>> error_places = this->get_error_places();
+    vector<char> error_types = this->get_error_types();
 
+    cout << "Error Places:" << endl;
+    for (const auto& place : error_places) {
+        cout << "[" << place[0] << ", " << place[1] << "]" << endl;
+    }
 
+    cout << "Error Types:" << endl;
+    for (const auto& type : error_types) {
+        cout << type << endl;
+    }
+}
+//new
+void Validator::checkFile(const string& filePath) {
+    ifstream file(filePath);
+    if (!file) {
+        cerr << "Error: File does not exist." << endl;
+        exit(1);
+    }
+    file.close();
+}
+
+string Validator::extractTagName(const string& tag) {
+    int start = tag.find('<') + 1;
+    int end = tag.find('>');
+    return (start != -1 && end != -1) ? tag.substr(start, end - start) : "";
+}
+
+// Helper function to determine if a tag is opening or closing
+bool Validator::isOpeningTag(const string& tag) {
+    return !tag.empty() && tag[0] != '/';
+}
+// Read the input file and store the content
+void Validator::readFile(const string& filePath) {
+    checkFile(filePath);
+    ifstream file(filePath);
+    string line;
+    int lineIndex = 0;
+    while (getline(file, line)) {
+        fileContent.push_back(line);
+        // Parse the line for tags
+        int pos = 0;
+        while ((pos = line.find('<', pos)) != -1) {
+            int endPos = line.find('>', pos);
+            if (endPos != -1) {
+                string tag = line.substr(pos, endPos - pos + 1);
+                string tagName = extractTagName(tag);
+                if (isOpeningTag(tagName)) {
+                    openings.emplace_back(tagName, lineIndex);
+                } else {
+                    closings.emplace_back(tagName.substr(1), lineIndex); // Remove '/' from closing tag
+                }
+                pos = endPos + 1;
+            } else {
+                break;
+            }
+        }
+        ++lineIndex;
+    }
+    file.close();
+}
+void Validator::printFileContent() const {//for debugging
+    for (const auto& line : fileContent) {
+        cout << line << endl;
+    }
+}
+void Validator::writeFile(const string& outputFilePath) {
+        checkFile(outputFilePath);
+        ofstream outFile(outputFilePath);
+        if (!outFile) {
+            cerr << "Error: Could not create or write to the file." << endl;
+            exit(1);
+        }
+
+        for (const auto& line : fileContent) {
+            outFile << line << endl;
+        }
+
+        outFile.close();
+        cout << "File successfully written to " << outputFilePath << endl;
+    }
 
 
 
