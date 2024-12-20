@@ -23,13 +23,13 @@ TEST_F(ValidatorTest, TestValidationResult) {
 
 TEST_F(ValidatorTest, TestErrorTypes) {
     // Types of expected errors
-    std::vector<char> expected_error_types = {'c','o'};
+    std::vector<char> expected_error_types = {'c','o','o','c'};
     EXPECT_EQ(validator.get_error_types(), expected_error_types);
 }
 
 TEST_F(ValidatorTest, TestErrorPositions) {
     // Positions of expected errors
-    std::vector<std::array<int,2>> expected_vec = {{2,11},{7,17}};
+    std::vector<std::array<int,2>> expected_vec = {{6,7},{6,14},{17,24},{36,22}};
     EXPECT_EQ(validator.get_error_places(), expected_vec);
 }
 

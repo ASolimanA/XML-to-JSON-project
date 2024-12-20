@@ -1,10 +1,20 @@
 cmake_minimum_required(VERSION 3.19)
 
+enable_testing()
 include(CTest)
 
 
 # Add Google Test
-add_subdirectory(${CMAKE_SOURCE_DIR}/tests/googletest)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/googletest)
+
+
+
+set(COMMON_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/Tree.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/validation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/compress.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/convert.cpp
+)
 
 # Add your tests
 add_executable(UnitTests 
@@ -17,6 +27,10 @@ add_executable(UnitTests
     ${COMMON_SOURCES}
 )
 
+
+# Include common backend files
+target_include_directories(UnitTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../common)
+
 # Link Google Test libraries
 target_link_libraries(UnitTests
     gtest_main
@@ -25,11 +39,16 @@ target_link_libraries(UnitTests
 # Add tests to CTest
 add_test(NAME UnitTests COMMAND UnitTests)
 
-# Include common backend files
-target_include_directories(UnitTests PRIVATE ${CMAKE_SOURCE_DIR}/common)
+set_target_properties(gui_app PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/tests"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/tests"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/tests"
+)
+
 
 # Copy sample.xml to the build directory
 add_custom_command(TARGET UnitTests POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    ${CMAKE_SOURCE_DIR}/tests/sample.xml
+    ${CMAKE_CURRENT_SOURCE_DIR}/sample.xml
     ${CMAKE_BINARY_DIR}/tests/sample.xml)
+

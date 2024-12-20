@@ -62,9 +62,8 @@ bool Validator::validate (){
                                 while(!temp.empty()) {
                                     validation = false;
                                     vec.push_back(last_tag_pos);
-                                    error_type.push_back('o');
-                                    last_tag_pos = {line_no, i};
-                                    //cout << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
+                                    error_type.push_back('c');
+                                    //cerr << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
                                     temp.pop();
                                 }
                             }
@@ -72,8 +71,7 @@ bool Validator::validate (){
                                 validation = false;
                                 vec.push_back(last_tag_pos);
                                 error_type.push_back('o');
-                                last_tag_pos = {line_no, i};
-                                //cout << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
+                                //cerr << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
                                 while(!temp.empty()) {
                                     tagStack.push(temp.top());
                                     temp.pop();
@@ -86,24 +84,24 @@ bool Validator::validate (){
                         phase = actag;
                     } else { // If it's an opening tag
                         if (phase == leaf) {
-                            vec.push_back(last_tag_pos);
+                            vec.push_back({line_no, i - static_cast<int>(tag.length()) - 2});
                             error_type.push_back('c');
-                            //cout << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
+                            //cerr << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
                             validation = false;
                             tagStack.pop();
                         }
                         if (phase != beginning && tagStack.empty()) {
                             vec.insert(vec.begin(), {0,0});
                             error_type.insert(error_type.begin(),'r');
-                            //cout << "There is more than 1 root for this file" << endl;
+                            // cerr << "There is more than 1 root for this file" << endl;
                             validation = false;
                         }
                         tagStack.push(tag); // Add the opening tag to the stack
                         insideTag = false;
                         phase = aotag;
-                        last_tag_pos = {line_no, i};
                     }
                 }
+                last_tag_pos = {line_no, i};
             }
             else if (insideTag) {
                 tag += line[i]; // Append characters to the tag while inside the tag
