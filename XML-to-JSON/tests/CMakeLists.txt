@@ -14,6 +14,7 @@ set(COMMON_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/validation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/compress.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/convert.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/graph.cpp
 )
 
 # Add your tests
@@ -23,7 +24,6 @@ add_executable(UnitTests
     test_validation.cpp
     # test_Tree.cpp
     # test_convert.cpp
-    # test_prettierfunc.cpp
     ${COMMON_SOURCES}
 )
 
