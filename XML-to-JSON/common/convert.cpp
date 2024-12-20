@@ -2,36 +2,35 @@
 #include "Tree.h"
 #include<string>
 
-std::string Tree::to_json(Node* node) {
-    if (!node) return "{}"; // Base case: return empty JSON object for null nodes
+std::string Tree::to_json(Node* root, std::string tabs) {
+    if (!root) return "{}"; // Base case: return empty JSON object for null nodes
 
-    std::string json = "{";
+    std::string json="";
+    if(root == getRoot())json = "{\n";
 
-    // Add tagName
-    json += "\"tagName\": \"" + node->tagName + "\"";
-
-    // Add tagValue if it exists
-    if (!node->tagValue.empty()) {
-        json += ", \"tagValue\": \"" + node->tagValue + "\"";
-    }
-
-    // Add children
-    if (!node->branches.empty()) {
-        json += ", \"children\": [";
-        for (size_t i = 0; i < node->branches.size(); ++i) {
-            json += to_json(node->branches[i]); // Recursive call
-            if (i < node->branches.size() - 1) {
-                json += ", "; // Add comma between sibling JSON objects
-            }
+    if(root->branches.empty()) return tabs + '"' +  root->tagName  + '"' + " : " + '"' + root->tagValue + '"' + "\n";
+    else{
+        json += tabs + '"' + root->tagName + '"' + ":[\n";
+        tabs += '\t';
+        unsigned long long numBranches = root->branches.size();
+        for(int i=0; i < numBranches; i++) {
+            json += tabs;
+            json += "{\n";
+            json += to_json(root->branches[i], tabs + "\t");
+            json += tabs;
+            if(i != numBranches-1) json += "},\n";
+            else json += "}\n";
         }
-        json += "]";
+        tabs = tabs.substr(0, tabs.size()-1);
+        json += tabs + "]\n";
     }
 
-    json += "}";
 
+
+    if(root == getRoot())json += "}\n";
     return json;
 }
 std::string Tree::to_json(std::string filePath) {
     Read_XML(filePath);
-     return to_json(root);
+     return to_json(root, "\t");
 }

@@ -50,3 +50,6 @@ Desktop.ini
 .vs
 *.sln
 *.vcxproj*
+
+#clion files
+.idea

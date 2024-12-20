@@ -18,7 +18,7 @@ class Tree {
 private:
 	Node* root;
 	void preorder_traversal(Node* node);
-    std::string to_json(Node* node);
+    std::string to_json(Node* root, std::string tabs);
 public:
 	Tree();
 	void Read_XML(std::string path);
