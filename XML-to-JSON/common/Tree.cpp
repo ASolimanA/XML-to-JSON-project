@@ -3,7 +3,6 @@
 #include <regex>
 #include <fstream>
 #include <stack>
-#include<string>
 #include <functional>
 
 using namespace std;
@@ -40,7 +39,7 @@ void Tree::preorder_traversal() {
     preorder_traversal(root);
 }
 
-void Tree::Read_XML(string path) {
+void Tree::Read_XML(const string& path) {
     string text, temp1, temp2;
     ifstream myFile(path);
     // regex to find tag or a tag value
@@ -124,25 +123,25 @@ void Tree::prettierFunction(const std::string& outputPath) {
     cout << "Formatted XML saved to: " << outputPath << endl;
 }
 
-std::string Tree::to_json(Node* root, std::string tabs, bool arr, bool obj) {
-    if (!root) return "{}"; // Base case: return empty JSON object for null nodes
+std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) {
+    if (!rootNode) return "{}"; // Base case: return empty JSON object for null nodes
 
-    std::string json="";
-    if(root == getRoot())json = "{\n";
+    std::string json;
+    if(rootNode == getRoot())json = "{\n";
 
-    if(root->branches.empty()) return tabs + '"' +  root->tagName  + '"' + " : " + '"' + root->tagValue + '"';
+    if(rootNode->branches.empty()) return tabs + '"' + rootNode->tagName + '"' + " : " + '"' + rootNode->tagValue + '"';
     else{
 
         //start an array
-        if(!arr) {
-            json += tabs + '"' + root->tagName + '"' + ":[\n";
-            tabs += '\t';
+        if(arr) {
+            json += tabs + '"' + rootNode->tagName + '"' + ":[\n";
 
             //print all array values if they have the same key
-            if(!root->branches[0]->tagValue.empty()){
-                for(int i=0; i < root->branches.size(); i++) {
-                    json += tabs + '"' + root->branches[i]->tagValue + "\"";
-                    if(i!=root->branches.size()-1) json += ",";
+            if(!rootNode->branches[0]->tagValue.empty()){
+                tabs += '\t';
+                for(int i=0; i < rootNode->branches.size(); i++) {
+                    json += tabs + '"' + rootNode->branches[i]->tagValue + "\"";
+                    if(i != rootNode->branches.size() - 1) json += ",";
                     json += "\n";
                 }
                 json += tabs.substr(0, tabs.size() - 1) + ']';
@@ -150,28 +149,41 @@ std::string Tree::to_json(Node* root, std::string tabs, bool arr, bool obj) {
             }
             obj = false;
         }
-        if(obj) json += tabs + "{\n";
-        unsigned long long numBranches = root->branches.size();
+        if(obj && rootNode != getRoot()) json += tabs + "{\n";
+        unsigned long long numBranches = rootNode->branches.size();
 
         for(int i=0; i < numBranches; i++) {
 
-            json += to_json(root->branches[i], tabs + "\t", !arr, !obj);
+            json += to_json(rootNode->branches[i], tabs + "\t", !arr, !obj);
             if(i != numBranches-1) json += ",";
             json += "\n";
         }
 
-        if(obj) json += tabs + "}";
+        if(obj && rootNode != getRoot()) json += tabs + "}";
 
-        if(!arr) json += tabs.substr(0, tabs.size()-1) + "]";
+        if(arr) json += tabs.substr(0, tabs.size()-1) + "]";
 
 
     }
 
-    if(root == getRoot())json += "}\n";
+    if(rootNode == getRoot())json += "}\n";
     return json;
 }
 
-std::string Tree::to_json(std::string filePath) {
+std::string Tree::to_json(const std::string& filePath) {
     Read_XML(filePath);
-    return to_json(root, "\t", false, true);
+    bool arr = true, obj = false;
+
+    if(!root->branches.empty()) {
+        string tagName = root->branches[0]->tagName;
+        for (Node *child: root->branches) {
+            if (child->tagName != tagName) {
+                arr = false;
+                obj = true;
+                break;
+            }
+        }
+    }
+    else return "{\n\t\""  + root->tagName + "\" : \""  + root->tagValue + "\"\n}";
+    return to_json(root, arr ? "\t" : "" , arr, obj);
 }

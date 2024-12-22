@@ -1,0 +1,79 @@
+# ninja log v6
+4	764	7565930392438246	CMakeFiles/cli_app.dir/main.cpp.obj	6881ec10e982200f
+17	1584	7565883510406823	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/validation.cpp.obj	470a2de772c5581b
+54	1266	7565883510776098	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/graph.cpp.obj	a30b52e7dc4eef5d
+764	3405	7565930400023065	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	36bb5346bbe76d2b
+4	1364	7565883811589357	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/compress-decompress.cpp.obj	4c0b37d86253859c
+4	4485	7565926644608800	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+12	822	7565926644685545	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/convert.cpp.obj	a604d4545869f4b4
+5	2620	7565934762174287	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4766	7565989698879415	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4767	7597	7565989746525594	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	4219	7565992466567773	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4220	6844	7565992508709463	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4048	7565992970464611	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4049	6628	7565993010907422	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4231	7565995996498150	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4231	6826	7565996038765652	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	4107	7565996254470610	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4107	6701	7565996295491250	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+7	4031	7565996604094932	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4032	6588	7565996644343997	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	3969	7565996781819687	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+3969	6423	7565996821455861	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	4182	7565997040524011	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4182	6782	7565997082286606	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+7	4235	7565998001943116	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4236	6839	7565998044237508	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4146	7565998476919416	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4147	6720	7565998518337827	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4280	7565998625483143	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4281	6871	7565998668235165	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	3665	7565999006426083	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+3666	6109	7565999043021425	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4166	7565999604921559	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4167	6702	7565999646550437	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	4008	7566001552465038	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4009	6431	7566001592511195	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+8	4168	7566002483603704	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4168	6752	7566002525213766	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	3684	7566003242741829	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+3684	6144	7566003279528419	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	4202	7566003673871657	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4202	6855	7566003715849599	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	4238	7566004776815931	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4238	6877	7566004819132019	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	3858	7566007363797271	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+3859	6283	7566007402350699	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	726	7566008777537663	CMakeFiles/cli_app.dir/main.cpp.obj	6881ec10e982200f
+12	3738	7566008777624159	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+3738	6149	7566008814881177	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4336	7566010056144664	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4337	6972	7566010099463431	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	3875	7566010505810183	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+3876	6434	7566010544515416	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4230	7566011282876718	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4231	6949	7566011325137433	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4001	7566011882227745	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4002	6526	7566011922199008	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4112	7566012184811643	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4113	6836	7566012225894350	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	4102	7566012388745835	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4103	6656	7566012429715336	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+5	4066	7566012638339791	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4066	6532	7566012678957499	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	4242	7566013557178341	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4243	6908	7566013599536468	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+7	4257	7566014247112856	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4258	6967	7566014289620242	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+6	4114	7566014680613457	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4114	6592	7566014721699343	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	4194	7566015509502161	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4194	6598	7566015551397540	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	4447	7566018904747727	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4448	7058	7566018949181339	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+7	4018	7566019652341159	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4018	6601	7566019692456569	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1
+4	893	7566020654620958	CMakeFiles/cli_app.dir/main.cpp.obj	6881ec10e982200f
+13	4602	7566020654705476	CMakeFiles/cli_app.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	2e8132c0de36c709
+4602	7268	7566020700602923	E:/University/Senior 1/Data structure and algorithms/Project/XML-to-JSON-project/XML-to-JSON/build/CLI/cli_app.exe	afe3c769ce3eefc1

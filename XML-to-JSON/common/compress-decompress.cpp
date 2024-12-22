@@ -114,36 +114,36 @@ std::string decompress(const std::string& CompressedfilePath,const std::string& 
 
 
 
-// Main function
-int main() {
-    try {
-        std::string filePath = "C:\\Users\\kareem\\Downloads\\10mb.xml";
-
-        // Read the XML file content
-        std::string input = readFile(filePath);
-
-        // Compress the input
-        std::string compressed = compress(input);
-        std::ofstream outputFile("compressed.txt", std::ios::binary);
-        outputFile << compressed;
-        outputFile.close();
-
-        // Decompress the data
-        std::string decompressed = decompress("C:\\C++\\DSA project\\source code\\pt3\\compressed.txt","C:\\C++\\DSA project\\source code\\pt3\\map_contents.txt");
-        std::ofstream outputFile2("decompressed.txt", std::ios::binary);
-        outputFile2 << decompressed;
-        outputFile2.close();
-
-        // Optional: Check if decompressed matches original input
-        if (input == decompressed) {
-            std::cout << "Decompression verified successfully!" << std::endl;
-        } else {
-            std::cout << "Decompression failed!" << std::endl;
-        }
-
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
-
-    return 0;
-}
+//// Main function
+//int main() {
+//    try {
+//        std::string filePath = "C:\\Users\\kareem\\Downloads\\10mb.xml";
+//
+//        // Read the XML file content
+//        std::string input = readFile(filePath);
+//
+//        // Compress the input
+//        std::string compressed = compress(input);
+//        std::ofstream outputFile("compressed.txt", std::ios::binary);
+//        outputFile << compressed;
+//        outputFile.close();
+//
+//        // Decompress the data
+//        std::string decompressed = decompress("C:\\C++\\DSA project\\source code\\pt3\\compressed.txt","C:\\C++\\DSA project\\source code\\pt3\\map_contents.txt");
+//        std::ofstream outputFile2("decompressed.txt", std::ios::binary);
+//        outputFile2 << decompressed;
+//        outputFile2.close();
+//
+//        // Optional: Check if decompressed matches original input
+//        if (input == decompressed) {
+//            std::cout << "Decompression verified successfully!" << std::endl;
+//        } else {
+//            std::cout << "Decompression failed!" << std::endl;
+//        }
+//
+//    } catch (const std::exception& e) {
+//        std::cerr << "Error: " << e.what() << std::endl;
+//    }
+//
+//    return 0;
+//}

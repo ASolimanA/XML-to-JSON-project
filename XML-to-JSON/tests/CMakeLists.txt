@@ -13,8 +13,7 @@ set(COMMON_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/Tree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/validation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/compress.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../common/convert.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../common/graph.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../common/graph.cpp
 )
 
 # Add your tests
