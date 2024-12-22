@@ -3,6 +3,7 @@
 #include <regex>
 #include <fstream>
 #include <stack>
+#include<string>
 #include <functional>
 
 using namespace std;
@@ -121,4 +122,56 @@ void Tree::prettierFunction(const std::string& outputPath) {
 
     output.close();
     cout << "Formatted XML saved to: " << outputPath << endl;
+}
+
+std::string Tree::to_json(Node* root, std::string tabs, bool arr, bool obj) {
+    if (!root) return "{}"; // Base case: return empty JSON object for null nodes
+
+    std::string json="";
+    if(root == getRoot())json = "{\n";
+
+    if(root->branches.empty()) return tabs + '"' +  root->tagName  + '"' + " : " + '"' + root->tagValue + '"';
+    else{
+
+        //start an array
+        if(!arr) {
+            json += tabs + '"' + root->tagName + '"' + ":[\n";
+            tabs += '\t';
+
+            //print all array values if they have the same key
+            if(!root->branches[0]->tagValue.empty()){
+                for(int i=0; i < root->branches.size(); i++) {
+                    json += tabs + '"' + root->branches[i]->tagValue + "\"";
+                    if(i!=root->branches.size()-1) json += ",";
+                    json += "\n";
+                }
+                json += tabs.substr(0, tabs.size() - 1) + ']';
+                return json;
+            }
+            obj = false;
+        }
+        if(obj) json += tabs + "{\n";
+        unsigned long long numBranches = root->branches.size();
+
+        for(int i=0; i < numBranches; i++) {
+
+            json += to_json(root->branches[i], tabs + "\t", !arr, !obj);
+            if(i != numBranches-1) json += ",";
+            json += "\n";
+        }
+
+        if(obj) json += tabs + "}";
+
+        if(!arr) json += tabs.substr(0, tabs.size()-1) + "]";
+
+
+    }
+
+    if(root == getRoot())json += "}\n";
+    return json;
+}
+
+std::string Tree::to_json(std::string filePath) {
+    Read_XML(filePath);
+    return to_json(root, "\t", false, true);
 }
