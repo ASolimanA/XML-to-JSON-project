@@ -18,14 +18,14 @@ class Tree {
 private:
 	Node* root;
 	void preorder_traversal(Node* node);
-    std::string to_json(Node* root, std::string tabs);
+    std::string to_json(Node* rootNode, std::string tabs, bool arr, bool obj);
 public:
 	Tree();
-	void Read_XML(std::string path, std::string& content);
+	void Read_XML(const std::string& path);
 	void preorder_traversal();
     void prettierFunction(const std::string& outputPath);
     Node *getRoot();
-    std::string to_json(std::string filePath);
+    std::string to_json(const std::string& filePath);
 };
 
 

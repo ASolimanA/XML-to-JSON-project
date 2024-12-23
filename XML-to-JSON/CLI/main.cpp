@@ -2,10 +2,9 @@
 #include "validation.h"
 #include <iostream>
 #include <unistd.h>
-
 using namespace std;
 
-bool filePath_vaild(string filePath) {
+bool filePath_valid(const string& filePath) {
     fstream file;
     file.open(filePath);
     if(!file) {
@@ -26,9 +25,7 @@ int main(int argc, char *argv[])
     string inputFile, outputFile;
     int opt;
     optind = 2;
-    while((opt = getopt(argc, argv, "i:o:")) != -1) {
-        cout << char(opt) << endl;
-        cout << optarg << endl;
+    while((opt = getopt(argc, argv, ":i:o:")) != -1) {
         switch (opt) {
             case 'i':
                 inputFile = optarg;
@@ -38,19 +35,19 @@ int main(int argc, char *argv[])
                 outputFile = optarg;
                 cout << "Output file: " << optarg << endl;
                 break;
-            default:
-                cout << "Invalid command" << endl;
+            case ':':
+            case '?':
+                cout << "Unknown option -i and -o  are the only available options\n";
+                cout << optarg << endl;
                 return 0;
+            default:
+                cout << "unexpected error occurred" << endl;
         }
     }
 
-    if(!filePath_vaild(inputFile)) {
-        cerr << "Invalid input file path" << endl;
-        return 0;
-    }
 
-    if( !outputFile.empty() && !filePath_vaild(outputFile)) {
-        cerr << "Invalid output file path" << endl;
+    if(!filePath_valid(inputFile)) {
+        cerr << "Invalid input file path" << endl;
         return 0;
     }
 
@@ -74,6 +71,7 @@ int main(int argc, char *argv[])
     }
     if(strcmp(argv[1], "json")==0){
         Validator v(inputFile);
+        v.readFile();
         if(!v.validate()){
             cerr << "Invalid XML file" << endl;
             return 0;
