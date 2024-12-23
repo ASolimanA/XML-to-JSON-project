@@ -24,6 +24,7 @@ qt_add_executable(gui_app
     mainwindow.ui
     adapter.cpp
     adapter.h
+    ErrorHighlighter.cpp
     ${COMMON_SOURCES}
 )
 

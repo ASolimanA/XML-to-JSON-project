@@ -23,6 +23,7 @@ class Validator {
     vector<pair<string, int>> closings; // new
 
     public:
+    Validator();
     Validator(const string& filePath);
     bool filePath_valid();
     bool validate ();
@@ -32,6 +33,7 @@ class Validator {
     vector<char> get_error_types();
     void print_errors();
     ~Validator();
+    void setFileContent(const vector<string>& fileContent);
     //new
     void checkFile();
     string extractTagName(const string& tag);

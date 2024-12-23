@@ -7,6 +7,8 @@
     * Does every closing tag has its corresponding opening tag.
     * Is leaves closed properly (when there is text after an opening tag).
 */
+Validator::Validator() {
+}
 
 Validator::Validator(const string& filePath) {
         this->filePath = filePath;
@@ -233,7 +235,10 @@ void Validator::writeFile(const string& outputFilePath) {
 
         outFile.close();
         cout << "File successfully written to " << outputFilePath << endl;
-    }
+}
+void Validator::setFileContent(const vector<string>& fileContent) {
+    this->fileContent = fileContent;
+}
 
 
 
