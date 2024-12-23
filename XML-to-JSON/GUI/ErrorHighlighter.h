@@ -12,7 +12,7 @@ class ErrorHighlighter : public QSyntaxHighlighter {
     Q_OBJECT
 
 public:
-    ErrorHighlighter(QTextDocument *parent, Validator* validator);
+    ErrorHighlighter(QTextDocument *parent);
     void setHighlights(Validator* validator);
 
 

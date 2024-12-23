@@ -12,7 +12,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/googletest)
 set(COMMON_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/Tree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/validation.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../common/compress.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common/compress-decompress.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../common/graph.cpp
 )
 

@@ -2,10 +2,9 @@
 #include <QString>
 
 
-ErrorHighlighter::ErrorHighlighter(QTextDocument *parent, Validator* validator)
+ErrorHighlighter::ErrorHighlighter(QTextDocument *parent)
     : QSyntaxHighlighter(parent) {
     // Initialize the format
-    setPositions(validator);
     error_char_format.setUnderlineColor(Qt::red);
     error_char_format.setUnderlineStyle(QTextCharFormat::WaveUnderline);
 }
