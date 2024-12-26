@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <iostream>
+#include <regex>
 
 #define NULL_EDGE 0
 
@@ -49,6 +50,28 @@ void Graph::getNextVertices(int id, queue<int>& vertexQue) {
 	for (int i = 0; i < followers[index].size(); i++) {
 		vertexQue.push(followers[index][i]);
 	}
+}
+
+void Graph::wordSearch(const std::string& word, std::vector<Post*>& posts, std::vector<string>& matchedPosts){
+        for(Post* post: posts){
+            string body = post->body;
+
+            regex re(word);
+            smatch match;
+
+            if(regex_search(body, match, re))
+                matchedPosts.push_back(body);
+
+        }
+}
+
+std::vector<std::string> Graph::wordSearch(const std::string& word){
+    std::vector<std::string> matchedPosts;
+
+    for(User* user: vertices)
+        wordSearch(word, user->posts, matchedPosts);
+
+    return matchedPosts;
 }
 
 void Graph::print() {

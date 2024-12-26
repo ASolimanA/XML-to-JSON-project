@@ -26,6 +26,7 @@ class Graph {
 private:
 	std::vector<User*> vertices;
 	std::vector<std::vector<int>> followers;
+    void wordSearch(const std::string& word, std::vector<Post*>& posts, std::vector<std::string> &matchedPosts);
 public:
 	~Graph();
 	bool isEmpty();
@@ -34,6 +35,7 @@ public:
 	void markVertex(User* vertex);
 	void clearMarks();
 	void getNextVertices(int id, std::queue<int>& vertexQue);
+    std::vector<std::string> wordSearch(const std::string& word);
 	void print();
 	friend class Tree;
 };

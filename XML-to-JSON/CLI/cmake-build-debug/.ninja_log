@@ -1,0 +1,25 @@
+# ninja log v6
+1	1278	7569535672626848	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+32	1943	7569535672938574	CMakeFiles/xml_editor.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/compress-decompress.cpp.obj	7e2fae822b0e3aac
+20	2050	7569535672822569	CMakeFiles/xml_editor.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/validation.cpp.obj	31d3d68753c9a774
+61	4784	7569535673223382	CMakeFiles/xml_editor.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/graph.cpp.obj	b5600556119b999a
+4	3877	7569537101805336	build/CLI/xml_editor.exe	57d35fadd7255704
+6	4018	7569537408513521	build/xml_editor.exe	80f35c3559b419be
+9	5218	7569535672713177	CMakeFiles/xml_editor.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	15bc9f8b7eac21dc
+7	4608	7569537672326743	build/CLI/xml_editor.exe	57d35fadd7255704
+5	958	7569551674236999	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+958	5053	7569551683763634	build/CLI/xml_editor.exe	57d35fadd7255704
+6	836	7569556765274228	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+837	4834	7569556773592062	build/CLI/xml_editor.exe	57d35fadd7255704
+9	718	7569558035268123	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+718	4455	7569558042366782	build/CLI/xml_editor.exe	57d35fadd7255704
+6	797	7569565483136811	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+798	4720	7569565491059353	build/CLI/xml_editor.exe	57d35fadd7255704
+5	837	7569566509179706	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+837	4801	7569566517498670	build/CLI/xml_editor.exe	57d35fadd7255704
+4	755	7569570306650458	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+755	4567	7569570314168324	build/CLI/xml_editor.exe	57d35fadd7255704
+5	923	7569582144890578	CMakeFiles/xml_editor.dir/main.cpp.obj	ca557cd119189991
+25	4052	7569582145092081	CMakeFiles/xml_editor.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/graph.cpp.obj	b5600556119b999a
+13	4423	7569582144966971	CMakeFiles/xml_editor.dir/c7681efbad2d7c54f500463b66ab2d68/Project/XML-to-JSON-project/XML-to-JSON/common/Tree.cpp.obj	15bc9f8b7eac21dc
+4424	8354	7569582189076031	build/CLI/xml_editor.exe	57d35fadd7255704

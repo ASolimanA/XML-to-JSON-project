@@ -11,16 +11,16 @@ set(COMMON_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../common/graph.cpp
 )
 
-add_executable(cli_app
+add_executable(xml_editor
     main.cpp
     ${COMMON_SOURCES}
 )
 
 # Include common backend files
-target_include_directories(cli_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../common)
+target_include_directories(xml_editor PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../common)
 
-set_target_properties(cli_app PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/CLI"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/CLI"
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../build/CLI"
+set_target_properties(xml_editor PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/build/CLI"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/build/CLI"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/build/CLI"
 )
