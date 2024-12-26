@@ -187,3 +187,61 @@ std::string Tree::to_json(const std::string& filePath) {
     else return "{\n\t\""  + root->tagName + "\" : \""  + root->tagValue + "\"\n}";
     return to_json(root, arr ? "\t" : "" , arr, obj);
 }
+
+Graph* Tree::convert_to_graph() {
+    Graph* new_graph = new Graph();
+    for (int i = 0; i < root->branches.size(); i++) {
+        if (root->branches[i]->tagName == "user")
+            new_graph->addVertex(convert_user(root->branches[i], new_graph));
+    }
+    return new_graph;
+}
+
+User* Tree::convert_user(Node* user_node, Graph* current_graph) {
+    User* new_user = new User();
+    for (int i = 0; i < user_node->branches.size(); i++) {
+        if (user_node->branches[i]->tagName == "id")
+            new_user->id = stoi(user_node->branches[i]->tagValue);
+        else if (user_node->branches[i]->tagName == "name")
+            new_user->name = user_node->branches[i]->tagValue;
+        else if (user_node->branches[i]->tagName == "posts")
+            add_posts(new_user, user_node->branches[i]);
+        else if (user_node->branches[i]->tagName == "followers")
+            add_followers(new_user, user_node->branches[i], current_graph);
+    }
+    return new_user;
+}
+
+void Tree::add_posts(User* current_user, Node* posts_node) {
+    Node* post_node;
+    for (int i = 0; i < posts_node->branches.size(); i++) {
+        if (posts_node->branches[i]->tagName == "post") {
+            post_node = posts_node->branches[i];
+            Post* current_post = new Post();
+            for (int j = 0; j < post_node->branches.size(); j++) {
+                if (post_node->branches[j]->tagName == "body")
+                    current_post->body = post_node->branches[i]->tagValue;
+                if (post_node->branches[j]->tagName == "topics")
+                    add_topics(current_post, post_node->branches[j]);
+            }
+            current_user->posts.push_back(current_post);
+        }
+    }
+}
+
+void Tree::add_topics(Post* current_post, Node* topics_node) {
+    for (int i = 0; i < topics_node->branches.size(); i++) {
+        if (topics_node->branches[i]->tagName == "topic")
+            current_post->topics.push_back(topics_node->branches[i]->tagValue);
+    }
+}
+
+void Tree::add_followers(User* current_user, Node* followers_node, Graph* current_graph) {
+    LinkedList* list = new LinkedList();
+    for (int i = 0; i < followers_node->branches.size(); i++) {
+        if (followers_node->branches[i]->tagName == "follower" &&
+            followers_node->branches[i]->branches[0]->tagName == "id")
+            list->push_front(stoi(followers_node->branches[i]->branches[0]->tagValue));
+    }
+    current_graph->followers.push_back(list);
+}
