@@ -5,8 +5,7 @@
 
 using namespace std;
 
-User::User(int id) {
-	this->id = id;
+User::User() {
 	marked = false;
 }
 
@@ -18,6 +17,14 @@ Graph::~Graph() {
 bool Graph::isEmpty() {
 	return vertices.size() == 0;
 }
+
+int Graph::userIndex(int id) {
+	for (int i = 0; i < vertices.size(); i++)
+		if (vertices[i]->id == id)
+			return i;
+	return -1;
+}
+
 
 void Graph::addVertex(User* vertex) {
 	vertices.push_back(vertex);
@@ -33,8 +40,29 @@ void Graph::clearMarks() {
 	}
 }
 
-void Graph::getNextVertices(User* vertex, queue<User*>& vertexQue) {
-	for (int i = 0; i < vertex->followers.size(); i++) {
-		vertexQue.push(vertex->followers[i]);
+void Graph::getNextVertices(int id, queue<int>& vertexQue) {
+	int index = userIndex(id);
+	if (index == -1) {
+		cout << "Invalid Vertex" << endl;
+		return;
+	}
+	linkedListNode* temp = followers[index]->head;
+	while(temp != NULL) {
+		vertexQue.push(temp->id);
+	}
+}
+
+void Graph::print() {
+	for (int i = 0; i < vertices.size(); i++) {
+		cout << "User: " << vertices[i]->name << " With id: " << vertices[i]->id << endl;
+	}
+	for (int i = 0; i < followers.size(); i++) {
+		cout << vertices[i]->name << " Follows: ";
+		linkedListNode* follow = followers[i]->head;
+		while (follow != NULL) {
+			cout << follow->id << ", ";
+			follow = follow->next;
+		}
+		cout << endl;
 	}
 }
