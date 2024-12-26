@@ -46,9 +46,8 @@ void Graph::getNextVertices(int id, queue<int>& vertexQue) {
 		cout << "Invalid Vertex" << endl;
 		return;
 	}
-	linkedListNode* temp = followers[index]->head;
-	while(temp != NULL) {
-		vertexQue.push(temp->id);
+	for (int i = 0; i < followers[index].size(); i++) {
+		vertexQue.push(followers[index][i]);
 	}
 }
 
@@ -58,10 +57,8 @@ void Graph::print() {
 	}
 	for (int i = 0; i < followers.size(); i++) {
 		cout << vertices[i]->name << " Follows: ";
-		linkedListNode* follow = followers[i]->head;
-		while (follow != NULL) {
-			cout << follow->id << ", ";
-			follow = follow->next;
+		for (int j = 0; j < followers[i].size(); j++) {
+			cout << followers[i][j] << ", ";
 		}
 		cout << endl;
 	}

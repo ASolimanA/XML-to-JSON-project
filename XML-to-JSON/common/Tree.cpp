@@ -237,11 +237,12 @@ void Tree::add_topics(Post* current_post, Node* topics_node) {
 }
 
 void Tree::add_followers(User* current_user, Node* followers_node, Graph* current_graph) {
-    LinkedList* list = new LinkedList();
+    vector<int> follows;
     for (int i = 0; i < followers_node->branches.size(); i++) {
         if (followers_node->branches[i]->tagName == "follower" &&
             followers_node->branches[i]->branches[0]->tagName == "id")
-            list->push_front(stoi(followers_node->branches[i]->branches[0]->tagValue));
+            follows.push_back(stoi(followers_node->branches[i]->branches[0]->tagValue));
     }
-    current_graph->followers.push_back(list);
+    current_graph->followers.push_back(follows);
 }
+

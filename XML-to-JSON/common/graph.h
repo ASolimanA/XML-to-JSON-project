@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include "LinkedList.h"
 
 struct Post {
 	std::string body;
@@ -26,7 +25,7 @@ public:
 class Graph {
 private:
 	std::vector<User*> vertices;
-	std::vector<LinkedList*> followers;
+	std::vector<std::vector<int>> followers;
 public:
 	~Graph();
 	bool isEmpty();
