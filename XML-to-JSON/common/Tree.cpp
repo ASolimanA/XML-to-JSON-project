@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stack>
 #include <functional>
+#include <sstream>
 
 using namespace std;
 
@@ -81,16 +82,16 @@ void Tree::Read_XML(const string& xml) {
     }
 }
 
-void Tree::prettierFunction(const std::string& outputPath) {
-    ofstream output(outputPath);
-    if (!output.is_open()) {
-        cerr << "Error: Cannot open file for writing: " << outputPath << endl;
-        return;
-    }
+string Tree::prettierFunction() {
+    ostringstream output;
+//    if (!output.is_open()) {
+//        cerr << "Error: Cannot open file for writing: " << outputPath << endl;
+//        return;
+//    }
 
     // Start recursive formatting from the root node and write formatted XML from the tree
-    function<void(Node*, ofstream&, int)> formatTree = [&](Node* node, ofstream& output, int indentLevel) {
-        if (node == NULL)
+    function<void(Node*, ostringstream&, int)> formatTree = [&](Node* node, ostringstream& output, int indentLevel) {
+        if (node == nullptr)
             return;
 
         string indent(indentLevel * 4, ' ');
@@ -115,8 +116,7 @@ void Tree::prettierFunction(const std::string& outputPath) {
     //  processing the tree from the root node
     formatTree(root, output, 0);
 
-    output.close();
-    cout << "Formatted XML saved to: " << outputPath << endl;
+    return output.str();
 }
 
 std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) {

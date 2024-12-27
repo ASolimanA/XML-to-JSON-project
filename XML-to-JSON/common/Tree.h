@@ -24,7 +24,7 @@ public:
 	Tree();
 	void Read_XML(const std::string& xml);
 	void preorder_traversal();
-    void prettierFunction(const std::string& outputPath);
+    std::string prettierFunction();
     Node *getRoot();
     std::string to_json(const std::string& filePath);
 	// Functions to convert to graph

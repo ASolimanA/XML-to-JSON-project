@@ -3,6 +3,7 @@
 #include "Tree.h"
 #include "validation.h"
 #include "graph.h"
+//#include "compress-decompress.cpp"
 
 using namespace std;
 
@@ -49,18 +50,18 @@ int main(int argc, char *argv[])
         cout << "Invalid command\ncommand should be in the form cli_app.exe <process> -options" << endl;
         return 0;
     }
-    //  -i inputFile or --version verify
-    string inputFile, outputFile, wordToSearch, topicToSearch;
+    //  -i inputFilePath or --version verify
+    string inputFilePath, outputFilePath, wordToSearch, topicToSearch;
     int opt;
     optind = 2;
     while((opt = getopt(argc, argv, ":i:o:w:t:")) != -1) {
         switch (opt) {
             case 'i':
-                inputFile = optarg;
+                inputFilePath = optarg;
                 cout << "Input file: " << optarg << endl;
                 break;
             case 'o':
-                outputFile = optarg;
+                outputFilePath = optarg;
                 cout << "Output file: " << optarg << endl;
                 break;
             case 'w':
@@ -83,24 +84,18 @@ int main(int argc, char *argv[])
 
 
     //check input file path
-    if(!filePath_valid(inputFile)) {
+    if(!filePath_valid(inputFilePath)) {
         cerr << "Invalid input file path" << endl;
         return 0;
     }
 
-    //check output file path
-    if(!outputFile.empty() && filePath_valid(outputFile)==0){
-        cerr << "Invalid output file path" << endl;
-        return 0;
-    }
-
-    /////////////////
+    /////////////////  waiting to be changed
     if(strcmp(argv[1], "verify")==0){
-        Validator v(inputFile);
+        Validator v(inputFilePath);
+        v.readFile();
 
         if(!v.validate()) {
             vector<array<int, 2>> vec = v.get_error_places();
-            cout<<"I am here"<<endl;
 
             for (auto i: vec)
                 cout << i[0] + 1 << " " << i[1] << endl;
@@ -110,23 +105,28 @@ int main(int argc, char *argv[])
         return 0;
     }
 /////////////
+
     //check if it's a valid XML file before proceeding
     //if not valid then stop execution
-    if(checkXML_valid(inputFile) == false)
+    if(checkXML_valid(inputFilePath) == false)
         return 0;
 
     //convert the xml file into a string;
-    string XML = file_to_string(inputFile);
+    string XML = file_to_string(inputFilePath);
 
     if(strcmp(argv[1], "format")==0){
         Tree t;
         t.Read_XML(XML);
-        t.prettierFunction(outputFile);
+
+        ofstream outputFile(outputFilePath);
+        outputFile <<  t.prettierFunction();
+        outputFile.close();
     }
     else if(strcmp(argv[1], "json")==0){
-        fstream file(outputFile, ios::out);
+        ofstream outputFile(outputFilePath);
         Tree t;
-        file <<  t.to_json(inputFile);
+        outputFile <<  t.to_json(inputFilePath);
+        outputFile.close();
     }
 
 //    if(strcmp(argv[1], "mini")==0){
@@ -134,20 +134,22 @@ int main(int argc, char *argv[])
 //    }
 
 //    if(strcmp(argv[1], "compress")==0){
+//        ofstream outputFile(outputFilePath, std::ios::binary);
+//        outputFile <<  compress(XML);
+//        outputFile.close();
 //    }
 //
 //    if(strcmp(argv[1], "decompress")==0){}
 
     else if(strcmp(argv[1], "search")==0){
         Tree t;
-        t.Read_XML(inputFile);
+        t.Read_XML(XML);
         Graph* g = t.convert_to_graph();
         vector<string> posts = g->wordSearch(wordToSearch);
 
         if(posts.empty()) cout << "The word you are searching for is not found in any of the posts" << endl;
         else cout << posts;
-
     }
 
-return 0;
+    return 0;
 }
