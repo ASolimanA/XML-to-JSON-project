@@ -122,28 +122,15 @@ bool Validator::validate (){
 }
 
 void Validator::fix (){
-    fstream file(filePath);
-    file.open(filePath);
     pair<string, array<int,2>> error;
     for (int i = error_list.size()-1 ; i >= 0; i--) {
         error = error_list[i];
         int line_no = error.second[0];
         int pos = error.second[1];
-        for(int j = error_type.size()-1; j >= 0 ;j--){
-            if(error_type[j] == 'o'){
-                pos++;
-                fileContent[line_no].insert(pos, "<" + error.first + ">");
-                break;
-            }
-            else if(error_type[j] == 'c'){
-                pos++;
-                fileContent[line_no].insert(pos, "<" + error.first + ">");
-                break;
-            }
-        }
+        if (fileContent[line_no][pos] == '>') pos++;
+        fileContent[line_no].insert(pos, "<" + error.first + ">");
+        break;
     }
-
-    file.close();
 }
 Validator::~Validator() {
 }
