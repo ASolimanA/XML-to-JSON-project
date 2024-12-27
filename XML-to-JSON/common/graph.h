@@ -37,6 +37,8 @@ public:
 	void getNextVertices(int id, std::queue<int>& vertexQue);
     std::vector<std::string> wordSearch(const std::string& word);
 	void print();
+	void dotFile(const std::string& infile);
+	void graphImage(const std::string& dotfile , const std::string& outfile);
 	friend class Tree;
 };
 

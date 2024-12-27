@@ -1,6 +1,9 @@
 #include "graph.h"
 #include <iostream>
 #include <regex>
+#include <fstream>
+#include <cstdlib>
+#include <string>
 
 #define NULL_EDGE 0
 
@@ -85,4 +88,41 @@ void Graph::print() {
 		}
 		cout << endl;
 	}
+}
+
+//@overload
+// string to_string(int i){
+// 	return vertices[i]->name;
+// }
+
+void Graph::dotFile(const std::string& infile){
+	std::ofstream file(infile);
+    if (!file.is_open()) {
+        std::cerr << "Error: Unable to open file for writing.\n";
+        return;
+    }
+	file << "digraph G {\n";
+	for (int i = 0; i <vertices.size(); i++) {
+		for(int j = 0; j < followers[i].size(); j++){
+			string user = to_string(vertices[i]->id);
+			string follower = to_string(followers[i][j]);
+			file <<"	" + user + " -> " + follower + "\n";
+			cout << "in the make file.dot function"<<endl;
+		}
+	}
+	file<< "}\n";
+	file.close();
+}
+
+void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
+	// Command to generate a .jpg image using Graphviz
+    std::string command = "dot -Tjpg " + dotfile + " -o " + outfile;
+
+    // Execute the command
+    int result = system(command.c_str());
+    if (result == 0) {
+        std::cout << "Graph rendered successfully: " << outfile << "\n";
+    } else {
+        std::cerr << "Error: Graphviz command failed.\n";
+    }
 }
