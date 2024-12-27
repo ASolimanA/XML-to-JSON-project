@@ -10,6 +10,7 @@ protected:
     void SetUp() override {
         validator.readFile();
         validator.validate();
+        validator.fix();
     }
 };
 
@@ -42,6 +43,15 @@ TEST_F(ValidatorTest, TestErrorList) {
         {"/follower", {36,22}}
     };
     EXPECT_EQ(validator.get_error_list(), expected_error_list);
+}
+TEST_F(ValidatorTest, Test_fix){
+    Validator validator("sample.xml");
+    validator.validate();
+    validator.fix();
+    Validator valid("sample_fix.xml");
+    valid.readFile();
+    vector<std::string> expected_fix = valid.getFileContent(); 
+    EXPECT_EQ(validator.getFileContent(), expected_fix);
 }
 
 int main(int argc, char **argv) {
