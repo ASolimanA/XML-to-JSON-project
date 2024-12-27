@@ -22,7 +22,7 @@ private:
     std::string to_json(Node* rootNode, std::string tabs, bool arr, bool obj);
 public:
 	Tree();
-	void Read_XML(const std::string& path);
+	void Read_XML(const std::string& xml);
 	void preorder_traversal();
     void prettierFunction(const std::string& outputPath);
     Node *getRoot();

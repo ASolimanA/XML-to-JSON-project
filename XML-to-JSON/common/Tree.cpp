@@ -39,16 +39,14 @@ void Tree::preorder_traversal() {
     preorder_traversal(root);
 }
 
-void Tree::Read_XML(const string& path) {
-    string text, temp1, temp2;
-    ifstream myFile(path);
+void Tree::Read_XML(const string& xml) {
+    string temp1, temp2;
     // regex to find tag or a tag value
     regex regexSet("\\<([^>]+)\\>|[^<]+");
     smatch matches;
     stack<Node*> st;
-    while (getline(myFile, text)) {
-        string::const_iterator it(text.cbegin());
-        while (regex_search(it, text.cend(), matches, regexSet)){
+    string::const_iterator it(xml.cbegin());
+    while (regex_search(it, xml.cend(), matches, regexSet)) {
             // inc. iterator to index after the finded regex
             it = matches.suffix().first;
             // temp1 contains founded tag name with brackets "< and >"
@@ -80,9 +78,7 @@ void Tree::Read_XML(const string& path) {
                 if (st.top()->tagName == temp2.substr(1))
                     st.pop();
             }
-        }
     }
-    myFile.close();
 }
 
 void Tree::prettierFunction(const std::string& outputPath) {
