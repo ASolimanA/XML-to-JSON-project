@@ -1,23 +1,31 @@
-#include "Tree.h"
-#include "validation.h"
 #include <iostream>
 #include <unistd.h>
+#include "Tree.h"
+#include "validation.h"
 #include "graph.h"
 
 using namespace std;
 
 bool filePath_valid(const string& filePath) {
-    fstream file;
-    file.open(filePath);
-    if(!file) {
+    fstream file(filePath);
+
+    if(!file) return false;
+    else{
         file.close();
-        return false;
+        return true;
     }
-    file.close();
-    return true;
 }
 
-bool checkFile(const string &inputFile){
+string file_to_string(const string& filePath){
+    ifstream file(filePath);
+
+    ostringstream buffer;
+    buffer << file.rdbuf();
+
+    return buffer.str();
+}
+
+bool checkXML_valid(const string &inputFile){
     Validator v(inputFile);
     v.readFile();
     if(!v.validate()){
@@ -30,7 +38,7 @@ bool checkFile(const string &inputFile){
 
 template <typename T>
 ostream& operator <<(ostream& os, const vector<T>& vec) {
-    for (auto i: vec)
+    for (const auto& i: vec)
         os << i << endl;
     return os;
 }
@@ -74,11 +82,19 @@ int main(int argc, char *argv[])
     }
 
 
+    //check input file path
     if(!filePath_valid(inputFile)) {
         cerr << "Invalid input file path" << endl;
         return 0;
     }
 
+    //check output file path
+    if(!outputFile.empty() && filePath_valid(outputFile)==0){
+        cerr << "Invalid output file path" << endl;
+        return 0;
+    }
+
+    /////////////////
     if(strcmp(argv[1], "verify")==0){
         Validator v(inputFile);
 
@@ -91,19 +107,23 @@ int main(int argc, char *argv[])
         }
 
         else cout<<"Valid XML"<<endl;
+        return 0;
     }
-
+/////////////
     //check if it's a valid XML file before proceeding
     //if not valid then stop execution
-    if(checkFile(inputFile) == false)
+    if(checkXML_valid(inputFile) == false)
         return 0;
+
+    //convert the xml file into a string;
+    string XML = file_to_string(inputFile);
 
     if(strcmp(argv[1], "format")==0){
         Tree t;
-        t.Read_XML(inputFile);
+        t.Read_XML(XML);
         t.prettierFunction(outputFile);
     }
-    if(strcmp(argv[1], "json")==0){
+    else if(strcmp(argv[1], "json")==0){
         fstream file(outputFile, ios::out);
         Tree t;
         file <<  t.to_json(inputFile);
@@ -118,7 +138,7 @@ int main(int argc, char *argv[])
 //
 //    if(strcmp(argv[1], "decompress")==0){}
 
-    if(strcmp(argv[1], "search")==0){
+    else if(strcmp(argv[1], "search")==0){
         Tree t;
         t.Read_XML(inputFile);
         Graph* g = t.convert_to_graph();
