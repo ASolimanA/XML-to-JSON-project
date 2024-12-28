@@ -12,21 +12,9 @@ Validator::Validator() {
 
 Validator::Validator(const string& filePath) {
         this->filePath = filePath;
-        if(!filePath_valid()){
-            throw invalid_argument("Error: No such file exists!\n");
-        }
+        checkFile();
 }
 
-bool Validator::filePath_valid() {
-    fstream file;
-    file.open(filePath);
-    if(!file) {
-        file.close();
-        return false;
-    }
-    file.close();
-    return true;
-}
 
 bool Validator::validate (){
     stack<string> tagStack; // Stack to store the opened tags
@@ -173,6 +161,7 @@ void Validator::checkFile() {
     ifstream file(filePath);
     if (!file) {
         cerr << "Error: File does not exist." << endl;
+        throw invalid_argument("Error: No such file exists!\n");
         exit(1);
     }
     file.close();

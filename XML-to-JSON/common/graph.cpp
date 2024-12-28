@@ -134,3 +134,23 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
         std::cerr << "Error: Graphviz command failed.\n";
     }
 }
+
+void Graph::mostActive(int& mostActiveId, string& mostActiveName, int& followerCount) {
+    int maxFollowers = -1; 
+
+    mostActiveId = -1;     // if no active user is found
+    mostActiveName = "";   // default username
+    followerCount = 0;     // default number of followers
+
+    for (int i = 0; i < vertices.size(); i++) {
+        int currentFollowerCount = followers[i].size(); // Count the number of followers
+        if (currentFollowerCount > maxFollowers) {
+            maxFollowers = currentFollowerCount;
+            mostActiveId = vertices[i]->id; // Set the most active user's ID
+            mostActiveName = vertices[i]->name; // Set the most active user's name
+            followerCount = currentFollowerCount; // Update the follower count for the most active user
+        }
+    }
+}
+
+

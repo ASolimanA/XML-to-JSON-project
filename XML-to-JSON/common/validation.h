@@ -24,7 +24,6 @@ class Validator {
     public:
     Validator();
     Validator(const string& filePath);
-    bool filePath_valid();
     bool validate ();
     void fix ();
     vector<pair<string, array<int,2>>> get_error_list();
