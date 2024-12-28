@@ -25,6 +25,10 @@ qt_add_executable(gui_app
     adapter.h
     ErrorHighlighter.cpp
     ${COMMON_SOURCES}
+    graphwindow.h graphwindow.cpp graphwindow.ui
+
+
+
 )
 
 target_link_libraries(gui_app

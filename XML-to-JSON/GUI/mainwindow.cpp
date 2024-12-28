@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "validation.h"
 #include "ErrorHighlighter.h"
+#include "graphwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
 
@@ -20,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->fix, &QPushButton::clicked, this, &MainWindow::on_fix_clicked);
     connect(ui->Save_File, &QPushButton::clicked, this, &MainWindow::save_output);
     connect(ui->convert, &QPushButton::clicked, this, &MainWindow::convert_to_json);
+    connect(ui->graph_analysis, &QPushButton::clicked, this, &MainWindow::open_graph_window);
     ui->comboBox->addItem("Input text");
     ui->comboBox->addItem("File");
 }
@@ -61,6 +63,8 @@ void MainWindow::print_XML() {
 void MainWindow::on_verify_clicked() {
     clearOutput(); // Clear the output before verifying
     QString content = ui->input_XML->toPlainText();
+    if (content.isEmpty())
+        return;
     ui->textBrowser->setText(content);
     adapter.setVerifyContent(content, &validator);
     ErrorHighlighter* errorHighlighter = new ErrorHighlighter(ui->textBrowser->document());
@@ -80,9 +84,16 @@ void MainWindow::on_verify_clicked() {
 
 void MainWindow::on_fix_clicked()
 {
-    // if(outputType == containError) {
-    //     validator.fix();
-    // }
+    if(outputType == containError) {
+        while(!validator.validate()) {
+            validator.fix();
+            clearOutput();
+            ui->textBrowser->setText(adapter.getfilecontent(&validator));
+        }
+        outputType = xml;
+        ui->Message->setText("Fixed Successfully.");
+        ui->Message->setStyleSheet("QLabel { color: green; }");
+    }
 }
 
 void MainWindow::convert_to_json() {
@@ -148,6 +159,13 @@ void MainWindow::save_JSON() {
     }
     else {
         QMessageBox::warning(this, "Error", "No file path provided.");
+    }
+}
+
+void MainWindow::open_graph_window() {
+    if(outputType == xml) {
+        GraphWindow* g = new GraphWindow(this);
+        g->show();
     }
 }
 

@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1125</width>
-    <height>625</height>
+    <width>1229</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1125</width>
-    <height>625</height>
+    <width>1229</width>
+    <height>681</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1125</width>
-    <height>625</height>
+    <width>1229</width>
+    <height>681</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Read XML</string>
+     <string>Read File</string>
     </property>
    </widget>
    <widget class="QPushButton" name="verify">
@@ -122,8 +122,8 @@
      <rect>
       <x>570</x>
       <y>40</y>
-      <width>531</width>
-      <height>531</height>
+      <width>631</width>
+      <height>591</height>
      </rect>
     </property>
    </widget>
@@ -260,13 +260,26 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="graph_analysis">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>580</y>
+      <width>521</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graph Analysis</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1125</width>
+     <width>1229</width>
      <height>25</height>
     </rect>
    </property>
