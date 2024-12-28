@@ -24,6 +24,8 @@ bool Validator::validate (){
     bool validation = true;
     bool insideTag = false;
 
+    error_list.clear(); // Clear the error list before starting validation
+
     int line_no = 0;
 
     for (string line : fileContent) {
@@ -47,7 +49,7 @@ bool Validator::validate (){
                                 tagStack.pop();
                                 while(!temp.empty()) {
                                     validation = false;
-                                    error_type.push_back('c');
+                                    // error_type.push_back('c');
                                     error_list.push_back({'/' + temp.top(), last_tag_pos});
                                     //cerr << "Error: opening tag <" << temp.top() << "> doesn't match a closing tag!" << endl;
                                     temp.pop();
@@ -55,7 +57,7 @@ bool Validator::validate (){
                             }
                             else { // If closing not found in the whole stack
                                 validation = false;
-                                error_type.push_back('o');
+                                // error_type.push_back('o');
                                 error_list.push_back({tag, last_tag_pos});
                                 //cerr << "Error: closing tag </" << tag << "> doesn't match an opening tag!" << endl;
                                 while(!temp.empty()) {
@@ -70,14 +72,14 @@ bool Validator::validate (){
                         phase = actag;
                     } else { // If it's an opening tag
                         if (phase == leaf) {
-                            error_type.push_back('c');
+                            // error_type.push_back('c');
                             error_list.push_back({'/' + tagStack.top(), {line_no, i - static_cast<int>(tag.length()) - 2}});
                             //cerr << "Error: No Closing tag for leaf tag <" << tagStack.top() << ">" << endl;
                             validation = false;
                             tagStack.pop();
                         }
                         if (phase != beginning && tagStack.empty()) {
-                            error_type.insert(error_type.begin(),'r');
+                            // error_type.insert(error_type.begin(),'r');
                             error_list.insert(error_list.begin(),{"root", {0,0}});
                             // cerr << "There is more than 1 root for this file" << endl;
                             validation = false;
@@ -100,7 +102,7 @@ bool Validator::validate (){
     }
 
     while (!tagStack.empty()) {
-        error_type.push_back('c');
+        // error_type.push_back('c');
         error_list.push_back({'/' + tagStack.top(), last_tag_pos});
         //cout << "Error: Opening tag <" << tagStack.top() << "> has no matching closing tag!" << endl;
         validation = false;
@@ -117,7 +119,6 @@ void Validator::fix (){
         int pos = error.second[1];
         if (fileContent[line_no][pos] == '>') pos++;
         fileContent[line_no].insert(pos, "<" + error.first + ">");
-        break;
     }
 }
 Validator::~Validator() {
@@ -138,33 +139,33 @@ vector<pair<string, array<int,2>>> Validator::get_error_list() {
     return error_list;
 }
 
-vector<char> Validator::get_error_types() {
-    return error_type;
-}
+// vector<char> Validator::get_error_types() {
+//     return error_type;
+// }
 
 void Validator::print_errors() {
     vector<array<int, 2>> error_places = this->get_error_places();
-    vector<char> error_types = this->get_error_types();
+    //vector<char> error_types = this->get_error_types();
 
     cout << "Error Places:" << endl;
     for (const auto& place : error_places) {
         cout << "[" << place[0] << ", " << place[1] << "]" << endl;
     }
 
-    cout << "Error Types:" << endl;
-    for (const auto& type : error_types) {
-        cout << type << endl;
-    }
+    // cout << "Error Types:" << endl;
+    // for (const auto& type : error_types) {
+    //     cout << type << endl;
+    // }
 }
 //new
-void Validator::checkFile() {
+bool Validator::checkFile() {
     ifstream file(filePath);
     if (!file) {
         cerr << "Error: File does not exist." << endl;
         throw invalid_argument("Error: No such file exists!\n");
-        exit(1);
     }
     file.close();
+    return true;
 }
 
 string Validator::extractTagName(const string& tag) {
@@ -192,11 +193,6 @@ void Validator::readFile() {
             if (endPos != -1) {
                 string tag = line.substr(pos, endPos - pos + 1);
                 string tagName = extractTagName(tag);
-                if (isOpeningTag(tagName)) {
-                    openings.emplace_back(tagName, lineIndex);
-                } else {
-                    closings.emplace_back(tagName.substr(1), lineIndex); // Remove '/' from closing tag
-                }
                 pos = endPos + 1;
             } else {
                 break;

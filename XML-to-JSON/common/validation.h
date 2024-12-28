@@ -15,11 +15,9 @@ typedef enum {beginning ,leaf, aotag, actag} Phase;
 class Validator {
     private:
     string filePath;
-    vector<char> error_type;     // For storing corresponding error types
+    // vector<char> error_type;     // For storing corresponding error types
     vector<pair<string, array<int,2>>> error_list; // For storing Missing tag and its predicted correct position
     vector<string> fileContent; 
-    vector<pair<string, int>> openings; 
-    vector<pair<string, int>> closings; 
 
     public:
     Validator();
@@ -28,13 +26,12 @@ class Validator {
     void fix();
     vector<pair<string, array<int,2>>> get_error_list();
     vector<array<int,2>> get_error_places();
-    vector<char> get_error_types();
+    //vector<char> get_error_types();
     void print_errors();
     ~Validator();
     void setFileContent(const vector<string>& fileContent);
     vector<string> getFileContent();
-    //new
-    void checkFile();
+    bool checkFile();
     string extractTagName(const string& tag);
     bool isOpeningTag(const string& tag);
     void readFile();

@@ -13,20 +13,20 @@ protected:
     }
 };
 
-// TEST_F(ValidatorTest, TestFilePath) {
-//     EXPECT_TRUE(validator.filePath_valid());
-// }
+TEST_F(ValidatorTest, TestFilePath) {
+    EXPECT_TRUE(validator.checkFile());
+}
 
 TEST_F(ValidatorTest, TestValidationResult) {
     // Assuming sample.xml contains errors
     EXPECT_FALSE(validator.validate());
 }
-
-TEST_F(ValidatorTest, TestErrorTypes) {
-    // Types of expected errors
-    std::vector<char> expected_error_types = {'o','o','o','c','c','c'};
-    EXPECT_EQ(validator.get_error_types(), expected_error_types);
-}
+//                               == Deprecated ==                           //
+// TEST_F(ValidatorTest, TestErrorTypes) {
+//     // Types of expected errors
+//     std::vector<char> expected_error_types = {'o','o','o','c','c','c'};
+//     EXPECT_EQ(validator.get_error_types(), expected_error_types);
+// }
 
 TEST_F(ValidatorTest, TestErrorPositions) {
     // Positions of expected errors

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "adapter.h"
 #include "Tree.h"
+#include "validation.h"
+#include "ErrorHighlighter.h"
 
 typedef enum {none, containError ,xml, json} OutputType;
 
@@ -29,6 +31,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    ErrorHighlighter *errorHighlighter;
     QtAdapter adapter;
     OutputType outputType;
     Validator validator;
@@ -37,6 +40,7 @@ private:
     bool converted_to_tree;
     bool converted_to_graph;
 
+    void setConnections();
     void clearOutput();
     void save_XML();
     void save_JSON();

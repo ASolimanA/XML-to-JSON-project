@@ -125,7 +125,8 @@ int main(int argc, char *argv[])
     else if(strcmp(argv[1], "json")==0){
         ofstream outputFile(outputFilePath);
         Tree t;
-        outputFile <<  t.to_json(inputFilePath);
+        t.Read_XML(XML);
+        outputFile <<  t.to_json();
         outputFile.close();
     }
 
