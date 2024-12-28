@@ -58,7 +58,7 @@ std::string readFile(const std::string& filePath) {
     return buffer.str();
 }
 // Compress function
-std::string compress(const std::string& input) {
+void compress(const std::string& input) {
     std::stringstream compressed;
     size_t i = 0;
 
@@ -76,13 +76,19 @@ std::string compress(const std::string& input) {
     while (i < input.size()) {
         compressed << input[i];
     }
+    //save compressed data into a text file
+    char ch;
+    ofstream CompressoutFile("compressed.txt");
+    while(compressed.get(ch)) {
+        CompressoutFile << ch ;
+    }
     //save mapping into a text file
     // Open output file
     ofstream outFile("map_contents.txt");
     for (const auto& pair : symbolToPattern) {
         outFile << pair.first << ">" << pair.second ;
     }
-    return compressed.str();
+    //return compressed.str();
 }
 
 // Decompress function
@@ -115,35 +121,35 @@ std::string decompress(const std::string& CompressedfilePath,const std::string& 
 
 
 //// Main function
-//int main() {
-//    try {
-//        std::string filePath = "C:\\Users\\kareem\\Downloads\\10mb.xml";
-//
+/* int main() {
+    try {
+        std::string filePath = "C:\\Users\\kareem\\Downloads\\10mb.xml";
 //        // Read the XML file content
-//        std::string input = readFile(filePath);
-//
-//        // Compress the input
-//        std::string compressed = compress(input);
-//        std::ofstream outputFile("compressed.txt", std::ios::binary);
-//        outputFile << compressed;
-//        outputFile.close();
-//
-//        // Decompress the data
-//        std::string decompressed = decompress("C:\\C++\\DSA project\\source code\\pt3\\compressed.txt","C:\\C++\\DSA project\\source code\\pt3\\map_contents.txt");
-//        std::ofstream outputFile2("decompressed.txt", std::ios::binary);
-//        outputFile2 << decompressed;
-//        outputFile2.close();
-//
-//        // Optional: Check if decompressed matches original input
-//        if (input == decompressed) {
-//            std::cout << "Decompression verified successfully!" << std::endl;
-//        } else {
-//            std::cout << "Decompression failed!" << std::endl;
-//        }
-//
-//    } catch (const std::exception& e) {
-//        std::cerr << "Error: " << e.what() << std::endl;
-//    }
-//
-//    return 0;
-//}
+        std::string input = readFile(filePath);
+
+        // Compress the input
+        std::string compressed = compress(input);
+        std::ofstream outputFile("compressed.txt", std::ios::binary);
+        outputFile << compressed;
+        outputFile.close();
+
+        // Decompress the data
+        std::string decompressed = decompress("C:\\C++\\DSA project\\source code\\pt3\\compressed.txt","C:\\C++\\DSA project\\source code\\pt3\\map_contents.txt");
+        std::ofstream outputFile2("decompressed.txt", std::ios::binary);
+        outputFile2 << decompressed;
+        outputFile2.close();
+
+        // Optional: Check if decompressed matches original input
+        if (input == decompressed) {
+            std::cout << "Decompression verified successfully!" << std::endl;
+        } else {
+            std::cout << "Decompression failed!" << std::endl;
+        }
+
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+ */
