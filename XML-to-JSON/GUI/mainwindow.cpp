@@ -11,25 +11,29 @@ MainWindow::MainWindow(QWidget *parent)
 {
     adapter = QtAdapter();
     outputType = none;
+    converted_to_tree = false;
+    converted_to_graph = false;
     ui->setupUi(this);
     connect(ui->Read, &QPushButton::clicked, this, &MainWindow::print_XML);
     connect(ui->getPath, &QPushButton::clicked, this, &MainWindow::get_file_path);
     connect(ui->verify, &QPushButton::clicked, this, &MainWindow::on_verify_clicked);
+    connect(ui->fix, &QPushButton::clicked, this, &MainWindow::on_fix_clicked);
     connect(ui->Save_File, &QPushButton::clicked, this, &MainWindow::save_output);
+    connect(ui->convert, &QPushButton::clicked, this, &MainWindow::convert_to_json);
     ui->comboBox->addItem("Input text");
     ui->comboBox->addItem("File");
 }
 
 void MainWindow::get_file_path() {
     QString filePath = QFileDialog::getOpenFileName(this, "Open XML File", "", "XML files (*.xml)");
-    ui->textEdit->setText(filePath);
+    ui->lineEdit->setText(filePath);
 }
 
 void MainWindow::print_XML() {
     ui->input_XML->clear();
     clearOutput();
     if(ui->comboBox->currentText() == "File") {
-        QString filePath = ui->textEdit->toPlainText();
+        QString filePath = ui->lineEdit->text();
         if (!filePath.isEmpty()) {
             QFile file(filePath);
             if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -57,7 +61,6 @@ void MainWindow::print_XML() {
 void MainWindow::on_verify_clicked() {
     clearOutput(); // Clear the output before verifying
     QString content = ui->input_XML->toPlainText();
-    Validator validator;
     ui->textBrowser->setText(content);
     adapter.setVerifyContent(content, &validator);
     ErrorHighlighter* errorHighlighter = new ErrorHighlighter(ui->textBrowser->document());
@@ -72,6 +75,26 @@ void MainWindow::on_verify_clicked() {
         ui->Message->setStyleSheet("QLabel { color: red; }");
         outputType = containError;
         errorHighlighter->setHighlights(&validator);
+    }
+}
+
+void MainWindow::on_fix_clicked()
+{
+    // if(outputType == containError) {
+    //     validator.fix();
+    // }
+}
+
+void MainWindow::convert_to_json() {
+    if(outputType == xml) {
+        if(!converted_to_tree) {
+            main_tree.Read_XML(adapter.to_string(ui->textBrowser->toPlainText()));
+            converted_to_tree = true;
+        }
+        ui->textBrowser->setText(adapter.to_qstring(main_tree.to_json()));
+        ui->Message->setText("Converted Successfully.");
+        ui->Message->setStyleSheet("QLabel { color: green; }");
+        outputType = json;
     }
 }
 
@@ -132,6 +155,8 @@ void MainWindow::save_JSON() {
 
 void MainWindow::clearOutput() {
     ui->textBrowser->clear();
+    converted_to_tree = false;
+    converted_to_graph = false;
     outputType = none;
     ui->Message->clear();
 }
@@ -140,3 +165,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+

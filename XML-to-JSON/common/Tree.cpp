@@ -144,13 +144,13 @@ std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) 
 
             //print all array values if they have the same key
             if(!rootNode->branches[0]->tagValue.empty()){
-                tabs += '\t';
+                tabs += "    ";
                 for(int i=0; i < rootNode->branches.size(); i++) {
                     json += tabs + '"' + rootNode->branches[i]->tagValue + "\"";
                     if(i != rootNode->branches.size() - 1) json += ",";
                     json += "\n";
                 }
-                json += tabs.substr(0, tabs.size() - 1) + ']';
+                json += tabs.substr(0, tabs.size() - 4) + ']';
                 return json;
             }
             obj = false;
@@ -160,7 +160,7 @@ std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) 
 
         for(int i=0; i < numBranches; i++) {
 
-            json += to_json(rootNode->branches[i], tabs + "\t", !arr, !obj);
+            json += to_json(rootNode->branches[i], tabs + "    ", !arr, !obj);
             if(i != numBranches-1) json += ",";
             json += "\n";
         }
@@ -176,8 +176,7 @@ std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) 
     return json;
 }
 
-std::string Tree::to_json(const std::string& filePath) {
-    Read_XML(filePath);
+std::string Tree::to_json() {
     bool arr = true, obj = false;
 
     if(!root->branches.empty()) {
@@ -190,8 +189,8 @@ std::string Tree::to_json(const std::string& filePath) {
             }
         }
     }
-    else return "{\n\t\""  + root->tagName + "\" : \""  + root->tagValue + "\"\n}";
-    return to_json(root, arr ? "\t" : "" , arr, obj);
+    else return "{\n    \""  + root->tagName + "\" : \""  + root->tagValue + "\"\n}";
+    return to_json(root, arr ? "    " : "" , arr, obj);
 }
 
 Graph* Tree::convert_to_graph() {
@@ -251,4 +250,3 @@ void Tree::add_followers(User* current_user, Node* followers_node, Graph* curren
     }
     current_graph->followers.push_back(follows);
 }
-

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "adapter.h"
+#include "Tree.h"
 
 typedef enum {none, containError ,xml, json} OutputType;
 
@@ -21,6 +22,8 @@ public:
     void print_XML();
     void get_file_path();
     void on_verify_clicked();
+    void on_fix_clicked();
+    void convert_to_json();
     void save_output();
     ~MainWindow();
 
@@ -28,6 +31,11 @@ private:
     Ui::MainWindow *ui;
     QtAdapter adapter;
     OutputType outputType;
+    Validator validator;
+    Tree main_tree;
+    Graph* main_graph;
+    bool converted_to_tree;
+    bool converted_to_graph;
 
     void clearOutput();
     void save_XML();

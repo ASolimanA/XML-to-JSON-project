@@ -26,7 +26,7 @@ public:
 	void preorder_traversal();
     std::string prettierFunction();
     Node *getRoot();
-    std::string to_json(const std::string& filePath);
+    std::string to_json();
 	// Functions to convert to graph
 	Graph* convert_to_graph();
 	User* convert_user(Node* user_node, Graph* current_graph);
