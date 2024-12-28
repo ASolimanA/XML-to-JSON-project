@@ -207,3 +207,22 @@ void Graph::mostActive(int& mostActiveId, string& mostActiveName, int& followerC
         }
     }
 }
+std::vector<int>Graph:: findMutualFollowers(const vector<int>& userIds) {
+        unordered_map<int, int> followerCount;
+        // Populate the follower count map
+        for (int userId : userIds) {
+            int index = userIndex(userId);
+            if (index == -1) {
+                throw invalid_argument("User ID " + to_string(userId) + " not found.");
+            }
+ for (int followerId : followers[index]) {
+                followerCount[followerId]++;
+            }
+  // Collect mutual followers
+        vector<int> mutualFollowers;
+        for (const auto& pair : followerCount) {
+            if (pair.second == userIds.size()) { // Appears in all specified users
+                mutualFollowers.push_back(pair.first);
+            }
+return mutualFollowers;
+}
