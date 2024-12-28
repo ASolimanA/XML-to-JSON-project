@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "Tree.h"
 #include "graph.h"
+#include <string>
 
 class GraphTest : public ::testing::Test {
 protected:
@@ -14,9 +15,9 @@ protected:
     }
 
     void SetUp() override {
-        tr.Read_XML("sample.xml");
-        g = tr.convert_to_graph();
-        
+        std::string str = tr.fileToString("sample.xml");
+        tr.Read_XML(str);
+        g = tr.convert_to_graph();   
     }
 };
 

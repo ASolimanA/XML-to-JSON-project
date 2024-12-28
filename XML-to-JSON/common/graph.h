@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <unordered_map>
+#include <stdexcept>
 
 struct Post {
 	std::string body;
@@ -36,10 +38,15 @@ public:
 	void clearMarks();
 	void getNextVertices(int id, std::queue<int>& vertexQue);
     std::vector<std::string> wordSearch(const std::string& word);
+	unordered_map<int, int> getIdToIndexMap();
 	void print();
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
+	
+	std::vector<User*> suggestFollowers(int id);
 	friend class Tree;
+
+	
 };
 
 #endif

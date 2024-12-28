@@ -39,6 +39,16 @@ void Tree::preorder_traversal() {
     preorder_traversal(root);
 }
 
+std::string Tree::fileToString(const std::string& filePath) {
+    std::ifstream file(filePath); // Open the file
+    if (!file) {
+        throw std::ios_base::failure("Error opening file");
+    }
+    std::ostringstream buffer;
+    buffer << file.rdbuf(); // Read the file's content into a stream
+    return buffer.str();    // Convert the stream to a string
+}
+
 void Tree::Read_XML(const string& xml) {
     string temp1, temp2;
     // regex to find tag or a tag value
