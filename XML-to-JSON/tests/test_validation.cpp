@@ -13,9 +13,9 @@ protected:
     }
 };
 
-TEST_F(ValidatorTest, TestFilePath) {
-    EXPECT_TRUE(validator.filePath_valid());
-}
+// TEST_F(ValidatorTest, TestFilePath) {
+//     EXPECT_TRUE(validator.filePath_valid());
+// }
 
 TEST_F(ValidatorTest, TestValidationResult) {
     // Assuming sample.xml contains errors

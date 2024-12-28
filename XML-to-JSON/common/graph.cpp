@@ -99,6 +99,61 @@ unordered_map<int, int> Graph::getIdToIndexMap() {
 	return idToIndex;
 }
 
+/**
+ * @brief Suggests potential new followers for a given user.
+ *
+ * This function inspects all of the user’s followers, then gathers 
+ * the accounts followed by those followers. Any account not yet 
+ * marked (indicating it's unknown to the user or not the user’s own 
+ * account) is added to the returned suggestions list.
+ *
+ * @param id The user ID for whom to suggest new followers.
+ * @return A vector of pointers to User objects that could be suggested as followers.
+ * @throws invalid_argument If the user is not found.
+ */
+vector<User*> Graph::suggestFollowers(int id) {
+    // Find the index of the user by ID
+    int user_index = userIndex(id);
+    if (user_index == -1) {
+        throw invalid_argument("User not found"); // Throw if user doesn't exist
+    }
+
+    // Retrieve mapping of user IDs to their indices
+    unordered_map<int, int> idToIndex = getIdToIndexMap();
+
+    // Mark the current user to avoid suggesting themselves
+    markVertex(vertices[user_index]);
+
+    // Mark all the followers of the user
+    for (int i = 0; i < followers[user_index].size(); i++) {
+        int followerIndex = idToIndex[followers[user_index][i]];
+        markVertex(vertices[followerIndex]);
+    }
+
+    // Prepare a container for suggested new followers
+    vector<User*> suggestedFollowers;
+
+    // For each follower, look at the users they follow
+    for (int i = 0; i < followers[user_index].size(); i++) {
+        int followerIndex = idToIndex[followers[user_index][i]];
+
+        // Check each followee of this follower
+        for (int j = 0; j < followers[followerIndex].size(); j++) {
+            int suggestedIndex = idToIndex[followers[followerIndex][j]];
+
+            // Add the new user if it's not yet marked
+            if (!vertices[suggestedIndex]->marked) {
+                suggestedFollowers.push_back(vertices[suggestedIndex]);
+                markVertex(vertices[suggestedIndex]); // Mark so it's not added again
+            }
+        }
+    }
+
+    // Clear marks so future calls aren't affected
+    clearMarks();
+
+    return suggestedFollowers; // Return the final list of potential new followers
+}
 //@overload
 // string to_string(int i){
 // 	return vertices[i]->name;
@@ -134,23 +189,3 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
         std::cerr << "Error: Graphviz command failed.\n";
     }
 }
-
-void Graph::mostActive(int& mostActiveId, string& mostActiveName, int& followerCount) {
-    int maxFollowers = -1; 
-
-    mostActiveId = -1;     // if no active user is found
-    mostActiveName = "";   // default username
-    followerCount = 0;     // default number of followers
-
-    for (int i = 0; i < vertices.size(); i++) {
-        int currentFollowerCount = followers[i].size(); // Count the number of followers
-        if (currentFollowerCount > maxFollowers) {
-            maxFollowers = currentFollowerCount;
-            mostActiveId = vertices[i]->id; // Set the most active user's ID
-            mostActiveName = vertices[i]->name; // Set the most active user's name
-            followerCount = currentFollowerCount; // Update the follower count for the most active user
-        }
-    }
-}
-
-

@@ -39,7 +39,6 @@ class Validator {
     bool isOpeningTag(const string& tag);
     void readFile();
     void printFileContent() const;
-    void writeFile(const string& outputFilePath);
 };
 
 #endif
