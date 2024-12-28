@@ -39,6 +39,8 @@ public:
 	void print();
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
+        void mostActive(int& mostActiveId, string& mostActiveName, int& followerCount) ;
+
 	friend class Tree;
 };
 
