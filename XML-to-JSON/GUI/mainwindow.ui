@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Read File</string>
+     <string>Read XML</string>
     </property>
    </widget>
    <widget class="QPushButton" name="verify">

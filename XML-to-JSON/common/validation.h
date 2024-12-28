@@ -24,8 +24,8 @@ class Validator {
     public:
     Validator();
     Validator(const string& filePath);
-    bool validate ();
-    void fix ();
+    bool validate();
+    void fix();
     vector<pair<string, array<int,2>>> get_error_list();
     vector<array<int,2>> get_error_places();
     vector<char> get_error_types();
@@ -39,6 +39,7 @@ class Validator {
     bool isOpeningTag(const string& tag);
     void readFile();
     void printFileContent() const;
+    void writeFile(const string& outputFilePath);
 };
 
 #endif

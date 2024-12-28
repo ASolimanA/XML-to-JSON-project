@@ -38,11 +38,11 @@ public:
 	void clearMarks();
 	void getNextVertices(int id, std::queue<int>& vertexQue);
     std::vector<std::string> wordSearch(const std::string& word);
-	unordered_map<int, int> getIdToIndexMap();
+	std::unordered_map<int, int> getIdToIndexMap();
 	void print();
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
-        void mostActive(int& mostActiveId, std::string& mostActiveName, int& followerCount) ;
+    void mostActive(int& mostActiveId, std::string& mostActiveName, int& followerCount) ;
 
 	
 	std::vector<User*> suggestFollowers(int id);
