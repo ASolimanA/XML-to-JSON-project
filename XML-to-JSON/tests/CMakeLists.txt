@@ -49,6 +49,10 @@ set_target_properties(UnitTests PROPERTIES
 # Copy sample.xml to the build directory
 add_custom_command(TARGET UnitTests POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    ${CMAKE_CURRENT_SOURCE_DIR}/sample.xml
-    ${CMAKE_BINARY_DIR}/tests/sample.xml)
+    ${CMAKE_CURRENT_SOURCE_DIR}/sample_val.xml
+    ${CMAKE_BINARY_DIR}/tests/sample_val.xml)
 
+add_custom_command(TARGET UnitTests POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_CURRENT_SOURCE_DIR}/sample_graph.xml
+    ${CMAKE_BINARY_DIR}/tests/sample_graph.xml)

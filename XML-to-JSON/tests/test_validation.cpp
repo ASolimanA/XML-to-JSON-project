@@ -5,7 +5,7 @@ class ValidatorTest : public ::testing::Test {
 protected:
     Validator validator;
 
-    ValidatorTest() : validator("sample.xml") {}
+    ValidatorTest() : validator("sample_val.xml") {}
 
     void SetUp() override {
         validator.readFile();

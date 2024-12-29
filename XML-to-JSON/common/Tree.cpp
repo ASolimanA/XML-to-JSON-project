@@ -31,7 +31,7 @@ Node *Tree::getRoot() {
 void Tree::preorder_traversal(Node* node) {
     if (node == NULL)
         return;
-    cout << node->tagName << ' ' << node->tagValue << endl;
+    //cout << node->tagName << ' ' << node->tagValue << endl;
     for (int i = 0; i < node->branches.size(); i++)
         preorder_traversal(node->branches[i]);
 }

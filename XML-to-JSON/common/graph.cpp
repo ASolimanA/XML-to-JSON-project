@@ -191,7 +191,7 @@ void Graph::dotFile(const std::string& infile){
 			string user = to_string(vertices[i]->id);
 			string follower = to_string(followers[i][j]);
 			file <<"	" + user + " -> " + follower + "\n";
-			cout << "in the make file.dot function"<<endl;
+			// cout << "in the make file.dot function"<<endl;
 		}
 	}
 	file<< "}\n";
@@ -205,7 +205,7 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
     // Execute the command
     int result = system(command.c_str());
     if (result == 0) {
-        std::cout << "Graph rendered successfully: " << outfile << "\n";
+        // std::cout << "Graph rendered successfully: " << outfile << "\n";
     } else {
         std::cerr << "Error: Graphviz command failed.\n";
     }
@@ -280,7 +280,7 @@ User* Graph:: MostInfluencer(){
         }
     }
     if(MostInfluencerUser != NULL)
-        cout<<"The user with Most number of followers (Most Influencer) is the user with ID : "<<MostInfluencerUser->id<<" and named : "<<MostInfluencerUser->name<<"\n";
+        // cout<<"The user with Most number of followers (Most Influencer) is the user with ID : "<<MostInfluencerUser->id<<" and named : "<<MostInfluencerUser->name<<"\n";
 	return MostInfluencerUser;
 }    
 
