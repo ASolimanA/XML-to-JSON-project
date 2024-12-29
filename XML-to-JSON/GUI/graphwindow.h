@@ -2,6 +2,7 @@
 #define GRAPHWINDOW_H
 
 #include <QDialog>
+#include "Graph.h"
 
 namespace Ui {
 class GraphWindow;
@@ -12,7 +13,7 @@ class GraphWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit GraphWindow(QWidget *parent = nullptr);
+    explicit GraphWindow(QWidget *parent = nullptr, Graph *main_graph = nullptr);
     ~GraphWindow();
 
 private slots:
@@ -32,6 +33,7 @@ private slots:
 
 private:
     Ui::GraphWindow *ui;
+    Graph* main_graph;
 };
 
 #endif // GRAPHWINDOW_H

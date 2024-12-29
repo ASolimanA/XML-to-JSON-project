@@ -191,7 +191,15 @@ void MainWindow::save_JSON() {
 
 void MainWindow::open_graph_window() {
     if(outputType == xml) {
-        GraphWindow* g = new GraphWindow(this);
+        if(!converted_to_graph) {
+            if(!converted_to_tree) {
+                main_tree.Read_XML(adapter.to_string(ui->textBrowser->toPlainText()));
+                converted_to_tree = true;
+            }
+            main_graph = main_tree.convert_to_graph();
+            converted_to_graph = true;
+        }
+        GraphWindow* g = new GraphWindow(this, main_graph);
         g->show();
     }
 }
