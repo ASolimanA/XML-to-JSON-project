@@ -153,22 +153,22 @@ int main(int argc, char *argv[])
     }
         
     else if(strcmp(argv[1], "most_active")==0){
-        Tree t;
-        t.Read_XML(XML);
-        Graph* g = t.convert_to_graph();
-               int mostActiveId;
-           string mostActiveName;
-           int followerCount;
-        g->mostActive(mostActiveId, mostActiveName, followerCount);
+    //     Tree t;
+    //     t.Read_XML(XML);
+    //     Graph* g = t.convert_to_graph();
+    //            int mostActiveId;
+    //        string mostActiveName;
+    //        int followerCount;
+    //     g->mostActive(mostActiveId, mostActiveName, followerCount);
     
-    if (mostActiveId != -1) {
-        cout << "The most active user:" << endl;
-        cout << "ID: " << mostActiveId << endl;
-        cout << "Name: " << mostActiveName << endl;
-        cout << "Number of Followers: " << followerCount << endl;
-    } else {
-        cout << "No active users found." << endl;
-    }
+    // if (mostActiveId != -1) {
+    //     cout << "The most active user:" << endl;
+    //     cout << "ID: " << mostActiveId << endl;
+    //     cout << "Name: " << mostActiveName << endl;
+    //     cout << "Number of Followers: " << followerCount << endl;
+    // } else {
+    //     cout << "No active users found." << endl;
+    // }
         
     }
 
