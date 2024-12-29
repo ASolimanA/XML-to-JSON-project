@@ -1,10 +1,11 @@
 #include "graphwindow.h"
 #include "ui_graphwindow.h"
 
-GraphWindow::GraphWindow(QWidget *parent)
+GraphWindow::GraphWindow(QWidget *parent, Graph* main_graph)
     : QDialog(parent)
     , ui(new Ui::GraphWindow)
 {
+    this->main_graph = main_graph;
     ui->setupUi(this);
 }
 
