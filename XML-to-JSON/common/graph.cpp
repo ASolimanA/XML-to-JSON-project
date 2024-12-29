@@ -68,6 +68,23 @@ void Graph::wordSearch(const std::string& word, std::vector<Post*>& posts, std::
 
         }
 }
+std::vector<std::string> Graph::searchPosts(const std::string& topic) {
+    std::vector<std::string> matchedPosts;
+
+    // Search through posts of all users
+    for (User* user : vertices) {
+        for (Post* post : user->posts) {
+            // Use regex to match the topic as a distinct word (not a substring)
+            std::regex topicRegex("\\b" + topic + "\\b", std::regex_constants::icase); // Case-insensitive match
+            if (std::regex_search(post->body, topicRegex)) {
+                matchedPosts.push_back(post->body);
+            }
+        }
+    }
+
+    return matchedPosts;
+}
+
 
 std::vector<std::string> Graph::wordSearch(const std::string& word){
     std::vector<std::string> matchedPosts;
