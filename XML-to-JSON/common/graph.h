@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include <unordered_map>
 #include <stdexcept>
 
 struct Post {
@@ -37,11 +36,8 @@ public:
 	void addVertex(User* vertex);
 	void markVertex(User* vertex);
 	void clearMarks();
-	void getNextVertices(int id, std::queue<int>& vertexQue);
 	User* getUser(int id);
     std::vector<Post*> postBodySearch(const std::string& word);
-	std::unordered_map<int, int> getIdToIndexMap();
-	void print();
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
     User* mostActive();

@@ -5,6 +5,7 @@
 #include <stack>
 #include <functional>
 #include <sstream>
+#include <map>
 
 using namespace std;
 
@@ -195,10 +196,19 @@ std::string Tree::to_json() {
 
 Graph* Tree::convert_to_graph() {
     Graph* new_graph = new Graph();
+    map<int, int> id_to_index;
     for (int i = 0; i < root->branches.size(); i++) {
-        if (root->branches[i]->tagName == "user")
+        if (root->branches[i]->tagName == "user") {
             new_graph->addVertex(convert_user(root->branches[i], new_graph));
+            id_to_index[new_graph->vertices.back()->id] = i;
+        }
     }
+    // Convert followers from IDs to indexes
+    for (int i = 0; i < new_graph->followers.size(); i++) {
+		for (int j = 0; j < new_graph->followers[i].size(); j++) {
+			new_graph->followers[i][j] = id_to_index[new_graph->followers[i][j]];
+		}
+	}
     return new_graph;
 }
 
