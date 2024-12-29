@@ -115,7 +115,8 @@ void MainWindow::prettify_XML() {
         ui->Message->setStyleSheet("QLabel { color: green; }");
 
     } else if (outputType == none) { // If there is no output to prettify
-        QMessageBox::warning(this, "Error", "No output to prettify.");
+        ui->Message->setText("You need to verify an XML file first.");
+        ui->Message->setStyleSheet("QLabel { color: red; }");
     }
 
     else if (outputType == containError) { // If the output contains errors
@@ -201,6 +202,9 @@ void MainWindow::open_graph_window() {
         }
         GraphWindow* g = new GraphWindow(this, main_graph);
         g->show();
+    } else {
+        ui->Message->setText("Cannot open the graph window as the XML is not yet verified.");
+        ui->Message->setStyleSheet("QLabel { color: red; }");
     }
 }
 

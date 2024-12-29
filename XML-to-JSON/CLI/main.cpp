@@ -143,13 +143,13 @@ int main(int argc, char *argv[])
 //    if(strcmp(argv[1], "decompress")==0){}
 
     else if(strcmp(argv[1], "search")==0){
-        Tree t;
-        t.Read_XML(XML);
-        Graph* g = t.convert_to_graph();
-        vector<string> posts = g->wordSearch(wordToSearch);
+        // Tree t;
+        // t.Read_XML(XML);
+        // Graph* g = t.convert_to_graph();
+        // vector<string> posts = g->wordSearch(wordToSearch);
 
-        if(posts.empty()) cout << "The word you are searching for is not found in any of the posts" << endl;
-        else cout << posts;
+        // if(posts.empty()) cout << "The word you are searching for is not found in any of the posts" << endl;
+        // else cout << posts;
     }
         
     else if(strcmp(argv[1], "most_active")==0){

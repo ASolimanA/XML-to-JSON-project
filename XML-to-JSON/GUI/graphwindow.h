@@ -2,6 +2,7 @@
 #define GRAPHWINDOW_H
 
 #include <QDialog>
+#include <QString>
 #include "Graph.h"
 
 namespace Ui {

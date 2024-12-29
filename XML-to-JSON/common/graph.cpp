@@ -56,15 +56,16 @@ void Graph::getNextVertices(int id, queue<int>& vertexQue) {
 	}
 }
 
-void Graph::wordSearch(const std::string& word, std::vector<Post*>& posts, std::vector<string>& matchedPosts){
+void Graph::wordSearch(const std::string& word, std::vector<Post*>& posts, std::vector<Post*>& matchedPosts){
         for(Post* post: posts){
             string body = post->body;
+    
 
-            regex re(word);
+            regex re("\\b" + word + "\\b");
             smatch match;
 
             if(regex_search(body, match, re))
-                matchedPosts.push_back(body);
+                matchedPosts.push_back(post);
 
         }
 }
@@ -90,8 +91,8 @@ std::vector<Post*> Graph::searchTopics(const std::string& topic) {
 
 
 
-std::vector<std::string> Graph::wordSearch(const std::string& word){
-    std::vector<std::string> matchedPosts;
+vector<Post*> Graph::postBodySearch(const string& word){
+    vector<Post*> matchedPosts;
 
     for(User* user: vertices)
         wordSearch(word, user->posts, matchedPosts);
@@ -205,6 +206,7 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
     // Execute the command
     int result = system(command.c_str());
     if (result == 0) {
+        std::filesystem::remove(dotfile);
         // std::cout << "Graph rendered successfully: " << outfile << "\n";
     } else {
         std::cerr << "Error: Graphviz command failed.\n";
