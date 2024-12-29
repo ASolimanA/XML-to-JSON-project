@@ -230,3 +230,12 @@ TEST_F(GraphTest, TestRemoveFollower) {
     EXPECT_EQ(std::count(followerList.begin(), followerList.end(), followerId), 0);
     EXPECT_EQ(followerList.size(), 1);
 }
+
+TEST_F(GraphTest, TestGraphImage) {
+    // Generate a DOT file and convert it to an image
+    std::string dotfile = "sample_graph.dot";
+    std::string imagefile = "sample_graph.png";
+    g->dotFile(dotfile);
+    g->graphImage(dotfile, imagefile);
+    EXPECT_TRUE(std::filesystem::exists(imagefile));
+}
