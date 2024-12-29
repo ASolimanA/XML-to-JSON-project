@@ -256,6 +256,7 @@ User* Graph:: MostInfluencer(){
         }
     }
     cout<<"The user with Most number of followers (Most Influencer) is the user with ID : "<<MostInfluencerUser->id<<" and named : "<<MostInfluencerUser->name<<"\n";
+	return MostInfluencerUser;
 }    
 
 //Build a small network for test
