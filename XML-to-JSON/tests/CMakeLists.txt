@@ -21,7 +21,7 @@ add_executable(UnitTests
     # test_compress.cpp
     # test_adapter.cpp
     test_validation.cpp
-    test_graph_image.cpp
+    test_graph.cpp
     # test_Tree.cpp
     # test_convert.cpp
     ${COMMON_SOURCES}
