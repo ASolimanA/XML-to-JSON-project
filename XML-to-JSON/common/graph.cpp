@@ -68,7 +68,7 @@ void Graph::wordSearch(const std::string& word, std::vector<Post*>& posts, std::
 
         }
 }
-std::vector<Post*> Graph::searchPosts(const std::string& topic) {
+std::vector<Post*> Graph::searchTopics(const std::string& topic) {
     std::vector<Post*> matchedPosts; // Vector to hold pointers to matching posts
 
     // Iterate over all users in the graph
@@ -228,27 +228,30 @@ void Graph::mostActive(int& mostActiveId, string& mostActiveName, int& followerC
         }
     }
 }
-std::vector<int>Graph:: findMutualFollowers(const vector<int>& userIds) {
-        unordered_map<int, int> followerCount;
-        // Populate the follower count map
-        for (int userId : userIds) {
-            int index = userIndex(userId);
-            if (index == -1) {
-                throw invalid_argument("User ID " + to_string(userId) + " not found.");
-            }
- for (int followerId : followers[index]) {
-                followerCount[followerId]++;
-            }
-  // Collect mutual followers
-        vector<int> mutualFollowers;
-        for (const auto& pair : followerCount) {
-            if (pair.second == userIds.size()) { // Appears in all specified users
-                mutualFollowers.push_back(pair.first);
-            }
-        return mutualFollowers;
+vector<int> Graph::findMutualFollowers(const vector<int>& userIds) {
+    unordered_map<int, int> followerCount;
+
+    // Populate the follower count map
+    for (int userId : userIds) {
+        int index = userIndex(userId);
+        if (index == -1) {
+            throw invalid_argument("User ID " + to_string(userId) + " not found.");
+        }
+        for (int followerId : followers[index]) {
+            followerCount[followerId]++;
         }
     }
+
+    // Collect mutual followers
+    vector<int> mutualFollowers;
+    for (const auto& pair : followerCount) {
+        if (pair.second == userIds.size()) {
+            mutualFollowers.push_back(pair.first);
+        }
     }
+
+    return mutualFollowers;
+}
 User* Graph:: MostInfluencer(){
     unordered_map <int/*user id*/,int/*number of followers*/> UserFollowers;
 
@@ -270,13 +273,14 @@ User* Graph:: MostInfluencer(){
             maxfollowers=FollowersCount;
         }
     }
-    User * MostInfluencerUser;
+    User * MostInfluencerUser = NULL;
     for(int i=0; i<vertices.size(); i++){
         if(vertices[i]->id==MostInfluencerId){
             MostInfluencerUser=vertices[i];
         }
     }
-    cout<<"The user with Most number of followers (Most Influencer) is the user with ID : "<<MostInfluencerUser->id<<" and named : "<<MostInfluencerUser->name<<"\n";
+    if(MostInfluencerUser != NULL)
+        cout<<"The user with Most number of followers (Most Influencer) is the user with ID : "<<MostInfluencerUser->id<<" and named : "<<MostInfluencerUser->name<<"\n";
 	return MostInfluencerUser;
 }    
 
