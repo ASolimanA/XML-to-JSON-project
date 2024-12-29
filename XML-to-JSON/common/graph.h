@@ -43,9 +43,10 @@ public:
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
     void mostActive(int& mostActiveId, std::string& mostActiveName, int& followerCount) ;
-	std::vector<int> findMutualFollowers(const vector<int>& userIds);
+	std::vector<int> findMutualFollowers(const std::vector<int>& userIds);
 	User* MostInfluencer();
 	std::vector<User*> suggestFollowers(int id);
+	std::vector<Post*> searchTopics(const std::string& topic);
 	friend class Tree;
 
 	
