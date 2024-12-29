@@ -19,6 +19,9 @@ public:
 	std::string name;
 	std::vector<Post*> posts;
 	User();
+	int getId();
+	std::string getName();
+	std::vector<Post*> getPosts();
 	friend class Graph;
 	friend class Tree;
 };
@@ -35,12 +38,13 @@ public:
 	void markVertex(User* vertex);
 	void clearMarks();
 	void getNextVertices(int id, std::queue<int>& vertexQue);
+	User* getUser(int id);
     std::vector<Post*> postBodySearch(const std::string& word);
 	std::unordered_map<int, int> getIdToIndexMap();
 	void print();
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
-    void mostActive(int& mostActiveId, std::string& mostActiveName, int& followerCount) ;
+    User* mostActive();
 	std::vector<int> findMutualFollowers(const std::vector<int>& userIds);
 	User* MostInfluencer();
 	std::vector<User*> suggestFollowers(int id);

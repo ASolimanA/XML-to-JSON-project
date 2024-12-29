@@ -14,9 +14,29 @@ User::User() {
 	marked = false;
 }
 
+int User::getId() {
+    return id;
+};
+
+string User::getName() { 
+    return name; 
+};
+
+vector<Post*> User::getPosts() { 
+    return posts;
+}
+
 Graph::~Graph() {
 	for (auto user : vertices)
 		delete user;
+}
+
+User* Graph::getUser(int id) {
+	for (int i = 0; i < vertices.size(); i++) {
+		if (vertices[i]->id == id)
+			return vertices[i];
+	}
+	return NULL;
 }
 
 bool Graph::isEmpty() {
@@ -213,22 +233,19 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
     }
 }
 
-void Graph::mostActive(int& mostActiveId, string& mostActiveName, int& followerCount) {
+User* Graph::mostActive() {
     int maxFollowers = -1;
 
-    mostActiveId = -1;     // if no active user is found
-    mostActiveName = "";   // default username
-    followerCount = 0;     // default number of followers
+    User* mostActiveUser = NULL;
 
     for (int i = 0; i < vertices.size(); i++) {
         int currentFollowerCount = followers[i].size(); // Count the number of followers
         if (currentFollowerCount > maxFollowers) {
             maxFollowers = currentFollowerCount;
-            mostActiveId = vertices[i]->id; // Set the most active user's ID
-            mostActiveName = vertices[i]->name; // Set the most active user's name
-            followerCount = currentFollowerCount; // Update the follower count for the most active user
+            mostActiveUser = vertices[i];
         }
     }
+    return mostActiveUser;
 }
 vector<int> Graph::findMutualFollowers(const vector<int>& userIds) {
     unordered_map<int, int> followerCount;
