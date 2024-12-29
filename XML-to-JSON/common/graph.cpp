@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <string>
 #include <filesystem>
-
+#include <unordered_map>
 #define NULL_EDGE 0
 
 using namespace std;
@@ -224,5 +224,81 @@ std::vector<int>Graph:: findMutualFollowers(const vector<int>& userIds) {
             if (pair.second == userIds.size()) { // Appears in all specified users
                 mutualFollowers.push_back(pair.first);
             }
-return mutualFollowers;
-}
+        return mutualFollowers;
+        }
+    }
+    }
+User* Graph:: MostInfluencer(){
+    unordered_map <int/*user id*/,int/*number of followers*/> UserFollowers;
+
+    for(int i=0; i<vertices.size(); i++){
+        /* User *CurrentUser=vertices[i];
+        int CurrentUserFollowers=0; */
+
+        for(int j=0;j<followers[i].size() ; j++){   //loop over list of followed users of each user
+            int FollowedUserId = followers[i][j];
+            UserFollowers[FollowedUserId]++;        //make use of deafault value for a map of integers is zero
+        }
+    }
+    int maxfollowers=0;
+    int MostInfluencerId=-1;
+    int UserId=-1, FollowersCount=-1;
+    for (const auto& [UserId, FollowersCount] : UserFollowers) { //loop over map to find the UserId that has most followers count
+        if(FollowersCount>maxfollowers){
+            MostInfluencerId = UserId;
+            maxfollowers=FollowersCount;
+        }
+    }
+    User * MostInfluencerUser;
+    for(int i=0; i<vertices.size(); i++){
+        if(vertices[i]->id==MostInfluencerId){
+            MostInfluencerUser=vertices[i];
+        }
+    }
+    cout<<"The user with Most number of followers (Most Influencer) is the user with ID : "<<MostInfluencerUser->id<<" and named : "<<MostInfluencerUser->name<<"\n";
+}    
+
+//Build a small network for test
+
+/* int main(){
+    
+    Graph network;
+    User * u1=new User();
+    User * u2=new User();
+    User * u3=new User();
+    User * u4=new User();
+    User * u5=new User();
+    User * u6=new User();
+    u1->id=1;
+    u2->id=2;
+    u3->id=3;
+    u4->id=4;
+    u5->id=5;
+    u5->id=6;
+    u1->name="kareem";
+    u2->name="mahmoud";
+    u3->name="abdelrahman";
+    u4->name="ahmed";
+    u5->name="omar";
+    u6->name="zyad";
+    network.vertices.push_back(u1);
+    network.vertices.push_back(u2);
+    network.vertices.push_back(u3);
+    network.vertices.push_back(u4);
+    network.vertices.push_back(u5);
+    network.vertices.push_back(u6);
+    std::vector <int> u1Follows={2,3};
+    std::vector <int> u2Follows={};
+    std::vector <int> u3Follows={4};
+    std::vector <int> u4Follows={1,2};
+    std::vector <int> u5Follows={4,3};
+    std::vector <int> u6Follows={5,4};
+    network.followers.push_back(u1Follows);
+    network.followers.push_back(u2Follows);
+    network.followers.push_back(u3Follows);
+    network.followers.push_back(u4Follows);
+    network.followers.push_back(u5Follows);
+    network.followers.push_back(u6Follows);
+    network.MostInfluencer();
+    return 0;
+} */
