@@ -15,6 +15,21 @@ public:
     explicit GraphWindow(QWidget *parent = nullptr);
     ~GraphWindow();
 
+private slots:
+    void on_search_topic_clicked();
+
+    void on_search_word_clicked();
+
+    void on_mutual_followers_clicked();
+
+    void on_suggest_users_clicked();
+
+    void on_most_active_clicked();
+
+    void on_most_influncer_clicked();
+
+    void on_draw_graph_clicked();
+
 private:
     Ui::GraphWindow *ui;
 };
