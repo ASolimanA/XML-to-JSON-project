@@ -26,13 +26,14 @@ public:
 	void preorder_traversal();
     std::string prettierFunction();
     Node *getRoot();
-    std::string to_json(const std::string& filePath);
+    std::string to_json();
 	// Functions to convert to graph
 	Graph* convert_to_graph();
 	User* convert_user(Node* user_node, Graph* current_graph);
 	void add_posts(User* current_user, Node* posts_node);
 	void add_topics(Post* current_post, Node* topics_node);
 	void add_followers(User* current_user, Node* followers_node, Graph* current_graph);
+	static std::string fileToString(const std::string& filePath);
 };
 
 

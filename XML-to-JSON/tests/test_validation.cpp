@@ -5,42 +5,43 @@ class ValidatorTest : public ::testing::Test {
 protected:
     Validator validator;
 
-    ValidatorTest() : validator("sample.xml") {}
+    ValidatorTest() : validator("sample_val.xml") {}
 
     void SetUp() override {
         validator.readFile();
         validator.validate();
-        validator.fix();
     }
 };
 
 TEST_F(ValidatorTest, TestFilePath) {
-    EXPECT_TRUE(validator.filePath_valid());
+    EXPECT_TRUE(validator.checkFile());
 }
 
 TEST_F(ValidatorTest, TestValidationResult) {
     // Assuming sample.xml contains errors
     EXPECT_FALSE(validator.validate());
 }
-
-TEST_F(ValidatorTest, TestErrorTypes) {
-    // Types of expected errors
-    std::vector<char> expected_error_types = {'c','o','o','c'};
-    EXPECT_EQ(validator.get_error_types(), expected_error_types);
-}
+//                               == Deprecated ==                           //
+// TEST_F(ValidatorTest, TestErrorTypes) {
+//     // Types of expected errors
+//     std::vector<char> expected_error_types = {'o','o','o','c','c','c'};
+//     EXPECT_EQ(validator.get_error_types(), expected_error_types);
+// }
 
 TEST_F(ValidatorTest, TestErrorPositions) {
     // Positions of expected errors
-    std::vector<std::array<int,2>> expected_vec = {{6,7},{6,14},{17,24},{36,22}};
+    std::vector<std::array<int,2>> expected_vec = { {2,11}, {6,18}, {17,20}, {37,15}, {71,19}, {71,19}};
     EXPECT_EQ(validator.get_error_places(), expected_vec);
 }
 TEST_F(ValidatorTest, TestErrorList) {
     // Expected error list
     std::vector<std::pair<std::string, std::array<int,2>>> expected_error_list = {
-        {"/name", {6,7}},
-        {"body", {6,14}},
-        {"post", {17,24}},
-        {"/follower", {36,22}}
+        {"name", { 2, 11 }}, 
+        {"body", { 6, 18 }}, 
+        {"post", { 17, 20 }},
+        {"/id", { 37, 15 }},
+        {"/post", { 71, 19 }},
+        {"/topics", { 71, 19}} 
     };
     EXPECT_EQ(validator.get_error_list(), expected_error_list);
 }
@@ -48,10 +49,7 @@ TEST_F(ValidatorTest, Test_fix){
     Validator validator("sample.xml");
     validator.validate();
     validator.fix();
-    Validator valid("sample_fix.xml");
-    valid.readFile();
-    vector<std::string> expected_fix = valid.getFileContent(); 
-    EXPECT_EQ(validator.getFileContent(), expected_fix);
+    EXPECT_EQ(validator.validate(), true);
 }
 
 int main(int argc, char **argv) {

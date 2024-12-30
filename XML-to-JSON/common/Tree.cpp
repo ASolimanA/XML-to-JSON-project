@@ -5,6 +5,7 @@
 #include <stack>
 #include <functional>
 #include <sstream>
+#include <map>
 
 using namespace std;
 
@@ -31,13 +32,23 @@ Node *Tree::getRoot() {
 void Tree::preorder_traversal(Node* node) {
     if (node == NULL)
         return;
-    cout << node->tagName << ' ' << node->tagValue << endl;
+    //cout << node->tagName << ' ' << node->tagValue << endl;
     for (int i = 0; i < node->branches.size(); i++)
         preorder_traversal(node->branches[i]);
 }
 
 void Tree::preorder_traversal() {
     preorder_traversal(root);
+}
+
+std::string Tree::fileToString(const std::string& filePath) {
+    std::ifstream file(filePath); // Open the file
+    if (!file) {
+        throw std::ios_base::failure("Error opening file");
+    }
+    std::ostringstream buffer;
+    buffer << file.rdbuf(); // Read the file's content into a stream
+    return buffer.str();    // Convert the stream to a string
 }
 
 void Tree::Read_XML(const string& xml) {
@@ -134,13 +145,13 @@ std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) 
 
             //print all array values if they have the same key
             if(!rootNode->branches[0]->tagValue.empty()){
-                tabs += '\t';
+                tabs += "    ";
                 for(int i=0; i < rootNode->branches.size(); i++) {
                     json += tabs + '"' + rootNode->branches[i]->tagValue + "\"";
                     if(i != rootNode->branches.size() - 1) json += ",";
                     json += "\n";
                 }
-                json += tabs.substr(0, tabs.size() - 1) + ']';
+                json += tabs.substr(0, tabs.size() - 4) + ']';
                 return json;
             }
             obj = false;
@@ -150,7 +161,7 @@ std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) 
 
         for(int i=0; i < numBranches; i++) {
 
-            json += to_json(rootNode->branches[i], tabs + "\t", !arr, !obj);
+            json += to_json(rootNode->branches[i], tabs + "    ", !arr, !obj);
             if(i != numBranches-1) json += ",";
             json += "\n";
         }
@@ -166,8 +177,7 @@ std::string Tree::to_json(Node* rootNode, std::string tabs, bool arr, bool obj) 
     return json;
 }
 
-std::string Tree::to_json(const std::string& filePath) {
-    Read_XML(filePath);
+std::string Tree::to_json() {
     bool arr = true, obj = false;
 
     if(!root->branches.empty()) {
@@ -180,16 +190,25 @@ std::string Tree::to_json(const std::string& filePath) {
             }
         }
     }
-    else return "{\n\t\""  + root->tagName + "\" : \""  + root->tagValue + "\"\n}";
-    return to_json(root, arr ? "\t" : "" , arr, obj);
+    else return "{\n    \""  + root->tagName + "\" : \""  + root->tagValue + "\"\n}";
+    return to_json(root, arr ? "    " : "" , arr, obj);
 }
 
 Graph* Tree::convert_to_graph() {
     Graph* new_graph = new Graph();
+    map<int, int> id_to_index;
     for (int i = 0; i < root->branches.size(); i++) {
-        if (root->branches[i]->tagName == "user")
+        if (root->branches[i]->tagName == "user") {
             new_graph->addVertex(convert_user(root->branches[i], new_graph));
+            id_to_index[new_graph->vertices.back()->id] = i;
+        }
     }
+    // Convert followers from IDs to indexes
+    for (int i = 0; i < new_graph->followers.size(); i++) {
+		for (int j = 0; j < new_graph->followers[i].size(); j++) {
+			new_graph->followers[i][j] = id_to_index[new_graph->followers[i][j]];
+		}
+	}
     return new_graph;
 }
 
@@ -216,7 +235,7 @@ void Tree::add_posts(User* current_user, Node* posts_node) {
             Post* current_post = new Post();
             for (int j = 0; j < post_node->branches.size(); j++) {
                 if (post_node->branches[j]->tagName == "body")
-                    current_post->body = post_node->branches[i]->tagValue;
+                    current_post->body = post_node->branches[j]->tagValue;
                 if (post_node->branches[j]->tagName == "topics")
                     add_topics(current_post, post_node->branches[j]);
             }
@@ -241,4 +260,3 @@ void Tree::add_followers(User* current_user, Node* followers_node, Graph* curren
     }
     current_graph->followers.push_back(follows);
 }
-

@@ -1,0 +1,235 @@
+<users>
+  <user>
+    <id>1</id>
+    <name>Ahmed Ali</name>
+    <posts>
+      <post>
+        <body>The global economy is showing signs of recovery, with a significant boost in emerging markets driven by technological innovation.</body>
+        <topics>
+          <topic>economy</topic>
+          <topic>finance</topic>
+        </topics>
+      </post>
+      <post>
+        <body>Solar energy installations have doubled in the past year, marking a shift toward renewable energy solutions globally.</body>
+        <topics>
+          <topic>solar_energy</topic>
+        </topics>
+      </post>
+      <post>
+        <body>Investors are diversifying portfolios to include more sustainable options, focusing on long-term economic stability.</body>
+        <topics>
+          <topic>finance</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>2</id>
+      </follower>
+      <follower>
+        <id>3</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>2</id>
+    <name>Yasser Ahmed</name>
+    <posts>
+      <post>
+        <body>Education reform is essential to equip students with the skills needed for the future, including digital literacy and critical thinking.</body>
+        <topics>
+          <topic>education</topic>
+        </topics>
+      </post>
+      <post>
+        <body>Online learning platforms have seen exponential growth, providing access to quality education for remote areas.</body>
+        <topics>
+          <topic>education</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>1</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>3</id>
+    <name>Mohamed Sherif</name>
+    <posts>
+      <post>
+        <body>Local teams are gearing up for the championship, with fans eagerly anticipating the matches this season.</body>
+        <topics>
+          <topic>sports</topic>
+        </topics>
+      </post>
+      <post>
+        <body>The integration of technology in sports analytics is revolutionizing the way players and teams strategize.</body>
+        <topics>
+          <topic>sports</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>1</id>
+      </follower>
+      <follower>
+        <id>2</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>4</id>
+    <name>Sara Nabil</name>
+    <posts>
+      <post>
+        <body>Advancements in AI are reshaping healthcare, making diagnostics faster and more accurate.</body>
+        <topics>
+          <topic>technology</topic>
+          <topic>healthcare</topic>
+        </topics>
+      </post>
+      <post>
+        <body>The future of work will heavily rely on integrating AI to improve productivity and efficiency across industries.</body>
+        <topics>
+          <topic>technology</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>1</id>
+      </follower>
+      <follower>
+        <id>3</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>5</id>
+    <name>Hassan Omar</name>
+    <posts>
+      <post>
+        <body>Climate change continues to be a global concern, with new initiatives focusing on reducing carbon emissions.</body>
+        <topics>
+          <topic>climate_change</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>4</id>
+      </follower>
+      <follower>
+        <id>2</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>6</id>
+    <name>Layla Karim</name>
+    <posts>
+      <post>
+        <body>Virtual reality is making waves in the gaming industry, offering immersive experiences like never before.</body>
+        <topics>
+          <topic>technology</topic>
+          <topic>gaming</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>5</id>
+      </follower>
+      <follower>
+        <id>3</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>7</id>
+    <name>Nour Adel</name>
+    <posts>
+      <post>
+        <body>Traveling during off-peak seasons can significantly reduce costs and offer unique experiences.</body>
+        <topics>
+          <topic>travel</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>6</id>
+      </follower>
+      <follower>
+        <id>4</id>
+      </follower>
+      <follower>
+        <id>2</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>8</id>
+    <name>Omar Khaled</name>
+    <posts>
+      <post>
+        <body>New breakthroughs in quantum computing are expected to solve complex problems previously deemed unsolvable.</body>
+        <topics>
+          <topic>technology</topic>
+          <topic>quantum_computing</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>2</id>
+      </follower>
+      <follower>
+        <id>7</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>9</id>
+    <name>Fatima Hassan</name>
+    <posts>
+      <post>
+        <body>Nutrition and mental health are closely connected, with diet playing a critical role in emotional well-being.</body>
+        <topics>
+          <topic>health</topic>
+          <topic>nutrition</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>8</id>
+      </follower>
+    </followers>
+  </user>
+  <user>
+    <id>10</id>
+    <name>Ali Zain</name>
+    <posts>
+      <post>
+        <body>Blockchain technology is being utilized beyond cryptocurrencies, with applications in supply chain management and voting systems.</body>
+        <topics>
+          <topic>technology</topic>
+          <topic>blockchain</topic>
+        </topics>
+      </post>
+    </posts>
+    <followers>
+      <follower>
+        <id>9</id>
+      </follower>
+      <follower>
+        <id>6</id>
+      </follower>
+    </followers>
+  </user>
+</users>

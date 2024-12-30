@@ -18,7 +18,7 @@ public:
     template <class T>
     vector<T> to_vector(QVector<T> qvec);
     void setVerifyContent(QString content, Validator* validator);
+    QString getfilecontent(Validator* validator);
 };
-
 
 #endif //ADAPTER_H_

@@ -130,7 +130,8 @@ int main(int argc, char *argv[])
     else if(strcmp(argv[1], "json")==0){
         ofstream outputFile(outputFilePath);
         Tree t;
-        outputFile <<  t.to_json(inputFilePath);
+        t.Read_XML(XML);
+        outputFile <<  t.to_json();
         outputFile.close();
     }
 
@@ -146,44 +147,35 @@ int main(int argc, char *argv[])
 //
 //    if(strcmp(argv[1], "decompress")==0){}
 
-    else if(strcmp(argv[1], "draw")==0){
-        Graph * g = XML_to_graph(XML);
-        g->dotFile(inputFilePath);
-    }
+    else if(strcmp(argv[1], "search")==0){
+        Tree t;
+        t.Read_XML(XML);
+        Graph* g = t.convert_to_graph();
+        vector<string> posts = g->wordSearch(wordToSearch);
 
+        if(posts.empty()) cout << "The word you are searching for is not found in any of the posts" << endl;
+        else cout << posts;
+    }
+        
     else if(strcmp(argv[1], "most_active")==0){
         Tree t;
         t.Read_XML(XML);
         Graph* g = t.convert_to_graph();
-        int mostActiveId;
-        string mostActiveName;
-        int followerCount;
+               int mostActiveId;
+           string mostActiveName;
+           int followerCount;
         g->mostActive(mostActiveId, mostActiveName, followerCount);
-
-        if (mostActiveId != -1) {
-            cout << "The most active user:" << endl;
-            cout << "ID: " << mostActiveId << endl;
-            cout << "Name: " << mostActiveName << endl;
-            cout << "Number of Followers: " << followerCount << endl;
-        } else {
-            cout << "No active users found." << endl;
-        }
-
+    
+    if (mostActiveId != -1) {
+        cout << "The most active user:" << endl;
+        cout << "ID: " << mostActiveId << endl;
+        cout << "Name: " << mostActiveName << endl;
+        cout << "Number of Followers: " << followerCount << endl;
+    } else {
+        cout << "No active users found." << endl;
     }
-
-//    else if(strcmp(argv[1], "most_influencer")==0){}
-
-    else if(strcmp(argv[1], "most_active")==0)
-
-    else if(strcmp(argv[1], "search")==0){
-        Graph * g = XML_to_graph(XML);
-        vector<string> posts = g->wordSearch(wordToSearch);
-
-        if(posts.empty()) cout << "The word you are searching for is not found in any of the posts\U0001F622" << endl;
-        else cout << posts;
+        
     }
-
-
 
        
     return 0;

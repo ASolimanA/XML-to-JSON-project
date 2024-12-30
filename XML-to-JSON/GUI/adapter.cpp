@@ -29,3 +29,11 @@ void QtAdapter::setVerifyContent(QString content, Validator* validator) {
     }
     validator->setFileContent(fileContent);
 }
+QString QtAdapter::getfilecontent(Validator* validator){ 
+    vector<string> fileContent = validator->getFileContent();
+    QString content;
+    for (const auto& line : fileContent) {
+        content.append(QString::fromStdString(line + "\n"));
+    }
+    return content;
+}
