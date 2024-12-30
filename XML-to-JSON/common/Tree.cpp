@@ -235,7 +235,7 @@ void Tree::add_posts(User* current_user, Node* posts_node) {
             Post* current_post = new Post();
             for (int j = 0; j < post_node->branches.size(); j++) {
                 if (post_node->branches[j]->tagName == "body")
-                    current_post->body = post_node->branches[i]->tagValue;
+                    current_post->body = post_node->branches[j]->tagValue;
                 if (post_node->branches[j]->tagName == "topics")
                     add_topics(current_post, post_node->branches[j]);
             }

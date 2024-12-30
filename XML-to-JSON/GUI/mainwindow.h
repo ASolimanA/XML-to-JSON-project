@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    void print_XML();
+    void Read_File();
     void get_file_path();
     void on_verify_clicked();
     void on_fix_clicked();

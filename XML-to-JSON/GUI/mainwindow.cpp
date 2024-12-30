@@ -16,12 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setConnections();
     errorHighlighter = new ErrorHighlighter(ui->textBrowser->document());
-    ui->comboBox->addItem("Input text");
-    ui->comboBox->addItem("File");
 }
 
 void MainWindow::setConnections() {
-    connect(ui->Read, &QPushButton::clicked, this, &MainWindow::print_XML);
+    connect(ui->Read, &QPushButton::clicked, this, &MainWindow::Read_File);
     connect(ui->getPath, &QPushButton::clicked, this, &MainWindow::get_file_path);
     connect(ui->verify, &QPushButton::clicked, this, &MainWindow::on_verify_clicked);
     connect(ui->fix, &QPushButton::clicked, this, &MainWindow::on_fix_clicked);
@@ -36,33 +34,26 @@ void MainWindow::get_file_path() {
     ui->lineEdit->setText(filePath);
 }
 
-void MainWindow::print_XML() {
+void MainWindow::Read_File() {
     ui->input_XML->clear();
     clearOutput();
-    if(ui->comboBox->currentText() == "File") {
-        QString filePath = ui->lineEdit->text();
-        if (!filePath.isEmpty()) {
-            QFile file(filePath);
-            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                QTextStream in(&file);
-                QString content = in.readAll();
-                ui->input_XML->setPlainText(content);
-                ui->Message->setText("");
-                file.close();
-            }
-            else {
-                QMessageBox::warning(this, "Error", "Could not open the file for reading.");
-            }
+    QString filePath = ui->lineEdit->text();
+    if (!filePath.isEmpty()) {
+        QFile file(filePath);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            QString content = in.readAll();
+            ui->input_XML->setPlainText(content);
+            ui->Message->setText("");
+            file.close();
         }
         else {
-            ui->Message->setText("No file Path");
-            ui->Message->setStyleSheet("QLabel { color: red; }");
+            QMessageBox::warning(this, "Error", "Could not open the file for reading.");
         }
     }
-    else if(ui->comboBox->currentText() == "Input text") {
-        QString content = ui->input_XML->toPlainText();
-        ui->textBrowser->setText(content);
-        ui->Message->setText("");
+    else {
+        ui->Message->setText("No file Path");
+        ui->Message->setStyleSheet("QLabel { color: red; }");
     }
 }
 void MainWindow::on_verify_clicked() {
@@ -207,8 +198,6 @@ void MainWindow::open_graph_window() {
         ui->Message->setStyleSheet("QLabel { color: red; }");
     }
 }
-
-
 
 void MainWindow::clearOutput() {
     ui->textBrowser->clear();
