@@ -82,25 +82,53 @@ void compress(const std::string& input) {
     while(compressed.get(ch)) {
         CompressoutFile << ch ;
     }
-    //save mapping into a text file
-    // Open output file
-    ofstream outFile("map_contents.txt");
+    //save mapping into the text file
+    CompressoutFile<<"\nMap contents:\n";
     for (const auto& pair : symbolToPattern) {
-        outFile << pair.first << ">" << pair.second ;
+        CompressoutFile << pair.first << ">" << pair.second ;
     }
+    
+    
+    
     //return compressed.str();
 }
 
 // Decompress function
-std::string decompress(const std::string& CompressedfilePath,const std::string& MapfilePath) {
+std::string decompress(const std::string& CompressedfilePath/* ,const std::string& MapfilePath */) {
     std::stringstream decompressed;
-    string compressed=readFile(CompressedfilePath);
-    string Map = readFile(MapfilePath);
+    //std::ifstream CompressedFile(CompressedfilePath);
+    string compressed="";
+    string Map =""/* readFile(MapfilePath) */;
     unordered_map<char, std::string> recovered_map;
     unsigned char firstPart;
     string secondPart; 
-    
+    string input;
+    input =readFile(CompressedfilePath);
     // Reconstructin the Map of rules
+    string line;
+    bool MapFlag=false;
+    //string MapLine;
+    for (char ch : input) {
+        if(!MapFlag){
+            if (ch == '\n') {
+                if(line=="Map contents:"){
+                    MapFlag=true;
+                    continue;
+                }
+                compressed+=line;
+                line.clear(); // Clear the line for the next one
+            } else {
+                line += ch; // Append the character to the current line
+            }
+        }
+        else{
+            for(char ch : input){
+                Map+=ch;
+            }
+            break;
+        }
+    }
+    
         for(int i=0;i<Map.size();i+=4){
             firstPart = Map[i];                 //get the compression char
             secondPart = Map.substr(i+2,2);     //get the replaced sequence
@@ -121,35 +149,25 @@ std::string decompress(const std::string& CompressedfilePath,const std::string& 
 
 
 //// Main function
-/* int main() {
-    try {
-        std::string filePath = "C:\\Users\\kareem\\Downloads\\10mb.xml";
-//        // Read the XML file content
+int main() {
+    
+        std::string filePath = "C:\\Users\\kareem\\Downloads\\7mb.xml";
+        // Read the XML file content
         std::string input = readFile(filePath);
 
         // Compress the input
-        std::string compressed = compress(input);
-        std::ofstream outputFile("compressed.txt", std::ios::binary);
-        outputFile << compressed;
-        outputFile.close();
+        compress(input);
+        //std::ofstream outputFile("compressed.txt", std::ios::binary);
+        //outputFile << compressed;
+        //outputFile.close();
 
         // Decompress the data
-        std::string decompressed = decompress("C:\\C++\\DSA project\\source code\\pt3\\compressed.txt","C:\\C++\\DSA project\\source code\\pt3\\map_contents.txt");
+        std::string decompressed = decompress("C:\\C++\\DSA project\\repo2\\XML-to-JSON-project\\XML-to-JSON\\common\\compressed.txt");
         std::ofstream outputFile2("decompressed.txt", std::ios::binary);
         outputFile2 << decompressed;
         outputFile2.close();
 
-        // Optional: Check if decompressed matches original input
-        if (input == decompressed) {
-            std::cout << "Decompression verified successfully!" << std::endl;
-        } else {
-            std::cout << "Decompression failed!" << std::endl;
-        }
 
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
-
+    
     return 0;
 }
- */
