@@ -230,9 +230,12 @@ void  MainWindow::decompress_XML() {
     
         // Decompress the file
         string decompressed = decompress(adapter.to_string(decompressFilePath));
-        QString qdecompressed = adapter.to_qstring(decompressed);
-        
+
         // Display the decompressed content
+        main_tree.Read_XML(decompressed);
+        converted_to_tree = true;
+        // Use prettier function before displaying
+        QString qdecompressed = adapter.to_qstring(main_tree.prettierFunction());
         ui->textBrowser->setText(qdecompressed);
         ui->input_XML->setPlainText(qdecompressed);
 

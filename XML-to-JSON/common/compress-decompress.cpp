@@ -58,6 +58,17 @@ std::string readFile(const std::string& filePath) {
     buffer << file.rdbuf();
     return buffer.str();
 }
+
+std::string fileToString(const std::string& filePath) {
+    std::ifstream file(filePath); // Open the file
+    if (!file) {
+        throw std::ios_base::failure("Error opening file");
+    }
+    std::ostringstream buffer;
+    buffer << file.rdbuf(); // Read the file's content into a stream
+    return buffer.str();    // Convert the stream to a string
+}
+
 // Compress function
 void compress(const std::string& input, const std::string& filePath) {
     std::string compressed;
@@ -114,6 +125,8 @@ std::string decompress(const std::string& CompressedfilePath/*,const std::string
                 if (line == "Map contents:") {
                     MapFlag = true;
                     mapIndex = index;
+                    // Remove the last character ('#') from the compressed string
+                    compressed = compressed.substr(0, compressed.size() - 1);
                     continue;
                 }
                 compressed += line + "#";
@@ -159,21 +172,17 @@ std::string decompress(const std::string& CompressedfilePath/*,const std::string
 
 
 //  int main() {
-    
-//         // std::string filePath = "C:\\Users\\kareem\\Downloads\\1mb.xml";
-//          // Read the XML file content
-//          //std::string input = readFile(filePath);
-
-//          // Compress the input
-//          //compress(input, "C:\\C++\\DSA project\\repo2\\XML-to-JSON-project\\XML-to-JSON\\common\\compressed.txt");
-//          //std::ofstream outputFile("compressed.txt", std::ios::binary);
-//          //outputFile << compressed;
-//          //outputFile.close();
-
-//          // Decompress the data
-//          std::string decompressed = decompress("C:\\C++\\DSA project\\repo2\\XML-to-JSON-project\\XML-to-JSON\\common\\compressed.txt");
+//
+////          // Compress the input
+//// 
+//           std::string filePath = "C:/Users/lap shop/source/repos/XML-to-JSON-project/XML-to-JSON/common/sample.xml";
+//           std::string input = fileToString(filePath);
+//          compress(input, "C:/Users/lap shop/source/repos/XML-to-JSON-project/XML-to-JSON/common/compressed.txt");
+//
+////          // Decompress the data
+//          std::string decompressed = decompress("C:/Users/lap shop/source/repos/XML-to-JSON-project/XML-to-JSON/common/compressed.txt");
 //          std::ofstream outputFile2("decompressed.txt", std::ios::binary);
 //          outputFile2 << decompressed;
 //          outputFile2.close();
 //         return 0;
-//  }
+//}
