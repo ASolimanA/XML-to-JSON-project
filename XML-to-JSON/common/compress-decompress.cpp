@@ -149,25 +149,25 @@ std::string decompress(const std::string& CompressedfilePath/* ,const std::strin
 
 
 //// Main function
-int main() {
+// int main() {
     
-        std::string filePath = "C:\\Users\\kareem\\Downloads\\7mb.xml";
-        // Read the XML file content
-        std::string input = readFile(filePath);
+//         std::string filePath = "C:\\Users\\kareem\\Downloads\\7mb.xml";
+//         // Read the XML file content
+//         std::string input = readFile(filePath);
 
-        // Compress the input
-        compress(input);
-        //std::ofstream outputFile("compressed.txt", std::ios::binary);
-        //outputFile << compressed;
-        //outputFile.close();
+//         // Compress the input
+//         compress(input);
+//         //std::ofstream outputFile("compressed.txt", std::ios::binary);
+//         //outputFile << compressed;
+//         //outputFile.close();
 
-        // Decompress the data
-        std::string decompressed = decompress("C:\\C++\\DSA project\\repo2\\XML-to-JSON-project\\XML-to-JSON\\common\\compressed.txt");
-        std::ofstream outputFile2("decompressed.txt", std::ios::binary);
-        outputFile2 << decompressed;
-        outputFile2.close();
+//         // Decompress the data
+//         std::string decompressed = decompress("C:\\C++\\DSA project\\repo2\\XML-to-JSON-project\\XML-to-JSON\\common\\compressed.txt");
+//         std::ofstream outputFile2("decompressed.txt", std::ios::binary);
+//         outputFile2 << decompressed;
+//         outputFile2.close();
 
 
     
-    return 0;
-}
+//     return 0;
+// }

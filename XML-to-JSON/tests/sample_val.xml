@@ -1,11 +1,11 @@
 <users>
     <user>
-        <id>1
+        <id>1</id>
+
             Ahmed Ali
         </name>
             <posts>
-                <post>
-                <body>
+
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </body>
             <topics>
@@ -15,7 +15,7 @@
                 <topic>
                     finance
                 </topic>
-            
+            </topics>
         </post>
         <post>
             <body>
@@ -55,7 +55,7 @@
 <followers>
     <follower>
         <id>1</id>
-
+    </follower>
 </user>
 <user>
 <id>3</id>
@@ -69,8 +69,7 @@
             <topic>
                 sports
             </topic>
-        </topics>
-    </post>
+
 </posts>
 <followers>
     <follower>
@@ -78,4 +77,4 @@
     </follower>
 </followers>
 </user>
-        </users>
+</users>

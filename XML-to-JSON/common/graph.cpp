@@ -195,12 +195,20 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
 User* Graph::mostActive() {
     int maxFollowers = -1;
 
+    vector<int> followingCount(vertices.size(), 0);
+
+    for (int i = 0; i < vertices.size(); i++) {
+        for (int j = 0; j < followers[i].size(); j++) {
+            followingCount[followers[i][j]]++;
+        }
+    }
+
     User* mostActiveUser = NULL;
 
     for (int i = 0; i < vertices.size(); i++) {
-        int currentFollowerCount = followers[i].size(); // Count the number of followers
-        if (currentFollowerCount > maxFollowers) {
-            maxFollowers = currentFollowerCount;
+        int currentConnectCount = followers[i].size() + followingCount[i]; // Count the number of followers
+        if (currentConnectCount > maxFollowers) {
+            maxFollowers = currentConnectCount;
             mostActiveUser = vertices[i];
         }
     }
