@@ -46,5 +46,7 @@ private:
     void save_JSON();
     void prettify_XML();
     void open_graph_window();
+    void compress_XML();
+    void decompress_XML();
 };
 #endif // MAINWINDOW_H

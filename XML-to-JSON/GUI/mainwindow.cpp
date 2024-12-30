@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "graphwindow.h"
+#include "compress-decompress.h"
 #include <QFileDialog>
 #include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,6 +29,8 @@ void MainWindow::setConnections() {
     connect(ui->convert, &QPushButton::clicked, this, &MainWindow::convert_to_json);
     connect(ui->graph_analysis, &QPushButton::clicked, this, &MainWindow::open_graph_window);
     connect(ui->pretty, &QPushButton::clicked, this, &MainWindow::prettify_XML);
+    connect(ui->compress, &QPushButton::clicked, this, &MainWindow::compress_XML);
+    connect(ui->decompress, &QPushButton::clicked, this, &MainWindow::decompress_XML);
 }
 
 void MainWindow::get_file_path() {
@@ -195,6 +199,49 @@ void MainWindow::open_graph_window() {
         g->show();
     } else {
         ui->Message->setText("Cannot open the graph window as the XML is not yet verified.");
+        ui->Message->setStyleSheet("QLabel { color: red; }");
+    }
+}
+
+void MainWindow::compress_XML() {
+    // Check if the output is a valid XML
+    if (outputType == xml) {
+        // Get the file path to save the compressed file
+        QString compressFilePath = QFileDialog::getSaveFileName(this, "Save Compressed File", "", "Compressed File (*.comp)");
+        
+        // Compress the XML content and save it to the file
+        compress(adapter.to_string(ui->textBrowser->toPlainText()), adapter.to_string(compressFilePath));
+        
+        // Display a success message
+        ui->Message->setText("Compressed Successfully.");
+        ui->Message->setStyleSheet("QLabel { color: green; }");
+    } else {
+        // Display an error message if the output is not a valid XML
+        ui->Message->setText("Cannot compress the output as it is not a valid XML.");
+        ui->Message->setStyleSheet("QLabel { color: red; }");
+    }
+}
+
+void  MainWindow::decompress_XML() {
+    QString decompressFilePath = QFileDialog::getOpenFileName(this, "Open Compressed File", "", "Compressed File (*.comp)");
+    
+    // Check if the file path is not empty
+    if (!decompressFilePath.isEmpty()) {
+    
+        // Decompress the file
+        string decompressed = decompress(adapter.to_string(decompressFilePath));
+        QString qdecompressed = adapter.to_qstring(decompressed);
+        
+        // Display the decompressed content
+        ui->textBrowser->setText(qdecompressed);
+        ui->input_XML->setPlainText(qdecompressed);
+
+        // Display a success message
+        ui->Message->setText("Decompressed Successfully.");
+        ui->Message->setStyleSheet("QLabel { color: green; }");
+    } else {
+        // Display an error message if the file path is empty
+        ui->Message->setText("No file path provided.");
         ui->Message->setStyleSheet("QLabel { color: red; }");
     }
 }
