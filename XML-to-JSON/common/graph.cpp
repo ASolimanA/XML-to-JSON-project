@@ -170,7 +170,7 @@ void Graph::dotFile(const std::string& infile){
 		for(int j = 0; j < followers[i].size(); j++){
 			string user = to_string(vertices[i]->id);
 			string follower = to_string(vertices[followers[i][j]]->id);
-			file <<"	" + user + " -> " + follower + "\n";
+			file <<"	" + follower + " -> " + user + "\n";
 			// cout << "in the make file.dot function"<<endl;
 		}
 	}
@@ -242,22 +242,13 @@ vector<int> Graph::findMutualFollowers(const vector<int>& userIds) {
 User* Graph:: MostInfluencer(){
     unordered_map <int/*user index*/,int/*number of followers*/> UserFollowers;
 
+    User *mostInfluencer = NULL;
+    int maxFollowers = 0;
     for(int i=0; i<vertices.size(); i++){
-        for(int j=0;j<followers[i].size() ; j++){   //loop over list of followed users of each user
-            int FollowedUserIndex = followers[i][j];
-            UserFollowers[FollowedUserIndex]++;        //make use of default value for a map of integers is zero
+        if(followers[i].size() > maxFollowers){
+            maxFollowers = followers[i].size();
+            mostInfluencer = vertices[i];
         }
     }
-    int maxfollowers=0;
-    int MostInfluencerIndex=-1;
-    int UserIndex=-1, FollowersCount=-1;
-    for (const auto& [UserIndex, FollowersCount] : UserFollowers) { //loop over map to find the UserIndex that has most followers count
-        if(FollowersCount>maxfollowers){
-            MostInfluencerIndex = UserIndex;
-            maxfollowers=FollowersCount;
-        }
-    }
-	return vertices[MostInfluencerIndex];
-}    
-
-
+    return mostInfluencer;
+}
