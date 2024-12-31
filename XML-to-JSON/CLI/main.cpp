@@ -1,11 +1,26 @@
 #include <iostream>
-#include <unistd.h>
+#include <getopt.h>
+#include <cstring>
 #include "Tree.h"
 #include "validation.h"
 #include "graph.h"
-//#include "compress-decompress.cpp"
+#include "compress-decompress.h"
 
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define BLUE "\033[34m"
+#define RESET "\033[0m"
 using namespace std;
+
+vector<int> get_ids(const string& s){
+    vector<int> ids;
+    stringstream ss(s);
+    string temp;
+    while(getline(ss, temp, ',')){
+        ids.push_back(stoi(temp));
+    }
+    return ids;
+}
 
 bool filePath_valid(const string& filePath) {
     fstream file(filePath);
@@ -50,17 +65,39 @@ ostream& operator <<(ostream& os, const vector<T>& vec) {
     return os;
 }
 
+ostream& operator <<(ostream& os, const Post* post) {
+        os << GREEN << "Post topics: \n" << RESET << post->topics;
+        os << BLUE << "Post body: " <<  RESET << post->body << endl;
+    return os;
+}
+
+ostream& operator <<(ostream& os, User* user){
+    os << "User Name: " << user->getName() << endl;
+    os << "User ID: " << user->getId() << endl;
+    return os;
+}
+
 int main(int argc, char *argv[])
 {
     if(argc<3) {
         cout << "Invalid command\ncommand should be in the form cli_app.exe <process> -options" << endl;
         return 0;
     }
-    //  -i inputFilePath or --version verify
+
     string inputFilePath, outputFilePath, wordToSearch, topicToSearch;
+    vector<int> ids;
+    char fixFlag = 0;
+
     int opt;
     optind = 2;
-    while((opt = getopt(argc, argv, ":i:o:w:t:")) != -1) {
+    static struct option long_options[] = {
+            {"ids", 1, nullptr, 'd'},
+            {"id", 1, nullptr, 'd'},
+            {0, 0, 0, 0}
+    };
+
+    int option_index = 0;
+    while((opt = getopt_long_only(argc, argv, ":i:o:w:t:f", long_options, &option_index)) != -1) {
         switch (opt) {
             case 'i':
                 inputFilePath = optarg;
@@ -70,6 +107,9 @@ int main(int argc, char *argv[])
                 outputFilePath = optarg;
                 cout << "Output file: " << optarg << endl;
                 break;
+            case 'f':
+                fixFlag = 1;
+                break;
             case 'w':
                 wordToSearch = optarg;
                 cout << "Word to search: " << optarg << endl;
@@ -77,6 +117,9 @@ int main(int argc, char *argv[])
             case 't':
                 topicToSearch = optarg;
                 cout << "Topic to search: " << optarg << endl;
+                break;
+            case 'd':
+                ids = get_ids(optarg);
                 break;
             case ':':
             case '?':
@@ -103,11 +146,44 @@ int main(int argc, char *argv[])
         if(!v.validate()) {
             vector<array<int, 2>> vec = v.get_error_places();
 
-            for (auto i: vec)
-                cout << i[0] + 1 << " " << i[1] << endl;
-        }
+            cout << "Invalid XML" << endl;
+            cout << "There are " << vec.size() << (vec.size() <= 1 ? " error" : " errors") << " in the XML file" << endl;
+            v.print_errors();
 
+            if(fixFlag){
+                v.fix();
+                v.writeFile(outputFilePath);
+            }
+        }
         else cout<<"Valid XML"<<endl;
+        return 0;
+    }
+
+    //convert the xml file into a string;
+    string XML = file_to_string(inputFilePath);
+
+    if(strcmp(argv[1], "mini")==0){
+        ofstream outputFile(outputFilePath);
+
+        Tree t;
+        t.Read_XML(XML);
+
+        outputFile <<  minify(XML);
+        outputFile.close();
+    }
+
+    if(strcmp(argv[1], "compress")==0){
+        compress(XML, outputFilePath);
+        return 0;
+    }
+
+    if(strcmp(argv[1], "decompress")==0){
+        string decompressed = decompress(inputFilePath);
+
+        ofstream outputFile(outputFilePath);
+        outputFile << decompressed;
+        outputFile.close();
+
         return 0;
     }
 
@@ -115,9 +191,6 @@ int main(int argc, char *argv[])
     //if not valid then stop execution
     if(checkXML_valid(inputFilePath) == false)
         return 0;
-
-    //convert the xml file into a string;
-    string XML = file_to_string(inputFilePath);
 
     if(strcmp(argv[1], "format")==0){
         Tree t;
@@ -129,54 +202,92 @@ int main(int argc, char *argv[])
     }
     else if(strcmp(argv[1], "json")==0){
         ofstream outputFile(outputFilePath);
+
         Tree t;
         t.Read_XML(XML);
+
         outputFile <<  t.to_json();
         outputFile.close();
     }
 
-//    if(strcmp(argv[1], "mini")==0){
-//
-//    }
 
-//    if(strcmp(argv[1], "compress")==0){
-//        ofstream outputFile(outputFilePath, std::ios::binary);
-//        outputFile <<  compress(XML);
-//        outputFile.close();
-//    }
-//
-//    if(strcmp(argv[1], "decompress")==0){}
+
+    else if(strcmp(argv[1], "draw")==0){
+        Graph *g = XML_to_graph(XML);
+        g->dotFile(outputFilePath);
+        g->graphImage(outputFilePath, "graph.jpg");
+
+    }
+
+
 
     else if(strcmp(argv[1], "search")==0){
-        Tree t;
-        t.Read_XML(XML);
-        Graph* g = t.convert_to_graph();
-        vector<string> posts = g->wordSearch(wordToSearch);
+        Graph* g = XML_to_graph(XML);
+        vector<Post*> posts;
 
-        if(posts.empty()) cout << "The word you are searching for is not found in any of the posts" << endl;
+        if(!wordToSearch.empty()) {
+            posts = g->postBodySearch(wordToSearch);
+        }
+        else if(!topicToSearch.empty()){
+            posts = g->searchTopics(topicToSearch);
+        }
+
+        if(posts.empty()) cout << "There are no posts with this search criteria\n" << endl;
         else cout << posts;
     }
-        
+
     else if(strcmp(argv[1], "most_active")==0){
-        Tree t;
-        t.Read_XML(XML);
-        Graph* g = t.convert_to_graph();
-               int mostActiveId;
-           string mostActiveName;
-           int followerCount;
-        g->mostActive(mostActiveId, mostActiveName, followerCount);
-    
-    if (mostActiveId != -1) {
-        cout << "The most active user:" << endl;
-        cout << "ID: " << mostActiveId << endl;
-        cout << "Name: " << mostActiveName << endl;
-        cout << "Number of Followers: " << followerCount << endl;
-    } else {
-        cout << "No active users found." << endl;
-    }
-        
+        Graph* g = XML_to_graph(XML);
+        User* user = g->mostActive();
+
+        if (user != nullptr) {
+            cout << "The most active user:" << endl;
+            cout << "Name: " << user->getName() << endl;
+            cout << "ID: " << user->getId() << endl;
+        } else {
+            cout << "No active users found." << endl;
+        }
     }
 
-       
+    else if(strcmp(argv[1], "most_influencer")==0)   {
+        Graph *g = XML_to_graph(XML);
+        User *user = g->MostInfluencer();
+
+        if (user != nullptr) {
+            cout << "The most influencing user:" << endl;
+            cout << "Name:" <<  user->getName() << endl;
+            cout << "ID:" <<  user->getId() << endl;
+        }
+        else{
+            cout << "No influencing users found." << endl;
+        }
+    }
+
+    else if(strcmp(argv[1], "suggest")==0){
+        if(ids.empty()){
+            cerr << "No user ID provided" << endl;
+            return 0;
+        }
+        Graph *g = XML_to_graph(XML);
+        vector<User*> users = g->suggestFollowers(ids[0]);
+
+        if(users.empty()) cout << "No suggested followers found" << endl;
+        else cout << "The suggested users are:\n" << users;
+    }
+
+
+    else if(strcmp(argv[1], "mutual")==0){
+        if(ids.empty()){
+            cerr << "No user ID provided" << endl;
+            return 0;
+        }
+
+        Graph *g = XML_to_graph(XML);
+        vector<User*> mutualFollowers = g->findMutualFollowers(ids);
+
+        if(mutualFollowers.empty()) cout << "No mutual mutual followers found" << endl;
+        else cout << "The mutual mutual followers between the users are:\n" << mutualFollowers;
+    }
+
     return 0;
 }

@@ -41,7 +41,7 @@ public:
 	void dotFile(const std::string& infile);
 	void graphImage(const std::string& dotfile , const std::string& outfile);
     User* mostActive();
-	std::vector<int> findMutualFollowers(const std::vector<int>& userIds);
+	std::vector<User*> findMutualFollowers(const std::vector<int>& userIds);
 	User* MostInfluencer();
 	std::vector<User*> suggestFollowers(int id);
 	std::vector<Post*> searchTopics(const std::string& topic);

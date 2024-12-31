@@ -215,7 +215,7 @@ User* Graph::mostActive() {
     return mostActiveUser;
 }
 
-vector<int> Graph::findMutualFollowers(const vector<int>& userIds) {
+vector<User*> Graph::findMutualFollowers(const vector<int>& userIds) {
     unordered_map<int, int> followerCount;
 
     // Populate the follower count map
@@ -230,10 +230,10 @@ vector<int> Graph::findMutualFollowers(const vector<int>& userIds) {
     }
 
     // Collect mutual followers
-    vector<int> mutualFollowers;
+    vector<User*> mutualFollowers;
     for (const auto& pair : followerCount) {
         if (pair.second == userIds.size()) {
-            mutualFollowers.push_back(pair.first);
+            mutualFollowers.push_back(getUser(pair.first));
         }
     }
 
