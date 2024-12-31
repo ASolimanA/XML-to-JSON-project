@@ -87,6 +87,7 @@ void compress(const std::string& input, const std::string& filePath) {
     // Add remaining character, if any
     while (i < input.size()) {
         compressed += input[i];
+        i++;
     }
     //save compressed data into a text file
     char ch;
