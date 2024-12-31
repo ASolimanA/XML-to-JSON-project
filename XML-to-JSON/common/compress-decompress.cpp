@@ -177,22 +177,3 @@ std::string minify(const std::string& xml) {
     }
     return minified;
 }
-
-
-
-
-//  int main() {
-//
-////          // Compress the input
-//// 
-//           std::string filePath = "C:/Users/lap shop/source/repos/XML-to-JSON-project/XML-to-JSON/common/sample.xml";
-//           std::string input = fileToString(filePath);
-//          compress(input, "C:/Users/lap shop/source/repos/XML-to-JSON-project/XML-to-JSON/common/compressed.txt");
-//
-////          // Decompress the data
-//          std::string decompressed = decompress("C:/Users/lap shop/source/repos/XML-to-JSON-project/XML-to-JSON/common/compressed.txt");
-//          std::ofstream outputFile2("decompressed.txt", std::ios::binary);
-//          outputFile2 << decompressed;
-//          outputFile2.close();
-//         return 0;
-//}

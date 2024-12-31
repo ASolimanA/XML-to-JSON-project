@@ -31,6 +31,7 @@ void MainWindow::setConnections() {
     connect(ui->pretty, &QPushButton::clicked, this, &MainWindow::prettify_XML);
     connect(ui->compress, &QPushButton::clicked, this, &MainWindow::compress_XML);
     connect(ui->decompress, &QPushButton::clicked, this, &MainWindow::decompress_XML);
+    connect(ui->minify, &QPushButton::clicked, this, &MainWindow::on_minify_clicked);
 }
 
 void MainWindow::get_file_path() {
@@ -200,6 +201,22 @@ void MainWindow::open_graph_window() {
     } else {
         ui->Message->setText("Cannot open the graph window as the XML is not yet verified.");
         ui->Message->setStyleSheet("QLabel { color: red; }");
+    }
+}
+
+void MainWindow::on_minify_clicked() {
+    if(outputType == xml) {
+        string minified_xml = minify(adapter.to_string(ui->textBrowser->toPlainText()));
+        ui->textBrowser->setText(adapter.to_qstring(minified_xml));
+        ui->Message->setText("Minified Successfully.");
+        ui->Message->setStyleSheet("QLabel { color: green; }");
+    }
+    else if (outputType == none) { // If there is no output to prettify
+        ui->Message->setText("You need to verify an XML file first.");
+        ui->Message->setStyleSheet("QLabel { color: red; }");
+    }
+    else if (outputType == containError) { // If the output contains errors
+        QMessageBox::warning(this, "Error", "Cannot Minify the output as it contains errors.");
     }
 }
 
