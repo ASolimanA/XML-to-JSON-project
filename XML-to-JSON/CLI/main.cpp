@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
         Tree t;
         t.Read_XML(XML);
 
-        outputFile <<  minify(XML);
+        outputFile <<  t.minify();
         outputFile.close();
     }
 

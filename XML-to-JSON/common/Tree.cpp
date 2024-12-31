@@ -308,8 +308,8 @@ std::string Tree::minify() {
     return this ->minifyNode(root);
 }
 
-int main(){
-    Tree x;
-    x.Read_XML("I:\\term\\Data_Structure\\project\\code\\XML-to-JSON-project\\XML-to-JSON\\tests\\validSample.xml");
-    cout << x.minify() << endl;
-}
+// int main(){
+//     Tree x;
+//     x.Read_XML("I:\\term\\Data_Structure\\project\\code\\XML-to-JSON-project\\XML-to-JSON\\tests\\validSample.xml");
+//     cout << x.minify() << endl;
+// }

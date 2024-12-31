@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "Tree.h"
 #include <fstream>
+#include <filesystem>
 class TreeTest : public ::testing::Test{
     protected:
         Tree t;
@@ -9,7 +10,7 @@ class TreeTest : public ::testing::Test{
         t;
     }
     void SetUp (){
-        std::string str = t.fileToString("validSample.xml");
+        std::string str = t.fileToString("sample_graph.xml");
         t.Read_XML(str);
         
     }
@@ -28,4 +29,5 @@ TEST_F(TreeTest, minify_function) {
     outFile.close();
 
     EXPECT_FALSE(minifiedOutput.empty()); // or any other relevant check
+    EXPECT_TRUE(std::filesystem::exists("testingtheminify.txt"));
 }
