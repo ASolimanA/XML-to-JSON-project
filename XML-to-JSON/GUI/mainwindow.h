@@ -48,5 +48,6 @@ private:
     void open_graph_window();
     void compress_XML();
     void decompress_XML();
+    void on_minify_clicked();
 };
 #endif // MAINWINDOW_H

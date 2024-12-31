@@ -56,7 +56,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>510</y>
+      <y>580</y>
       <width>111</width>
       <height>51</height>
      </rect>
@@ -240,14 +240,27 @@
    <widget class="QPushButton" name="graph_analysis">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>160</x>
       <y>580</y>
-      <width>521</width>
+      <width>391</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>Graph Analysis</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minify">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>510</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Minify</string>
     </property>
    </widget>
   </widget>
