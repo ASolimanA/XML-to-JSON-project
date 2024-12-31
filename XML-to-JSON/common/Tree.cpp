@@ -21,9 +21,21 @@ Node::Node(string data) {
     tagValue = "";
 }
 
+Node::~Node() {
+    // Delete all branches to prevent memory leaks
+    for (Node* branch : branches) {
+        delete branch;
+    }
+}
+
 Tree::Tree() {
     root = NULL;
 }
+
+Tree::~Tree() {
+    delete root; // Deleting root triggers recursive cleanup of all nodes
+}
+
 
 Node *Tree::getRoot() {
     return root;
@@ -259,4 +271,45 @@ void Tree::add_followers(User* current_user, Node* followers_node, Graph* curren
             follows.push_back(stoi(followers_node->branches[i]->branches[0]->tagValue));
     }
     current_graph->followers.push_back(follows);
+}
+
+// std::string Tree::minify() {
+//     std::string minified = "";
+//     if (root->branches.empty()) {
+//         minified += "<" + root->tagName + ">" + root->tagValue + "</" + root->tagName + ">";
+//     } else {
+//         minified += "<" + root->tagName + ">";
+//         for (Node* child : root->branches) {
+//             minified += "<" + child->tagName + ">" + child->tagValue + "</" + child->tagName + ">";
+//         }
+//         minified += "</" + root->tagName + ">";
+//     }
+//     return minified;
+// }
+
+bool Tree::isParent(Node* node) {
+    return !node->branches.empty();
+}
+
+std::string Tree::minifyNode(Node* current) {
+    std::string result = "<" + current->tagName + ">";
+    if (!isParent(current)) {
+        result += current->tagValue;
+    } else {
+        for (Node* child : current->branches) {
+            result += this -> minifyNode(child);
+        }
+    }
+    result += "</" + current->tagName + ">";
+    return result;
+}
+
+std::string Tree::minify() {
+    return this ->minifyNode(root);
+}
+
+int main(){
+    Tree x;
+    x.Read_XML("I:\\term\\Data_Structure\\project\\code\\XML-to-JSON-project\\XML-to-JSON\\tests\\validSample.xml");
+    cout << x.minify() << endl;
 }
