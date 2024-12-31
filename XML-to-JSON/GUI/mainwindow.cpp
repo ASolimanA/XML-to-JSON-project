@@ -204,21 +204,21 @@ void MainWindow::open_graph_window() {
     }
 }
 
-void MainWindow::on_minify_clicked() {
-    if(outputType == xml) {
-        string minified_xml = minify(adapter.to_string(ui->textBrowser->toPlainText()));
-        ui->textBrowser->setText(adapter.to_qstring(minified_xml));
-        ui->Message->setText("Minified Successfully.");
-        ui->Message->setStyleSheet("QLabel { color: green; }");
-    }
-    else if (outputType == none) { // If there is no output to prettify
-        ui->Message->setText("You need to verify an XML file first.");
-        ui->Message->setStyleSheet("QLabel { color: red; }");
-    }
-    else if (outputType == containError) { // If the output contains errors
-        QMessageBox::warning(this, "Error", "Cannot Minify the output as it contains errors.");
-    }
-}
+// void MainWindow::on_minify_clicked() {
+//     if(outputType == xml) {
+//         string minified_xml = minify(adapter.to_string(ui->textBrowser->toPlainText()));
+//         ui->textBrowser->setText(adapter.to_qstring(minified_xml));
+//         ui->Message->setText("Minified Successfully.");
+//         ui->Message->setStyleSheet("QLabel { color: green; }");
+//     }
+//     else if (outputType == none) { // If there is no output to prettify
+//         ui->Message->setText("You need to verify an XML file first.");
+//         ui->Message->setStyleSheet("QLabel { color: red; }");
+//     }
+//     else if (outputType == containError) { // If the output contains errors
+//         QMessageBox::warning(this, "Error", "Cannot Minify the output as it contains errors.");
+//     }
+// }
 
 void MainWindow::compress_XML() {
     // Check if the output is a valid XML
