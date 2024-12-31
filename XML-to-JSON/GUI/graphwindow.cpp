@@ -115,9 +115,13 @@ void GraphWindow::on_most_influncer_clicked()
 void GraphWindow::on_draw_graph_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, "Save Graph Image", "", "JPG (*.jpg)");
-    main_graph->dotFile("sample_graph.dot");
+    main_graph->dotFile("graph.dot");
     ui->textBrowser->setText("Saving Graph image...");
-    main_graph->graphImage("sample_graph.dot", filePath.toStdString());
-    ui->textBrowser->setText("Graph image saved successfully.");
-    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
+    try {
+        main_graph->graphImage("graph.dot", filePath.toStdString());
+        ui->textBrowser->setText("Graph image saved successfully.");
+        QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
+    } catch (...) {
+        ui->textBrowser->setText("Error: Could not save the graph image.");
+    }
 }
