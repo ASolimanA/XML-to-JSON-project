@@ -168,13 +168,3 @@ std::string decompress(const std::string& CompressedfilePath/*,const std::string
 
     return decompressed;
 }
-std::string minify(const std::string& xml) {
-    std::string minified = "";
-    for (int i = 0; i < xml.length(); i++) {
-        if (xml[i] == ' ' ||
-            xml[i] == '\t' || 
-            xml[i] == '\n') continue;
-        else minified += xml[i];
-    }
-    return minified;
-}

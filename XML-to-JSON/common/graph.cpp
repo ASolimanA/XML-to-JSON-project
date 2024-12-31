@@ -171,7 +171,6 @@ void Graph::dotFile(const std::string& infile){
 			string user = to_string(vertices[i]->id);
 			string follower = to_string(vertices[followers[i][j]]->id);
 			file <<"	" + follower + " -> " + user + "\n";
-			// cout << "in the make file.dot function"<<endl;
 		}
 	}
 	file<< "}\n";
@@ -186,7 +185,6 @@ void Graph::graphImage(const std::string& dotfile , const std::string& outfile){
     int result = system(command.c_str());
     if (result == 0) {
         std::filesystem::remove(dotfile);
-        // std::cout << "Graph rendered successfully: " << outfile << "\n";
     } else {
         std::cerr << "Error: Graphviz command failed.\n";
     }

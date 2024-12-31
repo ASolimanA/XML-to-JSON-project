@@ -36,6 +36,9 @@ public:
 	void add_topics(Post* current_post, Node* topics_node);
 	void add_followers(User* current_user, Node* followers_node, Graph* current_graph);
 	static std::string fileToString(const std::string& filePath);
+	bool isParent(Node* node);
+	std::string minifyNode(Node* current);
+	std::string minify();
 };
 
 
