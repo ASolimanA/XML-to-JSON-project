@@ -66,4 +66,14 @@ include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_NAME "GUIApp-Release")
 set(CPACK_GENERATOR "ZIP")
 install(CODE "execute_process(COMMAND windeployqt \"\$<TARGET_FILE:gui_app>\" --release)")
+
+# message(STATUS "GRAPHVIZ_DIR (env): $ENV{GRAPHVIZ_DIR}")
+
+install(DIRECTORY "$ENV{GRAPHVIZ_DIR}"
+        DESTINATION "."
+        FILES_MATCHING
+        PATTERN "dot.exe"
+        PATTERN "*.dll"
+        PATTERN "*.lib")
+
 include(CPack)
