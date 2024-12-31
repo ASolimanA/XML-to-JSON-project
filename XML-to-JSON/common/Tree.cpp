@@ -21,9 +21,21 @@ Node::Node(string data) {
     tagValue = "";
 }
 
+Node::~Node() {
+    // Delete all branches to prevent memory leaks
+    for (Node* branch : branches) {
+        delete branch;
+    }
+}
+
 Tree::Tree() {
     root = NULL;
 }
+
+Tree::~Tree() {
+    delete root; // Deleting root triggers recursive cleanup of all nodes
+}
+
 
 Node *Tree::getRoot() {
     return root;

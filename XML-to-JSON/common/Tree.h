@@ -12,6 +12,7 @@ private:
 	std::vector<Node*> branches;
 public:
 	Node(std::string data);
+	~Node();
 	friend class Tree;
 };
 
@@ -22,6 +23,7 @@ private:
     std::string to_json(Node* rootNode, std::string tabs, bool arr, bool obj);
 public:
 	Tree();
+	~Tree();
 	void Read_XML(const std::string& xml);
 	void preorder_traversal();
     std::string prettierFunction();
