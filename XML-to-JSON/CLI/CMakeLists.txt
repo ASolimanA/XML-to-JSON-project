@@ -24,3 +24,12 @@ set_target_properties(xml_editor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/build/CLI"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/build/CLI"
 )
+
+
+set(CMAKE_BUILD_TYPE "Release")
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_PACKAGE_NAME "CLIApp-Release")
+set(CPACK_GENERATOR "ZIP")
+install(CODE "execute_process(COMMAND windeployqt \"\$<TARGET_FILE:xml_editor>\" --release)")
+include(CPack)

@@ -59,3 +59,11 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+set(CMAKE_BUILD_TYPE "Release")
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_PACKAGE_NAME "GUIApp-Release")
+set(CPACK_GENERATOR "ZIP")
+install(CODE "execute_process(COMMAND windeployqt \"\$<TARGET_FILE:gui_app>\" --release)")
+include(CPack)
