@@ -180,7 +180,7 @@ int main(int argc, char *argv[])
     if(strcmp(argv[1], "decompress")==0){
         string decompressed = decompress(inputFilePath);
 
-        ofstream outputFile(outputFilePath);
+        ofstream outputFile(outputFilePath, ios::binary);
         outputFile << decompressed;
         outputFile.close();
 
@@ -214,9 +214,8 @@ int main(int argc, char *argv[])
 
     else if(strcmp(argv[1], "draw")==0){
         Graph *g = XML_to_graph(XML);
-        g->dotFile(outputFilePath);
-        g->graphImage(outputFilePath, "graph.jpg");
-
+        g->dotFile("graph.dot");
+        g->graphImage("graph.dot", outputFilePath);
     }
 
 
