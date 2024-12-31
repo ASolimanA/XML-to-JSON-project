@@ -222,10 +222,10 @@ vector<User*> Graph::findMutualFollowers(const vector<int>& userIds) {
     for (int userId : userIds) {
         int index = userIndex(userId);
         if (index == -1) {
-            throw invalid_argument("User ID " + to_string(userId) + " not found.");
+            return {}; // Return empty vector if any user ID is not found
         }
         for (int followerIndex : followers[index]) {
-            followerCount[vertices[followerIndex]->id]++;
+            followerCount[followerIndex]++;
         }
     }
 
@@ -233,7 +233,7 @@ vector<User*> Graph::findMutualFollowers(const vector<int>& userIds) {
     vector<User*> mutualFollowers;
     for (const auto& pair : followerCount) {
         if (pair.second == userIds.size()) {
-            mutualFollowers.push_back(getUser(pair.first));
+            mutualFollowers.push_back(vertices[pair.first]);
         }
     }
 

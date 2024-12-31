@@ -52,7 +52,8 @@ void GraphWindow::on_search_word_clicked()
 
 void GraphWindow::on_mutual_followers_clicked()
 {
-    std::vector<int> users_id, mutual;
+    std::vector<int> users_id;
+    std::vector<User*> mutual;
     QString input = ui->lineEdit->text();
     // Split the string by commas
     QStringList items = input.split(',');
@@ -68,8 +69,8 @@ void GraphWindow::on_mutual_followers_clicked()
     mutual = main_graph->findMutualFollowers(users_id);
     ui->textBrowser->setText("Mutual Followers: ");
     for(int i = 0; i < mutual.size(); i++) {
-        ui->textBrowser->append("\nID: " + QString::number(mutual[i]) +
-                                "\nName: " + QString::fromStdString(main_graph->getUser(mutual[i])->getName()));
+        ui->textBrowser->append("\nID: " + QString::number(mutual[i]->id) +
+                                "\nName: " + QString::fromStdString(mutual[i]->getName()));
     }
 }
 
