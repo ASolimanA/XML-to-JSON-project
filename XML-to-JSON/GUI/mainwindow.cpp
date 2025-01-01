@@ -40,8 +40,8 @@ void MainWindow::get_file_path() {
 }
 
 void MainWindow::Read_File() {
-    ui->input_XML->clear();
     clearOutput();
+    fix_enable_buttons();
     QString filePath = ui->lineEdit->text();
     if (!filePath.isEmpty()) {
         QFile file(filePath);
@@ -93,6 +93,7 @@ void MainWindow::on_fix_clicked()
         outputType = xml;
         ui->Message->setText("Fixed Successfully.");
         ui->Message->setStyleSheet("QLabel { color: green; }");
+        fix_disable_buttons();
     }
 }
 
@@ -276,6 +277,20 @@ void MainWindow::clearOutput() {
     converted_to_graph = false;
     outputType = none;
     ui->Message->clear();
+}
+
+void MainWindow::fix_disable_buttons() {
+    ui->pretty->setEnabled(false);
+    ui->convert->setEnabled(false);
+    ui->graph_analysis->setEnabled(false);
+    ui->minify->setEnabled(false);
+}
+
+void MainWindow::fix_enable_buttons() {
+    ui->pretty->setEnabled(true);
+    ui->convert->setEnabled(true);
+    ui->graph_analysis->setEnabled(true);
+    ui->minify->setEnabled(true);
 }
 
 MainWindow::~MainWindow()

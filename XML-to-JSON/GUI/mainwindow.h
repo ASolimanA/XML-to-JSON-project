@@ -49,5 +49,8 @@ private:
     void compress_XML();
     void decompress_XML();
     void on_minify_clicked();
+    
+    void fix_disable_buttons();
+    void fix_enable_buttons();
 };
 #endif // MAINWINDOW_H

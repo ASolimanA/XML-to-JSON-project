@@ -61,6 +61,7 @@ qt_generate_deploy_app_script(
 install(SCRIPT ${deploy_script})
 
 set(CMAKE_BUILD_TYPE "Release")
+set(CPACK_PACKAGE_VERSION "0.1.2")
 
 include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_NAME "GUIApp-Release")

@@ -35,6 +35,11 @@ bool Validator::validate (){
                 tag.clear(); // Clear the tag variable before storing a new tag
             } else if (line[i] == '>') {
                 if (!tag.empty()) {
+                    if (tag[0] == '?' || tag[0] == '!' || tag[0] == '-') { // If it's a declaration tag
+                        insideTag = false;
+                        tag.clear();
+                        continue; // Skip the XML declaration tag
+                    }
                     if (tag[0] == '/') { // If it's a closing tag
                         insideTag = false;
                         tag = tag.substr(1); // Remove the "/" at the beginning of the tag
@@ -94,7 +99,7 @@ bool Validator::validate (){
             else if (insideTag) {
                 tag += line[i]; // Append characters to the tag while inside the tag
             }
-            else if (phase == aotag && line[i] != ' ') {
+            else if (phase == aotag && line[i] > ' ') {
                 phase = leaf;
             }
         }
